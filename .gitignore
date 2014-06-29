@@ -165,6 +165,7 @@ UpgradeLog*.htm
 *.mdf
 *.ldf
 *.sdf
+sqlce*.dll
 
 # Business Intelligence projects
 *.rdl.data
