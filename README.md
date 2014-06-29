@@ -1,0 +1,4 @@
+MWOStatScraper
+==============
+
+MWO Stat Scraper
