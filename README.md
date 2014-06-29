@@ -3,18 +3,16 @@ MWOStatScraper
 
 MWO Stat Scraper, a tool to scrape your personal stats from the MWO website.
 
-( I've decided to package up a binary distribution which includes an empty database -- no matches, details, login info, or baseline data -- and the compact server runtime dlls. It can be downloaded from here:
-
-https://www.amazon.com/clouddrive/share?s=Ts30E1gPRUghJA0gptgSFQ
-
-Check the Wiki page for useage information)
-
-
 There are .sql files that show the schema for the database tables. You can use SQLCEToolbox program from http://sqlcetoolbox.codeplex.com/ to access/create the database, or you can use Visual Studio to do it. The DB directory here on github should have a readme file listing the tables and their schema, in addition to the "create table" scripts. Make sure to name the database properly, or change the code to access whatever DB you make.
 
 This repository contains a Visual Studio 2012 solution/project. The source should work under any .NET 4.0 framework IDE you use, you'll just have to pull the files into your own project. Please do not upload a different version of the solution file.
 
-This project uses SQLServer Compact Edition 4.0. I will not be uploading the redistributable compact server files, you should track those down and download them from Microsoft (or elsewhere on the web). I might consider making a full distributable MWOStatScraper zip which will include the DLLs needed for runtime, but at present I'm not doing that. If I do, I don't know if it will be here on github or someplace else... we'll have to see.
+<s>This project uses SQLServer Compact Edition 4.0. I will not be uploading the redistributable compact server files, you should track those down and download them from Microsoft (or elsewhere on the web). I might consider making a full distributable MWOStatScraper zip which will include the DLLs needed for runtime, but at present I'm not doing that. If I do, I don't know if it will be here on github or someplace else... we'll have to see.</s>
+
+( I've decided to package up a binary distribution which includes an empty database -- no matches, details, login info, or baseline data -- and the compact server runtime dlls. It can be downloaded from here:
+https://www.amazon.com/clouddrive/share?s=Ts30E1gPRUghJA0gptgSFQ
+Check the Wiki page for useage information)
+
 
 The MWO website often changes.. in addition, they like to forget to post certain bits of match data, or in the case of at least the KitFox, they post 3 lines of "mech" for the Prime.. (PRIME, PRIME(I), and PRIME(G)). It causes the parser to report "mutliple mechs found for this match" type errors, but they can be ignored.. just make sure you leave the extras in the Mechs talbe after the first scrape, or you will keep adding them to the Mechs table and burning up mechids for no real reason.
 
