@@ -1,0 +1,99 @@
+-- Script Date: 6/29/2014 3:14 PM  - ErikEJ.SqlCeScripting version 3.5.2.29
+SET IDENTITY_INSERT [Mechs] ON;
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (1,N'JENNER JR7-D',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (2,N'JENNER JR7-F',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (3,N'COMMANDO COM-2D',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (4,N'CATAPULT CPLT-A1',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (6,N'ATLAS AS7-D-DC',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (7,N'JENNER JR7-K',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (8,N'RAVEN RVN-4X',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (9,N'CATAPHRACT CTF-4X',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (10,N'STALKER STK-3F',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (11,N'STALKER STK-5S',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (12,N'SPIDER SDR-5V',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (13,N'SPIDER SDR-5D',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (14,N'SPIDER SDR-5K',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (15,N'TREBUCHET TBT-7M',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (16,N'JAGERMECH JM6-DD',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (17,N'JAGERMECH JM6-A',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (18,N'JAGERMECH JM6-S',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (19,N'HIGHLANDER HGN-732',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (20,N'HIGHLANDER HGN-733P',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (21,N'HUNCHBACK HBK-4P',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (24,N'HIGHLANDER HGN-733C',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (25,N'HUNCHBACK HBK-4SP',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (26,N'CICADA CDA-3M',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (27,N'CICADA CDA-2A',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (28,N'CICADA CDA-3C',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (29,N'TREBUCHET TBT-3C',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (30,N'TREBUCHET TBT-5J',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (31,N'TREBUCHET TBT-7K',N'Medium');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (32,N'RAVEN RVN-3L',N'light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (33,N'ATLAS AS7-RS',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (34,N'VICTOR VTR-9K',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (35,N'VICTOR VTR-9S',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (36,N'VICTOR VTR-9B',N'Assault');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (37,N'QUICKDRAW QKD-5K',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (38,N'QUICKDRAW QKD-4H',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (39,N'QUICKDRAW QKD-4G',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (40,N'CATAPHRACT CTF-2X',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (41,N'CATAPULT CPLT-A1(C)',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (42,N'CATAPHRACT CTF-3D',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (43,N'ORION ON1-K',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (44,N'FIRESTARTER FS9-H',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (45,N'THUNDERBOLT TDR-9S',N'Heavy');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (46,N'KIT FOX KFX-PRIME',N'Light');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (47,N'KIT FOX KFX-PRIME(I)',N'Unknown');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (48,N'KIT FOX KFX-PRIME(G)',N'Unknown');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (49,N'KIT FOX KFX-D',N'Unknown');
+GO
+INSERT INTO [Mechs] ([MechId],[FullName],[WeightClass]) VALUES (50,N'KIT FOX KFX-S',N'Unknown');
+GO
+SET IDENTITY_INSERT [Mechs] OFF;
+GO

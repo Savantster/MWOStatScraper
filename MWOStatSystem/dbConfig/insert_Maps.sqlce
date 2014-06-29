@@ -1,0 +1,31 @@
+-- Script Date: 6/29/2014 3:13 PM  - ErikEJ.SqlCeScripting version 3.5.2.29
+SET IDENTITY_INSERT [Maps] ON;
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (1,N'Forest Colony');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (2,N'Frozen City');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (3,N'Caustic Valley');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (4,N'River City');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (5,N'Forest Colony Snow');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (6,N'Frozen City Night');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (7,N'River City Night');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (8,N'Alpine Peaks');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (9,N'Tourmaline Desert');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (10,N'Canyon Network');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (11,N'Terra Therma');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (12,N'Crimson Strait');
+GO
+INSERT INTO [Maps] ([MapId],[Name]) VALUES (13,N'HPG Manifold');
+GO
+SET IDENTITY_INSERT [Maps] OFF;
+GO

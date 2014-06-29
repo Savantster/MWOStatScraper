@@ -1,0 +1,87 @@
+-- Script Date: 6/29/2014 3:15 PM  - ErikEJ.SqlCeScripting version 3.5.2.29
+SET IDENTITY_INSERT [Weapons] ON;
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (1,N'AC/20',N'Ballistic',N'Auto Cannon',0,20,N'Auto Cannon - 20');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (2,N'MEDIUM LASER',N'Energy',N'Laser',1,5,N'Medium Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (3,N'LRM 20',N'Missile',N'Missile',0,1.1,N'Guided Long Range Missil, 20 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (4,N'SMALL LASER',N'Energy',N'Laser',0.75,3,N'Small Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (5,N'SRM 4',N'Missile',N'Missile',0,2,N'Short Range Missile, 4 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (6,N'ER LARGE LASER',N'Energy',N'Laser',1,9,N'Extended Range Large Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (7,N'ER PPC',N'Energy',N'PPC',0,10,N'Extended Range Particle Projection Cannon');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (8,N'LARGE LASER',N'Energy',N'Laser',1,9,N'Large Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (9,N'PPC',N'Energy',N'PPC',0,10,N'Particle Projection Cannon');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (10,N'LRG PULSE LASER',N'Energy',N'Laser',0.75,10.6,N'Large Pulse Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (11,N'MED PULSE LASER',N'Energy',N'Laser',0.75,6,N'Medium Pulse Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (12,N'AC/2',N'Ballistic',N'Auto Cannon',0,2,N'Auto Cannon - 2');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (13,N'AC/5',N'Ballistic',N'Auto Cannon',0,5,N'Auto Cannon - 5');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (14,N'GAUSS RIFLE',N'Ballistic',N'Rail Gun',0,15,N'Gauss Rifle');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (15,N'MACHINE GUN',N'Ballistic',N'Machine Gun',0.1,0.08,N'Machine Gun');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (16,N'ULTRA AC/5',N'Ballistic',N'Auto Cannon',0,5,N'Ultra Auto Cannon - 5');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (17,N'LRM 5',N'Missile',N'Missile',0,1.1,N'Guided Long Range Missile, 5 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (18,N'LRM 10',N'Missile',N'Missile',0,1.1,N'Guided Long Range Misisle, 10 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (19,N'LRM 15',N'Missile',N'Missile',0,1.1,N'Guided Long Range Missile, 15 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (20,N'SRM 6',N'Missile',N'Missile',0,2,N'Short Range Missile, 6 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (22,N'STREAK SRM 2',N'Missile',N'Guided Missile',0,1.5,N'Guided Short Range Missile, 2 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (23,N'ANTI-MISSILE SYSTEM',N'Missile',N'Utility',0,0,N'Anti Missile Defense System');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (24,N'NARC',N'Missile',N'Utility',0,0,N'Missile Guidance Helper');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (25,N'TAG',N'Energy',N'Utility',0,0,N'Helps LRMs lock on faster and do more damage');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (26,N'SML PULSE LASER',N'Energy',N'Laser',0.5,3.4,N'Small Pulse Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (28,N'AMS',N'Missile',N'Utility',0,0,N'Anti Missile Defense System');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (29,N'AC/10',N'Ballistic',N'Auto Cannon',0,10,N'Auto Cannon - 10');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (30,N'LB 10-X AC',N'Ballistic',N'Auto Cannon',0,10,N'Auto Cannon - 10, 10 pellet rounds');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (31,N'SRM 6 + ARTEMIS',N'Missile',N'Missile',0,2,N'Short Range Missile, 6 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (33,N'C-LB5-X AC',N'Ballistic',N'Auto Cannon',0,5,N'Clan Auto Cannon - 5, 5 pellet rounds');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (32,N'SRM 2',N'Missile',N'Missile',0,2,N'Short Range Missile, 2 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (34,N'C-ER LRG LASER',N'Energy',N'Laser',1.5,11.25,N'Clan Extended Range Large Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (35,N'C-STREAK SRM 4',N'Missile',N'Missile',0,2,N'Clan Guided Short Range Missile, 4 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (36,N'C-ULTRA AC/5',N'Ballistic',N'Auto Cannon',0,5,N'Clan Ultra-Auto Cannon - 5');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (37,N'C-LRM 15',N'Missile',N'Missile',0,1.1,N'Clan Guided Long Range Missile, 15 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (38,N'C-SRM 6',N'Missile',N'Missile',0,2,N'Clan Short Range Missile, 6 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (39,N'C-MACHINE GUN',N'Ballistic',N'Machine Gun',0.1,0.08,N'Clan Machine Gun');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (40,N'C-ER MED LASER',N'Energy',N'Laser',1.3,7,N'Clan Extended Range Medium Laser');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (41,N'C-AMS',N'Missile',N'Utility',0,3.5,N'Clan Anti Missile System');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (42,N'C-SRM 4 + ARTEMIS',N'Missile',N'Missile',0,2,N'Clan Short Range Missile, 4 per volley');
+GO
+INSERT INTO [Weapons] ([WeaponId],[Name],[PrimaryType],[SubType],[Duration],[MaxDmg],[Description]) VALUES (43,N'C-SRM 6 + ARTEMIS',N'Missile',N'Missile',0,2,N'Clan Short Range Missile, 6 per volley');
+GO
+SET IDENTITY_INSERT [Weapons] OFF;
+GO

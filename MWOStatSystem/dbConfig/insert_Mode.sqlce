@@ -1,0 +1,13 @@
+-- Script Date: 6/29/2014 3:14 PM  - ErikEJ.SqlCeScripting version 3.5.2.29
+SET IDENTITY_INSERT [Mode] ON;
+GO
+INSERT INTO [Mode] ([ModeId],[Name]) VALUES (1,N'Assault');
+GO
+INSERT INTO [Mode] ([ModeId],[Name]) VALUES (2,N'Conquest');
+GO
+INSERT INTO [Mode] ([ModeId],[Name]) VALUES (3,N'Skirmish');
+GO
+INSERT INTO [Mode] ([ModeId],[Name]) VALUES (4,N'Unknown');
+GO
+SET IDENTITY_INSERT [Mode] OFF;
+GO
