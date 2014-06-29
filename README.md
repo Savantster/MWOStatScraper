@@ -11,7 +11,7 @@ This repository contains a Visual Studio 2012 solution/project. The source shoul
 
 ( I've decided to package up a binary distribution which includes an empty database -- no matches, details, login info, or baseline data -- and the compact server runtime dlls. It can be downloaded from here:
 https://www.amazon.com/clouddrive/share?s=Ts30E1gPRUghJA0gptgSFQ
-Check the Wiki page for useage information)
+Check the <a href="https://github.com/Savantster/MWOStatScraper/wiki/Binary-distribution-usage"> Wiki page</a> for useage information)
 
 
 The MWO website often changes.. in addition, they like to forget to post certain bits of match data, or in the case of at least the KitFox, they post 3 lines of "mech" for the Prime.. (PRIME, PRIME(I), and PRIME(G)). It causes the parser to report "mutliple mechs found for this match" type errors, but they can be ignored.. just make sure you leave the extras in the Mechs talbe after the first scrape, or you will keep adding them to the Mechs table and burning up mechids for no real reason.
