@@ -878,7 +878,7 @@ namespace MWOStatSystem
         {
             // if we're loading our box, just bail.. no point in filling charts if we're not actually
             // selecting a mech
-            if (bLoading)
+            if ( (bLoading) || (lbMechs.SelectedIndex == -1) )
                 return;
 
 
@@ -886,7 +886,6 @@ namespace MWOStatSystem
             {
                 Log.doIt(3, "Starting building of chart select queries.." );
                 DataTable dt;
-                int iNumWeaps = 1;
                 string sExcludeWeaps = "";
                 string sJustExclWeapNums = "";
                 string sCommand = "";
@@ -957,20 +956,12 @@ namespace MWOStatSystem
                 }
 
                 Log.doIt( 3, "exclusion list..: |" + sExcludeWeaps + "|" );
-                
-                // logical bug existed, we're pulling X rows.. but there might be 3 weapons from that match.. so we're only getting 3 matches
-                // instead of all 10 (3 weapons * 3 matches is 9 rows, and our 'top' is rows..). Need to expand the number of rows to be a
-                // multiple of numbers of weapons per match for that mech.
-                sCommand = "select count(*) from matchdetails where matchid in (select max(matchid) from match where mech = " +
-                    lbMechs.SelectedValue.ToString() + ") and weapon not in (" + sJustExclWeapNums + ")";
-                //MessageBox.Show( "String to get limited rows: " + cmd.CommandText );
-                iNumWeaps = m_myDB.iNumValReturn(sCommand);
-                int iNumRows = (int)nmbMatches.Value * iNumWeaps;
 
-                sCommand = "SELECT  top(" + iNumRows + ") SUM(MatchDetails.Hits) AS Expr1, SUM(MatchDetails.Misses) AS Expr2, " +
+                sCommand = "SELECT SUM(MatchDetails.Hits) AS Expr1, SUM(MatchDetails.Misses) AS Expr2, " +
                     "SUM(MatchDetails.DmgDone) AS Expr3, Weapons.Name as weap, Match.Date FROM  Match INNER JOIN  MatchDetails ON " +
                     "Match.MatchId = MatchDetails.MatchId INNER JOIN Weapons ON MatchDetails.Weapon = Weapons.WeaponId " +
-                    "WHERE (Match.Mech = " + lbMechs.SelectedValue + ")" + sExcludeWeaps + " GROUP BY Match.MatchId, " +
+                    "WHERE (Match.matchid in (select top (" + (int)nmbMatches.Value +") matchid from match where mech = " + 
+                      lbMechs.SelectedValue + " order by matchid desc))" + sExcludeWeaps + " GROUP BY Match.MatchId, " +
                     "Weapons.Name, Match.Date ORDER BY Match.Date DESC";
 
                 Log.doIt(3, "Chart select, hits/misses: " + sCommand );
@@ -992,11 +983,12 @@ namespace MWOStatSystem
 
                 chtAccuracy.DataBind();
 
-                sCommand = "SELECT top(" +  iNumRows + ") MatchDetails.DmgDone AS YourDamage, " +
+                sCommand = "SELECT MatchDetails.DmgDone AS YourDamage, " +
                     "(Weapons.MaxDmg * MatchDetails.Hits) AS MaxDmg, (Weapons.MaxDmg * (MatchDetails.Hits + MatchDetails.Misses)) as Theoretical, " +
                     " weapons.name as weap, match.date FROM Match INNER JOIN MatchDetails " +
                     "ON Match.MatchId = MatchDetails.MatchId INNER JOIN Weapons ON MatchDetails.Weapon = Weapons.WeaponId " +
-                    " WHERE (Match.Mech = " + lbMechs.SelectedValue + ") " + sExcludeWeaps + " GROUP BY match.date, weapons.name, " +
+                    " WHERE (Match.matchid in (select top (" + (int)nmbMatches.Value +") matchid from match where mech = " + 
+                      lbMechs.SelectedValue + " order by matchid desc))" + sExcludeWeaps + " GROUP BY match.date, weapons.name, " +
                     " MatchDetails.DmgDone, Weapons.MaxDmg, matchdetails.hits, matchdetails.misses order by match.date desc";
 
                 Log.doIt( 3, "Chart select, effective: " + sCommand );
@@ -1120,52 +1112,44 @@ namespace MWOStatSystem
 
         private void mnuMG_Click( object sender, EventArgs e )
         {
-            if ( !bSuspendClicks )
-            {
-                listBox1_SelectedIndexChanged( this, null );
-                cbMG.Checked = mnuMG.Checked;
-                bSuspendClicks = false;
-            }
+            bSuspendClicks = true;
+            // we base our weapon exclusion on the menu, not the check box.. calling the chart updating
+            // before setting the checkbox is fine..
+            listBox1_SelectedIndexChanged(this, null);
+            cbMG.Checked = mnuMG.Checked;
+            bSuspendClicks = false;
         }
 
-        private void mnuLRM_Click( object sender, EventArgs e )
+        private void mnuLRM_Click(object sender, EventArgs e)
         {
-            if ( !bSuspendClicks )
-            {
-                listBox1_SelectedIndexChanged( this, null );
-                cbLRM.Checked = mnuLRM.Checked;
-                bSuspendClicks = false;
-            }
+            bSuspendClicks = true;
+            listBox1_SelectedIndexChanged(this, null);
+            cbLRM.Checked = mnuLRM.Checked;
+            bSuspendClicks = false;
         }
 
-        private void mnuAM_Click( object sender, EventArgs e )
+        private void mnuAM_Click(object sender, EventArgs e)
         {
-            if ( !bSuspendClicks )
-            {
-                listBox1_SelectedIndexChanged( this, null );
-                cbAM.Checked = mnuAM.Checked;
-                bSuspendClicks = false;
-            }
+            bSuspendClicks = true;
+            listBox1_SelectedIndexChanged(this, null);
+            cbAM.Checked = mnuAM.Checked;
+            bSuspendClicks = false;
         }
 
-        private void mnuTAG_Click( object sender, EventArgs e )
+        private void mnuTAG_Click(object sender, EventArgs e)
         {
-            if ( !bSuspendClicks )
-            {
-                listBox1_SelectedIndexChanged( this, null );
-                cbTAG.Checked = mnuTAG.Checked;
-                bSuspendClicks = false;
-            }
+            bSuspendClicks = true;
+            listBox1_SelectedIndexChanged(this, null);
+            cbTAG.Checked = mnuTAG.Checked;
+            bSuspendClicks = false;
         }
 
-        private void mnuNARC_Click( object sender, EventArgs e )
+        private void mnuNARC_Click(object sender, EventArgs e)
         {
-            if ( !bSuspendClicks )
-            {
-                listBox1_SelectedIndexChanged( this, null );
-                cbNARC.Checked = mnuNARC.Checked;
-                bSuspendClicks = false;
-            }
+            bSuspendClicks = true;
+            listBox1_SelectedIndexChanged(this, null);
+            cbNARC.Checked = mnuNARC.Checked;
+            bSuspendClicks = false;
         }
 
         private void mnuScrapesToFile_CheckedChanged(object sender, EventArgs e)
@@ -1178,11 +1162,13 @@ namespace MWOStatSystem
 
         private void cbMG_CheckedChanged( object sender, EventArgs e )
         {
+            // the menu CLICK will also rebuild the charts.. we don't want to call that a second time, nor
+            // do we want to change the menu value if that's where we came from.. only set the menu checked state
+            // and rebuild chart data if we were clicked directly..
             if ( !bSuspendClicks )
             {
                 mnuMG.Checked = cbMG.Checked;
                 listBox1_SelectedIndexChanged( null, null );
-                bSuspendClicks = false; // since suspend was on, we won't click the index again in the mnu* item
             }
         }
 
@@ -1192,7 +1178,6 @@ namespace MWOStatSystem
             {
                 mnuLRM.Checked = cbLRM.Checked;
                 listBox1_SelectedIndexChanged( null, null );
-                bSuspendClicks = false; // since suspend was on, we won't click the index again in the mnu* item
             }
 
         }
@@ -1203,7 +1188,6 @@ namespace MWOStatSystem
             {
                 mnuAM.Checked = cbAM.Checked;
                 listBox1_SelectedIndexChanged( null, null );
-                bSuspendClicks = false; // since suspend was on, we won't click the index again in the mnu* item
             }
         }
 
@@ -1213,7 +1197,6 @@ namespace MWOStatSystem
             {
                 mnuTAG.Checked = cbTAG.Checked;
                 listBox1_SelectedIndexChanged( null, null );
-                bSuspendClicks = false; // since suspend was on, we won't click the index again in the mnu* item
             }
         }
 
@@ -1223,7 +1206,6 @@ namespace MWOStatSystem
             {
                 mnuNARC.Checked = cbNARC.Checked;
                 listBox1_SelectedIndexChanged( null, null );
-                bSuspendClicks = false; // since suspend was on, we won't click the index again in the mnu* item
             }
         }
 

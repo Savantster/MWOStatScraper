@@ -137,7 +137,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MWOStatSystemDB.sdf" />
+    <Content Include="MWOStatSystemDB.sdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Mech.ico" />
     <None Include="Resources\Battlemaster.ico" />
   </ItemGroup>
