@@ -62,6 +62,8 @@ namespace MWOStatSystem
         private bool bLoggedIn = false;
         private bool bLoading = true;
 
+        private int iCurrentMech = -1;
+
         private LoginDetails myLogin = null;
         private MatchCollection m1;
 
@@ -142,7 +144,7 @@ namespace MWOStatSystem
                 Color cBlue = Color.FromArgb( 150, Color.DodgerBlue );
                 Color cYellow = Color.FromArgb( 150, Color.Goldenrod );
 
-                lbMechs.SelectedIndex = -1;
+                tlvMechView.SelectedIndex = -1;
 
                 // default colors are putting red on hits and green on misses, but I'd prefer to flip them
                 chtAccuracy.ApplyPaletteColors();
@@ -575,7 +577,7 @@ namespace MWOStatSystem
             btnShowError.BackColor = Color.Green;
 
             vFillMechList();
-            lbMechs.SelectedValue = stMatch.iMech;
+            tlvMechView.SelectedIndex = stMatch.iMech;
 
             Cursor = Cursors.Default;
 
@@ -621,16 +623,13 @@ namespace MWOStatSystem
 
         private void vFillMechList()
         {
-            //cmd = new SqlCeCommand();
-            //cmd.Connection = con;
-            //cmd.CommandText = "select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname";
             bLoading = true;
             string sCommand = "select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname";
             dtMechList = Parser.ResultSetToDataTable( m_myDB.ResultSet(sCommand), ref Log );
-            lbMechs.ValueMember = "MechId";
-            lbMechs.DisplayMember = "fullname";
-            lbMechs.DataSource = dtMechList;
-            lbMechs.SelectedIndex = -1;
+            //lbMechs.ValueMember = "MechId";
+            //lbMechs.DisplayMember = "fullname";
+            //lbMechs.DataSource = dtMechList;
+            //lbMechs.SelectedIndex = -1;
             bLoading = false;
         }
       
@@ -874,13 +873,17 @@ namespace MWOStatSystem
             }
         }
 
-        private void listBox1_SelectedIndexChanged( object sender, EventArgs e )
+        private void tlvMechView_SelectedIndexChanged( object sender, EventArgs e )
         {
             // if we're loading our box, just bail.. no point in filling charts if we're not actually
             // selecting a mech
-            if ( (bLoading) || (lbMechs.SelectedIndex == -1) )
+            if ((bLoading) || (tlvMechView.SelectedIndex == -1))
+            {
+                iCurrentMech = -1;
                 return;
+            }
 
+            iCurrentMech = tlvMechView.SelectedIndex; // WRONG, we'll need to update this to the mech id returned from the root node..
 
             try
             {
@@ -961,7 +964,7 @@ namespace MWOStatSystem
                     "SUM(MatchDetails.DmgDone) AS Expr3, Weapons.Name as weap, Match.Date FROM  Match INNER JOIN  MatchDetails ON " +
                     "Match.MatchId = MatchDetails.MatchId INNER JOIN Weapons ON MatchDetails.Weapon = Weapons.WeaponId " +
                     "WHERE (Match.matchid in (select top (" + (int)nmbMatches.Value +") matchid from match where mech = " + 
-                      lbMechs.SelectedValue + " order by matchid desc))" + sExcludeWeaps + " GROUP BY Match.MatchId, " +
+                      iCurrentMech + " order by matchid desc))" + sExcludeWeaps + " GROUP BY Match.MatchId, " +
                     "Weapons.Name, Match.Date ORDER BY Match.Date DESC";
 
                 Log.doIt(3, "Chart select, hits/misses: " + sCommand );
@@ -988,7 +991,7 @@ namespace MWOStatSystem
                     " weapons.name as weap, match.date FROM Match INNER JOIN MatchDetails " +
                     "ON Match.MatchId = MatchDetails.MatchId INNER JOIN Weapons ON MatchDetails.Weapon = Weapons.WeaponId " +
                     " WHERE (Match.matchid in (select top (" + (int)nmbMatches.Value +") matchid from match where mech = " + 
-                      lbMechs.SelectedValue + " order by matchid desc))" + sExcludeWeaps + " GROUP BY match.date, weapons.name, " +
+                      iCurrentMech + " order by matchid desc))" + sExcludeWeaps + " GROUP BY match.date, weapons.name, " +
                     " MatchDetails.DmgDone, Weapons.MaxDmg, matchdetails.hits, matchdetails.misses order by match.date desc";
 
                 Log.doIt( 3, "Chart select, effective: " + sCommand );
@@ -1006,7 +1009,7 @@ namespace MWOStatSystem
                 chtEffective.DataBind();
 
                 sCommand = "select top(" + (int)nmbMatches.Value + ") a.exp, a.cbills, sum(b.dmgdone) as dmg, a.date from " +
-                    "match a inner join matchdetails b on a.matchid = b.matchid where mech = " + lbMechs.SelectedValue + 
+                    "match a inner join matchdetails b on a.matchid = b.matchid where mech = " + iCurrentMech + 
                     " group by date, exp, cbills order by date desc";
 
                 Log.doIt( 3, "Chart select, exp and cbills: " + sCommand );
@@ -1115,7 +1118,7 @@ namespace MWOStatSystem
             bSuspendClicks = true;
             // we base our weapon exclusion on the menu, not the check box.. calling the chart updating
             // before setting the checkbox is fine..
-            listBox1_SelectedIndexChanged(this, null);
+            tlvMechView_SelectedIndexChanged(this, null);
             cbMG.Checked = mnuMG.Checked;
             bSuspendClicks = false;
         }
@@ -1123,7 +1126,7 @@ namespace MWOStatSystem
         private void mnuLRM_Click(object sender, EventArgs e)
         {
             bSuspendClicks = true;
-            listBox1_SelectedIndexChanged(this, null);
+            tlvMechView_SelectedIndexChanged(this, null);
             cbLRM.Checked = mnuLRM.Checked;
             bSuspendClicks = false;
         }
@@ -1131,7 +1134,7 @@ namespace MWOStatSystem
         private void mnuAM_Click(object sender, EventArgs e)
         {
             bSuspendClicks = true;
-            listBox1_SelectedIndexChanged(this, null);
+            tlvMechView_SelectedIndexChanged(this, null);
             cbAM.Checked = mnuAM.Checked;
             bSuspendClicks = false;
         }
@@ -1139,7 +1142,7 @@ namespace MWOStatSystem
         private void mnuTAG_Click(object sender, EventArgs e)
         {
             bSuspendClicks = true;
-            listBox1_SelectedIndexChanged(this, null);
+            tlvMechView_SelectedIndexChanged(this, null);
             cbTAG.Checked = mnuTAG.Checked;
             bSuspendClicks = false;
         }
@@ -1147,7 +1150,7 @@ namespace MWOStatSystem
         private void mnuNARC_Click(object sender, EventArgs e)
         {
             bSuspendClicks = true;
-            listBox1_SelectedIndexChanged(this, null);
+            tlvMechView_SelectedIndexChanged(this, null);
             cbNARC.Checked = mnuNARC.Checked;
             bSuspendClicks = false;
         }
@@ -1168,7 +1171,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuMG.Checked = cbMG.Checked;
-                listBox1_SelectedIndexChanged( null, null );
+                tlvMechView_SelectedIndexChanged( null, null );
             }
         }
 
@@ -1177,7 +1180,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuLRM.Checked = cbLRM.Checked;
-                listBox1_SelectedIndexChanged( null, null );
+                tlvMechView_SelectedIndexChanged( null, null );
             }
 
         }
@@ -1187,7 +1190,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuAM.Checked = cbAM.Checked;
-                listBox1_SelectedIndexChanged( null, null );
+                tlvMechView_SelectedIndexChanged( null, null );
             }
         }
 
@@ -1196,7 +1199,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuTAG.Checked = cbTAG.Checked;
-                listBox1_SelectedIndexChanged( null, null );
+                tlvMechView_SelectedIndexChanged( null, null );
             }
         }
 
@@ -1205,7 +1208,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuNARC.Checked = cbNARC.Checked;
-                listBox1_SelectedIndexChanged( null, null );
+                tlvMechView_SelectedIndexChanged( null, null );
             }
         }
 

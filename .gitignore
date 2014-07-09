@@ -174,3 +174,8 @@ sqlce*.dll
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# We need the ObjectListView tool dll. This version fixes a bug that is present in
+# the 2.7.0 version found on the web, so I'll put up our fixed version and others
+# can use it, or replace it with their own if they don't trust my build..
+!ExternalDLLs/ObjectListView.dll

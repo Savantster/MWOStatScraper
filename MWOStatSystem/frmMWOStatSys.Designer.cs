@@ -62,13 +62,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbAutoScrape = new System.Windows.Forms.CheckBox();
             this.tcCharts = new System.Windows.Forms.TabControl();
+            this.tabMechInfo = new System.Windows.Forms.TabPage();
             this.tabAccuracy = new System.Windows.Forms.TabPage();
             this.chtAccuracy = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabEffective = new System.Windows.Forms.TabPage();
             this.chtEffective = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabExpAndCbills = new System.Windows.Forms.TabPage();
             this.chtExpCbills = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lbMechs = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnuLogLevel = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuLog1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -101,11 +101,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnTryLogon = new System.Windows.Forms.Button();
+            this.tlvMechView = new BrightIdeasSoftware.TreeListView();
             ((System.ComponentModel.ISupportInitialize)(this.dgMechs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgWeapons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMaps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgModes)).BeginInit();
             this.tcCharts.SuspendLayout();
+            this.tabMechInfo.SuspendLayout();
             this.tabAccuracy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chtAccuracy)).BeginInit();
             this.tabEffective.SuspendLayout();
@@ -116,6 +118,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nmbMatches)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmbScrapeFreq)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tlvMechView)).BeginInit();
             this.SuspendLayout();
             // 
             // btnStart
@@ -142,7 +145,7 @@
             // 
             // btnScrapeIt
             // 
-            this.btnScrapeIt.Location = new System.Drawing.Point(12, 31);
+            this.btnScrapeIt.Location = new System.Drawing.Point(12, 40);
             this.btnScrapeIt.Name = "btnScrapeIt";
             this.btnScrapeIt.Size = new System.Drawing.Size(166, 43);
             this.btnScrapeIt.TabIndex = 3;
@@ -239,7 +242,7 @@
             // 
             // pbNextScrape
             // 
-            this.pbNextScrape.Location = new System.Drawing.Point(12, 120);
+            this.pbNextScrape.Location = new System.Drawing.Point(223, 66);
             this.pbNextScrape.Maximum = 300;
             this.pbNextScrape.Name = "pbNextScrape";
             this.pbNextScrape.Size = new System.Drawing.Size(149, 23);
@@ -248,7 +251,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 108);
+            this.label1.Location = new System.Drawing.Point(241, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 13);
             this.label1.TabIndex = 14;
@@ -257,7 +260,7 @@
             // cbAutoScrape
             // 
             this.cbAutoScrape.AutoSize = true;
-            this.cbAutoScrape.Location = new System.Drawing.Point(33, 88);
+            this.cbAutoScrape.Location = new System.Drawing.Point(223, 37);
             this.cbAutoScrape.Name = "cbAutoScrape";
             this.cbAutoScrape.Size = new System.Drawing.Size(85, 17);
             this.cbAutoScrape.TabIndex = 15;
@@ -269,14 +272,26 @@
             // 
             // tcCharts
             // 
+            this.tcCharts.Controls.Add(this.tabMechInfo);
             this.tcCharts.Controls.Add(this.tabAccuracy);
             this.tcCharts.Controls.Add(this.tabEffective);
             this.tcCharts.Controls.Add(this.tabExpAndCbills);
-            this.tcCharts.Location = new System.Drawing.Point(200, 127);
+            this.tcCharts.Location = new System.Drawing.Point(4, 108);
             this.tcCharts.Name = "tcCharts";
             this.tcCharts.SelectedIndex = 0;
-            this.tcCharts.Size = new System.Drawing.Size(851, 468);
+            this.tcCharts.Size = new System.Drawing.Size(1047, 488);
             this.tcCharts.TabIndex = 16;
+            // 
+            // tabMechInfo
+            // 
+            this.tabMechInfo.Controls.Add(this.tlvMechView);
+            this.tabMechInfo.Location = new System.Drawing.Point(4, 22);
+            this.tabMechInfo.Name = "tabMechInfo";
+            this.tabMechInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMechInfo.Size = new System.Drawing.Size(1039, 462);
+            this.tabMechInfo.TabIndex = 3;
+            this.tabMechInfo.Text = "Mech View";
+            this.tabMechInfo.UseVisualStyleBackColor = true;
             // 
             // tabAccuracy
             // 
@@ -284,7 +299,7 @@
             this.tabAccuracy.Location = new System.Drawing.Point(4, 22);
             this.tabAccuracy.Name = "tabAccuracy";
             this.tabAccuracy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAccuracy.Size = new System.Drawing.Size(843, 442);
+            this.tabAccuracy.Size = new System.Drawing.Size(1039, 462);
             this.tabAccuracy.TabIndex = 0;
             this.tabAccuracy.Text = "Hits And Misses";
             this.tabAccuracy.UseVisualStyleBackColor = true;
@@ -303,10 +318,11 @@
             chartArea1.CursorX.IsUserSelectionEnabled = true;
             chartArea1.Name = "ChartArea1";
             this.chtAccuracy.ChartAreas.Add(chartArea1);
+            this.chtAccuracy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chtAccuracy.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             legend1.Name = "Legend1";
             this.chtAccuracy.Legends.Add(legend1);
-            this.chtAccuracy.Location = new System.Drawing.Point(0, 3);
+            this.chtAccuracy.Location = new System.Drawing.Point(3, 3);
             this.chtAccuracy.Name = "chtAccuracy";
             this.chtAccuracy.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
             series1.ChartArea = "ChartArea1";
@@ -324,7 +340,7 @@
             series2.YValueMembers = "Misses";
             this.chtAccuracy.Series.Add(series1);
             this.chtAccuracy.Series.Add(series2);
-            this.chtAccuracy.Size = new System.Drawing.Size(843, 443);
+            this.chtAccuracy.Size = new System.Drawing.Size(1033, 456);
             this.chtAccuracy.TabIndex = 0;
             this.chtAccuracy.Text = "Accuracy";
             // 
@@ -334,7 +350,7 @@
             this.tabEffective.Location = new System.Drawing.Point(4, 22);
             this.tabEffective.Name = "tabEffective";
             this.tabEffective.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEffective.Size = new System.Drawing.Size(843, 442);
+            this.tabEffective.Size = new System.Drawing.Size(1039, 462);
             this.tabEffective.TabIndex = 1;
             this.tabEffective.Text = "Effectiveness";
             this.tabEffective.UseVisualStyleBackColor = true;
@@ -349,9 +365,10 @@
             chartArea2.Area3DStyle.WallWidth = 3;
             chartArea2.Name = "ChartArea1";
             this.chtEffective.ChartAreas.Add(chartArea2);
+            this.chtEffective.Dock = System.Windows.Forms.DockStyle.Fill;
             legend2.Name = "Legend1";
             this.chtEffective.Legends.Add(legend2);
-            this.chtEffective.Location = new System.Drawing.Point(0, 6);
+            this.chtEffective.Location = new System.Drawing.Point(3, 3);
             this.chtEffective.Name = "chtEffective";
             this.chtEffective.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
             series3.ChartArea = "ChartArea1";
@@ -375,7 +392,7 @@
             this.chtEffective.Series.Add(series3);
             this.chtEffective.Series.Add(series4);
             this.chtEffective.Series.Add(series5);
-            this.chtEffective.Size = new System.Drawing.Size(828, 433);
+            this.chtEffective.Size = new System.Drawing.Size(1033, 456);
             this.chtEffective.TabIndex = 2;
             this.chtEffective.Text = "Effectiveness";
             // 
@@ -385,7 +402,7 @@
             this.tabExpAndCbills.Location = new System.Drawing.Point(4, 22);
             this.tabExpAndCbills.Name = "tabExpAndCbills";
             this.tabExpAndCbills.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExpAndCbills.Size = new System.Drawing.Size(843, 442);
+            this.tabExpAndCbills.Size = new System.Drawing.Size(1039, 462);
             this.tabExpAndCbills.TabIndex = 2;
             this.tabExpAndCbills.Text = "Exp and cBills";
             this.tabExpAndCbills.UseVisualStyleBackColor = true;
@@ -408,9 +425,10 @@
             chartArea3.AxisX2.MajorGrid.Enabled = false;
             chartArea3.Name = "ChartArea1";
             this.chtExpCbills.ChartAreas.Add(chartArea3);
+            this.chtExpCbills.Dock = System.Windows.Forms.DockStyle.Fill;
             legend3.Name = "Legend1";
             this.chtExpCbills.Legends.Add(legend3);
-            this.chtExpCbills.Location = new System.Drawing.Point(6, 6);
+            this.chtExpCbills.Location = new System.Drawing.Point(3, 3);
             this.chtExpCbills.Name = "chtExpCbills";
             this.chtExpCbills.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
             series6.ChartArea = "ChartArea1";
@@ -431,20 +449,9 @@
             this.chtExpCbills.Series.Add(series6);
             this.chtExpCbills.Series.Add(series7);
             this.chtExpCbills.Series.Add(series8);
-            this.chtExpCbills.Size = new System.Drawing.Size(824, 430);
+            this.chtExpCbills.Size = new System.Drawing.Size(1033, 456);
             this.chtExpCbills.TabIndex = 0;
             this.chtExpCbills.Text = "chart1";
-            // 
-            // lbMechs
-            // 
-            this.lbMechs.DisplayMember = "MechId";
-            this.lbMechs.FormattingEnabled = true;
-            this.lbMechs.Location = new System.Drawing.Point(4, 149);
-            this.lbMechs.Name = "lbMechs";
-            this.lbMechs.Size = new System.Drawing.Size(197, 446);
-            this.lbMechs.TabIndex = 2;
-            this.lbMechs.ValueMember = "MechId";
-            this.lbMechs.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
@@ -458,7 +465,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(4, 1);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(411, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(319, 24);
             this.menuStrip1.TabIndex = 17;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -479,7 +486,7 @@
             this.mnuLog1.CheckOnClick = true;
             this.mnuLog1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuLog1.Name = "mnuLog1";
-            this.mnuLog1.Size = new System.Drawing.Size(152, 22);
+            this.mnuLog1.Size = new System.Drawing.Size(80, 22);
             this.mnuLog1.Text = "1";
             this.mnuLog1.Click += new System.EventHandler(this.mnuLog1_Click);
             // 
@@ -487,7 +494,7 @@
             // 
             this.mnuLog2.CheckOnClick = true;
             this.mnuLog2.Name = "mnuLog2";
-            this.mnuLog2.Size = new System.Drawing.Size(152, 22);
+            this.mnuLog2.Size = new System.Drawing.Size(80, 22);
             this.mnuLog2.Text = "2";
             this.mnuLog2.Click += new System.EventHandler(this.mnuLog2_Click);
             // 
@@ -495,7 +502,7 @@
             // 
             this.mnuLog3.CheckOnClick = true;
             this.mnuLog3.Name = "mnuLog3";
-            this.mnuLog3.Size = new System.Drawing.Size(152, 22);
+            this.mnuLog3.Size = new System.Drawing.Size(80, 22);
             this.mnuLog3.Text = "3";
             this.mnuLog3.Click += new System.EventHandler(this.mnuLog3_Click);
             // 
@@ -503,7 +510,7 @@
             // 
             this.mnuLog4.CheckOnClick = true;
             this.mnuLog4.Name = "mnuLog4";
-            this.mnuLog4.Size = new System.Drawing.Size(152, 22);
+            this.mnuLog4.Size = new System.Drawing.Size(80, 22);
             this.mnuLog4.Text = "4";
             this.mnuLog4.Click += new System.EventHandler(this.mnuLog4_Click);
             // 
@@ -520,7 +527,7 @@
             // 
             this.mnuLogToFile.CheckOnClick = true;
             this.mnuLogToFile.Name = "mnuLogToFile";
-            this.mnuLogToFile.Size = new System.Drawing.Size(152, 22);
+            this.mnuLogToFile.Size = new System.Drawing.Size(149, 22);
             this.mnuLogToFile.Text = "Log To File";
             this.mnuLogToFile.ToolTipText = "This will start logging to files, including the scraped HTML, for debugging.";
             this.mnuLogToFile.CheckedChanged += new System.EventHandler(this.mnuLogToFile_CheckedChanged);
@@ -529,7 +536,7 @@
             // 
             this.mnuScrapesToFile.CheckOnClick = true;
             this.mnuScrapesToFile.Name = "mnuScrapesToFile";
-            this.mnuScrapesToFile.Size = new System.Drawing.Size(152, 22);
+            this.mnuScrapesToFile.Size = new System.Drawing.Size(149, 22);
             this.mnuScrapesToFile.Text = "Scrapes to File";
             this.mnuScrapesToFile.CheckedChanged += new System.EventHandler(this.mnuScrapesToFile_CheckedChanged);
             // 
@@ -551,7 +558,7 @@
             this.mnuMG.CheckOnClick = true;
             this.mnuMG.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuMG.Name = "mnuMG";
-            this.mnuMG.Size = new System.Drawing.Size(152, 22);
+            this.mnuMG.Size = new System.Drawing.Size(150, 22);
             this.mnuMG.Text = "Machine Guns";
             this.mnuMG.Click += new System.EventHandler(this.mnuMG_Click);
             // 
@@ -561,7 +568,7 @@
             this.mnuLRM.CheckOnClick = true;
             this.mnuLRM.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuLRM.Name = "mnuLRM";
-            this.mnuLRM.Size = new System.Drawing.Size(152, 22);
+            this.mnuLRM.Size = new System.Drawing.Size(150, 22);
             this.mnuLRM.Text = "LRMs";
             this.mnuLRM.Click += new System.EventHandler(this.mnuLRM_Click);
             // 
@@ -571,7 +578,7 @@
             this.mnuAM.CheckOnClick = true;
             this.mnuAM.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuAM.Name = "mnuAM";
-            this.mnuAM.Size = new System.Drawing.Size(152, 22);
+            this.mnuAM.Size = new System.Drawing.Size(150, 22);
             this.mnuAM.Text = "Anti-Missile";
             this.mnuAM.Click += new System.EventHandler(this.mnuAM_Click);
             // 
@@ -581,7 +588,7 @@
             this.mnuTAG.CheckOnClick = true;
             this.mnuTAG.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuTAG.Name = "mnuTAG";
-            this.mnuTAG.Size = new System.Drawing.Size(152, 22);
+            this.mnuTAG.Size = new System.Drawing.Size(150, 22);
             this.mnuTAG.Text = "TAG";
             this.mnuTAG.Click += new System.EventHandler(this.mnuTAG_Click);
             // 
@@ -591,7 +598,7 @@
             this.mnuNARC.CheckOnClick = true;
             this.mnuNARC.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuNARC.Name = "mnuNARC";
-            this.mnuNARC.Size = new System.Drawing.Size(152, 22);
+            this.mnuNARC.Size = new System.Drawing.Size(150, 22);
             this.mnuNARC.Text = "NARC";
             this.mnuNARC.Click += new System.EventHandler(this.mnuNARC_Click);
             // 
@@ -628,7 +635,7 @@
             // 
             // nmbMatches
             // 
-            this.nmbMatches.Location = new System.Drawing.Point(287, 101);
+            this.nmbMatches.Location = new System.Drawing.Point(434, 101);
             this.nmbMatches.Minimum = new decimal(new int[] {
             5,
             0,
@@ -646,7 +653,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(333, 108);
+            this.label2.Location = new System.Drawing.Point(480, 108);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(141, 13);
             this.label2.TabIndex = 19;
@@ -655,7 +662,7 @@
             // cbZoom
             // 
             this.cbZoom.AutoSize = true;
-            this.cbZoom.Location = new System.Drawing.Point(491, 107);
+            this.cbZoom.Location = new System.Drawing.Point(638, 107);
             this.cbZoom.Name = "cbZoom";
             this.cbZoom.Size = new System.Drawing.Size(119, 17);
             this.cbZoom.TabIndex = 20;
@@ -670,7 +677,7 @@
             this.groupBox1.Controls.Add(this.cbAM);
             this.groupBox1.Controls.Add(this.cbLRM);
             this.groupBox1.Controls.Add(this.cbMG);
-            this.groupBox1.Location = new System.Drawing.Point(241, 31);
+            this.groupBox1.Location = new System.Drawing.Point(434, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(419, 64);
             this.groupBox1.TabIndex = 21;
@@ -744,7 +751,7 @@
             // 
             // nmbScrapeFreq
             // 
-            this.nmbScrapeFreq.Location = new System.Drawing.Point(117, 85);
+            this.nmbScrapeFreq.Location = new System.Drawing.Point(307, 34);
             this.nmbScrapeFreq.Maximum = new decimal(new int[] {
             10,
             0,
@@ -769,7 +776,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(157, 89);
+            this.label3.Location = new System.Drawing.Point(347, 38);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 23;
@@ -787,18 +794,30 @@
             this.btnTryLogon.UseVisualStyleBackColor = true;
             this.btnTryLogon.Click += new System.EventHandler(this.btnTryLogon_Click);
             // 
+            // tlvMechView
+            // 
+            this.tlvMechView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlvMechView.Location = new System.Drawing.Point(3, 3);
+            this.tlvMechView.Name = "tlvMechView";
+            this.tlvMechView.OwnerDraw = true;
+            this.tlvMechView.ShowGroups = false;
+            this.tlvMechView.Size = new System.Drawing.Size(1033, 456);
+            this.tlvMechView.TabIndex = 0;
+            this.tlvMechView.UseCompatibleStateImageBehavior = false;
+            this.tlvMechView.View = System.Windows.Forms.View.Details;
+            this.tlvMechView.VirtualMode = true;
+            // 
             // frmMWOStatSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1189, 603);
+            this.ClientSize = new System.Drawing.Size(1070, 603);
             this.Controls.Add(this.btnTryLogon);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.nmbScrapeFreq);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbZoom);
-            this.Controls.Add(this.lbMechs);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nmbMatches);
             this.Controls.Add(this.tcCharts);
@@ -819,6 +838,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(1086, 641);
             this.Name = "frmMWOStatSys";
             this.Text = "MWO Stat Grabber";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMWOStatSys_FormClosing);
@@ -829,6 +849,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgMaps)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgModes)).EndInit();
             this.tcCharts.ResumeLayout(false);
+            this.tabMechInfo.ResumeLayout(false);
             this.tabAccuracy.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chtAccuracy)).EndInit();
             this.tabEffective.ResumeLayout(false);
@@ -841,6 +862,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmbScrapeFreq)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tlvMechView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -867,7 +889,6 @@
         private System.Windows.Forms.TabPage tabAccuracy;
         private System.Windows.Forms.DataVisualization.Charting.Chart chtAccuracy;
         private System.Windows.Forms.TabPage tabEffective;
-        private System.Windows.Forms.ListBox lbMechs;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mnuLogLevel;
         private System.Windows.Forms.ToolStripMenuItem fileLoggingToolStripMenuItem;
@@ -903,6 +924,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem mnuLog4;
         private System.Windows.Forms.Button btnTryLogon;
+        private System.Windows.Forms.TabPage tabMechInfo;
+        private BrightIdeasSoftware.TreeListView tlvMechView;
     }
 }
 
