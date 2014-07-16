@@ -41,4 +41,27 @@ namespace MWOStatSystem.Support_Classes
 
     #endregion -- Match data
 
+    // holds the mech id, common name, and official designation of the mech
+    public class clMechInfo
+    {
+        public clMechInfo(string strNameFromDb)
+        {
+            if (strNameFromDb.ToLower().Contains("kit fox"))
+            {
+                strMechName = strNameFromDb.Substring(0, 7).Trim();
+                strMechDesignation = strNameFromDb.Substring(8).Trim().Replace("(", "");
+                strMechDesignation = strMechDesignation.Replace(")", "");
+            }
+            else
+            {
+
+                strMechName = strNameFromDb.Substring(0, strNameFromDb.IndexOf(' ')).Trim();
+                strMechDesignation = strNameFromDb.Substring(strNameFromDb.IndexOf(' ') + 1).Trim();
+            }
+        }
+
+        public int iMechId = -1;
+        public string strMechName = "";
+        public string strMechDesignation = "";
+    }
 }

@@ -44,6 +44,10 @@ using System.Windows.Forms.DataVisualization.Charting;
 using MWOStatSystem.Support_Classes;
 using IntelligentStreaming.SharpTools;
 using System.Text.RegularExpressions;
+using System.Collections;
+using MechMatchDetail;
+using System.Resources;
+using MWOStatSystem.Properties;
 
 namespace MWOStatSystem
 {
@@ -104,6 +108,8 @@ namespace MWOStatSystem
         private clMapProcessor Maps = null;
         private clWeaponProcessor Weapons = null;
 
+        private ResourceManager rm = Resources.ResourceManager;
+
         DataTable dtMechList;
 
         // a magic bit, found on the web.. makes sure we appear as authenticated when we don't actually have a certificate to verify against.
@@ -144,7 +150,12 @@ namespace MWOStatSystem
                 Color cBlue = Color.FromArgb( 150, Color.DodgerBlue );
                 Color cYellow = Color.FromArgb( 150, Color.Goldenrod );
 
-                tlvMechView.SelectedIndex = -1;
+                //tlvMechView.SelectedIndex = -1;
+                //// Draw the system icon next to the name
+                //this.olvColMatch.ImageGetter = delegate(object x)
+                //{
+                //    return  ilMechs.Images.IndexOfKey(((clMechInfo)x).strMechDesignation);
+                //};
 
                 // default colors are putting red on hits and green on misses, but I'd prefer to flip them
                 chtAccuracy.ApplyPaletteColors();
@@ -577,7 +588,7 @@ namespace MWOStatSystem
             btnShowError.BackColor = Color.Green;
 
             vFillMechList();
-            tlvMechView.SelectedIndex = stMatch.iMech;
+            //tlvMechView.SelectedIndex = stMatch.iMech;
 
             Cursor = Cursors.Default;
 
@@ -624,8 +635,28 @@ namespace MWOStatSystem
         private void vFillMechList()
         {
             bLoading = true;
-            string sCommand = "select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname";
-            dtMechList = Parser.ResultSetToDataTable( m_myDB.ResultSet(sCommand), ref Log );
+            clMechInfo clMI;
+            clMechMatch clMM;
+
+            string sCommand = "select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname desc";
+            //dtMechList = Parser.ResultSetToDataTable( m_myDB.ResultSet(sCommand), ref Log );
+            rs = m_myDB.ResultSet(sCommand);
+            while ( rs.Read() )
+            {
+                clMI = new clMechInfo(rs.GetString(1));
+                clMI.iMechId = (int)rs.GetValue(0);
+                clMM = new clMechMatch();
+                clMM.Dock = System.Windows.Forms.DockStyle.Top;
+                clMM.Caption = clMI.strMechName + " - " + clMI.strMechDesignation;
+                clMM.ExpandedSize = new Size(tabMechInfo.Width, 400);
+                clMM.CollapsedMinSize = 134;
+                clMM.Expand += new EventHandler(clMechMatch_Expand);
+                clMM.Image = (Image)rm.GetObject(clMI.strMechDesignation.Replace("-","_").ToLower());
+                clMM.Expanded = false;
+
+                tabMechInfo.Controls.Add(clMM);
+            }
+
             //lbMechs.ValueMember = "MechId";
             //lbMechs.DisplayMember = "fullname";
             //lbMechs.DataSource = dtMechList;
@@ -877,13 +908,13 @@ namespace MWOStatSystem
         {
             // if we're loading our box, just bail.. no point in filling charts if we're not actually
             // selecting a mech
-            if ((bLoading) || (tlvMechView.SelectedIndex == -1))
+            if ((bLoading)) // || (tlvMechView.SelectedIndex == -1))
             {
                 iCurrentMech = -1;
                 return;
             }
 
-            iCurrentMech = tlvMechView.SelectedIndex; // WRONG, we'll need to update this to the mech id returned from the root node..
+            iCurrentMech = 6; // iCurrentMech = (int)((clMechInfo)(tlvMechView.SelectedObject)).iMechId;
 
             try
             {
@@ -1226,6 +1257,20 @@ namespace MWOStatSystem
             }
         }
 
+        private void clMechMatch_Expand(object sender, EventArgs e)
+        {
+            foreach (clMechMatch ctrl in tabMechInfo.Controls)
+            {
+                if (ctrl == sender)
+                    ctrl.Expanded = ctrl.Expanded;
+                else
+                    ctrl.Expanded = false;
+
+                ctrl.Refresh();
+            }
+        }
+
+ 
     }
 
 }

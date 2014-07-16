@@ -101,7 +101,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnTryLogon = new System.Windows.Forms.Button();
-            this.tlvMechView = new BrightIdeasSoftware.TreeListView();
+            this.clMechMatch1 = new MechMatchDetail.clMechMatch();
             ((System.ComponentModel.ISupportInitialize)(this.dgMechs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgWeapons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMaps)).BeginInit();
@@ -118,7 +118,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nmbMatches)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmbScrapeFreq)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tlvMechView)).BeginInit();
             this.SuspendLayout();
             // 
             // btnStart
@@ -242,7 +241,7 @@
             // 
             // pbNextScrape
             // 
-            this.pbNextScrape.Location = new System.Drawing.Point(223, 66);
+            this.pbNextScrape.Location = new System.Drawing.Point(223, 79);
             this.pbNextScrape.Maximum = 300;
             this.pbNextScrape.Name = "pbNextScrape";
             this.pbNextScrape.Size = new System.Drawing.Size(149, 23);
@@ -251,7 +250,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(241, 54);
+            this.label1.Location = new System.Drawing.Point(242, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 13);
             this.label1.TabIndex = 14;
@@ -284,7 +283,8 @@
             // 
             // tabMechInfo
             // 
-            this.tabMechInfo.Controls.Add(this.tlvMechView);
+            this.tabMechInfo.AutoScroll = true;
+            this.tabMechInfo.Controls.Add(this.clMechMatch1);
             this.tabMechInfo.Location = new System.Drawing.Point(4, 22);
             this.tabMechInfo.Name = "tabMechInfo";
             this.tabMechInfo.Padding = new System.Windows.Forms.Padding(3);
@@ -794,25 +794,24 @@
             this.btnTryLogon.UseVisualStyleBackColor = true;
             this.btnTryLogon.Click += new System.EventHandler(this.btnTryLogon_Click);
             // 
-            // tlvMechView
+            // clMechMatch1
             // 
-            this.tlvMechView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlvMechView.Location = new System.Drawing.Point(3, 3);
-            this.tlvMechView.Name = "tlvMechView";
-            this.tlvMechView.OwnerDraw = true;
-            this.tlvMechView.ShowGroups = false;
-            this.tlvMechView.Size = new System.Drawing.Size(1033, 456);
-            this.tlvMechView.TabIndex = 0;
-            this.tlvMechView.UseCompatibleStateImageBehavior = false;
-            this.tlvMechView.View = System.Windows.Forms.View.Details;
-            this.tlvMechView.VirtualMode = true;
+            this.clMechMatch1.Caption = null;
+            this.clMechMatch1.CollapsedMinSize = 110;
+            this.clMechMatch1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.clMechMatch1.ExpandedSize = new System.Drawing.Size(1033, 176);
+            this.clMechMatch1.HeaderClickExpand = true;
+            this.clMechMatch1.Location = new System.Drawing.Point(3, 3);
+            this.clMechMatch1.Name = "clMechMatch1";
+            this.clMechMatch1.Size = new System.Drawing.Size(1033, 176);
+            this.clMechMatch1.TabIndex = 0;
             // 
             // frmMWOStatSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1070, 603);
+            this.ClientSize = new System.Drawing.Size(1206, 603);
             this.Controls.Add(this.btnTryLogon);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.nmbScrapeFreq);
@@ -862,7 +861,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmbScrapeFreq)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tlvMechView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -925,7 +923,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuLog4;
         private System.Windows.Forms.Button btnTryLogon;
         private System.Windows.Forms.TabPage tabMechInfo;
-        private BrightIdeasSoftware.TreeListView tlvMechView;
+        private MechMatchDetail.clMechMatch clMechMatch1;
     }
 }
 
