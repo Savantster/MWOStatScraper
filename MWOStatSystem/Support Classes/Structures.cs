@@ -44,7 +44,19 @@ namespace MWOStatSystem.Support_Classes
     // holds the mech id, common name, and official designation of the mech
     public class clMechInfo
     {
-        public clMechInfo(string strNameFromDb)
+
+        public int iMechId = -1;
+        public string strMechName = "";
+        public string strMechDesignation = "";
+
+        public void Reset()
+        {
+            iMechId = -1;
+            strMechDesignation = "";
+            strMechName = "";
+        }
+
+        public void Names(string strNameFromDb)
         {
             if (strNameFromDb.ToLower().Contains("kit fox"))
             {
@@ -58,10 +70,7 @@ namespace MWOStatSystem.Support_Classes
                 strMechName = strNameFromDb.Substring(0, strNameFromDb.IndexOf(' ')).Trim();
                 strMechDesignation = strNameFromDb.Substring(strNameFromDb.IndexOf(' ') + 1).Trim();
             }
-        }
 
-        public int iMechId = -1;
-        public string strMechName = "";
-        public string strMechDesignation = "";
+        }
     }
 }

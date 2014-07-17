@@ -110,7 +110,7 @@ namespace MWOStatSystem
 
         private ResourceManager rm = Resources.ResourceManager;
 
-        DataTable dtMechList;
+        //DataTable dtMechList;
 
         // a magic bit, found on the web.. makes sure we appear as authenticated when we don't actually have a certificate to verify against.
         private static bool CertificateValidationCallBack( object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslErrors )
@@ -635,24 +635,52 @@ namespace MWOStatSystem
         private void vFillMechList()
         {
             bLoading = true;
-            clMechInfo clMI;
             clMechMatch clMM;
+            clMechInfo clMI = new clMechInfo();
+            clSingleMatch stMatch = new clSingleMatch();
 
             string sCommand = "select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname desc";
             //dtMechList = Parser.ResultSetToDataTable( m_myDB.ResultSet(sCommand), ref Log );
             rs = m_myDB.ResultSet(sCommand);
             while ( rs.Read() )
             {
-                clMI = new clMechInfo(rs.GetString(1));
-                clMI.iMechId = (int)rs.GetValue(0);
+                clMI.Reset();
+                clMI.Names(rs.GetString(1));
+
                 clMM = new clMechMatch();
+                clMM.MechId = (int)rs.GetValue(0);
                 clMM.Dock = System.Windows.Forms.DockStyle.Top;
                 clMM.Caption = clMI.strMechName + " - " + clMI.strMechDesignation;
                 clMM.ExpandedSize = new Size(tabMechInfo.Width, 400);
-                clMM.CollapsedMinSize = 134;
+                clMM.CollapsedMinSize = 130;
                 clMM.Expand += new EventHandler(clMechMatch_Expand);
-                clMM.Image = (Image)rm.GetObject(clMI.strMechDesignation.Replace("-","_").ToLower());
+                clMM.MechImage = (Image)rm.GetObject(clMI.strMechDesignation.Replace("-","_").ToLower());
                 clMM.Expanded = false;
+
+                SqlCeResultSet rs2;
+                string cmd = "select max(matchid) from match where mech = " + clMM.MechId;
+                int iMatchId = m_myDB.iNumValReturn(cmd);
+                cmd = "select kills, Death, WinLoss, Exp, cBills from Match where MatchId = " + iMatchId;
+                rs2 = m_myDB.ResultSet(cmd);
+                rs2.ReadFirst();
+
+                int tmpInt;
+                int.TryParse(rs2.GetValue(0).ToString(), out tmpInt);
+                clMM.Kills = tmpInt;
+                
+                clMM.Lived = rs2.GetBoolean(1)?(Image)rm.GetObject("x"):(Image)rm.GetObject("check");
+                clMM.Win = (rs2.GetString(2) == "W")?(Image)rm.GetObject("check"):(Image)rm.GetObject("x");
+                
+                int.TryParse(rs2.GetValue(3).ToString(), out tmpInt);
+                clMM.Exp = tmpInt;
+                
+                int.TryParse(rs2.GetValue(4).ToString(), out tmpInt);
+                clMM.cBills = tmpInt;
+
+                rs2 = m_myDB.ResultSet("select sum(DmgDone) from matchdetails where matchid = " + iMatchId);
+                rs2.ReadFirst();
+                int.TryParse(rs2.GetValue(0).ToString(), out tmpInt);
+                clMM.Damage = tmpInt.ToString();
 
                 tabMechInfo.Controls.Add(clMM);
             }

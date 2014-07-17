@@ -27,6 +27,19 @@ Public Class clMechMatch
         End Try
     End Sub
     Friend WithEvents pbMech As System.Windows.Forms.PictureBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents gbLastMatch As System.Windows.Forms.GroupBox
+    Friend WithEvents lblCBills As System.Windows.Forms.Label
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents lblExp As System.Windows.Forms.Label
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents lblDamage As System.Windows.Forms.Label
+    Friend WithEvents lblKills As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents pbLived As System.Windows.Forms.PictureBox
+    Friend WithEvents pbWin As System.Windows.Forms.PictureBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
 
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
@@ -40,8 +53,24 @@ Public Class clMechMatch
         Me.ExpandButton = New System.Windows.Forms.Button()
         Me.lblCaption = New System.Windows.Forms.Label()
         Me.pbMech = New System.Windows.Forms.PictureBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.gbLastMatch = New System.Windows.Forms.GroupBox()
+        Me.lblCBills = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.lblExp = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.lblDamage = New System.Windows.Forms.Label()
+        Me.lblKills = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.pbLived = New System.Windows.Forms.PictureBox()
+        Me.pbWin = New System.Windows.Forms.PictureBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.pnlHeader.SuspendLayout()
         CType(Me.pbMech, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.gbLastMatch.SuspendLayout()
+        CType(Me.pbLived, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbWin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlHeader
@@ -78,10 +107,146 @@ Public Class clMechMatch
         Me.pbMech.TabIndex = 1
         Me.pbMech.TabStop = False
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(20, 20)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(32, 13)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Win?"
+        '
+        'gbLastMatch
+        '
+        Me.gbLastMatch.BackColor = System.Drawing.SystemColors.Control
+        Me.gbLastMatch.Controls.Add(Me.lblCBills)
+        Me.gbLastMatch.Controls.Add(Me.Label9)
+        Me.gbLastMatch.Controls.Add(Me.lblExp)
+        Me.gbLastMatch.Controls.Add(Me.Label7)
+        Me.gbLastMatch.Controls.Add(Me.lblDamage)
+        Me.gbLastMatch.Controls.Add(Me.lblKills)
+        Me.gbLastMatch.Controls.Add(Me.Label4)
+        Me.gbLastMatch.Controls.Add(Me.pbLived)
+        Me.gbLastMatch.Controls.Add(Me.pbWin)
+        Me.gbLastMatch.Controls.Add(Me.Label3)
+        Me.gbLastMatch.Controls.Add(Me.Label2)
+        Me.gbLastMatch.Controls.Add(Me.Label1)
+        Me.gbLastMatch.Location = New System.Drawing.Point(116, 23)
+        Me.gbLastMatch.Name = "gbLastMatch"
+        Me.gbLastMatch.Size = New System.Drawing.Size(613, 95)
+        Me.gbLastMatch.TabIndex = 4
+        Me.gbLastMatch.TabStop = False
+        Me.gbLastMatch.Text = "Last Match Details"
+        '
+        'lblCBills
+        '
+        Me.lblCBills.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
+        Me.lblCBills.Location = New System.Drawing.Point(344, 42)
+        Me.lblCBills.Name = "lblCBills"
+        Me.lblCBills.Size = New System.Drawing.Size(104, 29)
+        Me.lblCBills.TabIndex = 16
+        Me.lblCBills.Text = "125,000"
+        Me.lblCBills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(377, 20)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(35, 13)
+        Me.Label9.TabIndex = 15
+        Me.Label9.Text = "C-Bills"
+        '
+        'lblExp
+        '
+        Me.lblExp.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
+        Me.lblExp.Location = New System.Drawing.Point(239, 42)
+        Me.lblExp.Name = "lblExp"
+        Me.lblExp.Size = New System.Drawing.Size(90, 29)
+        Me.lblExp.TabIndex = 14
+        Me.lblExp.Text = "1,500"
+        Me.lblExp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(269, 20)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(28, 13)
+        Me.Label7.TabIndex = 13
+        Me.Label7.Text = "EXP"
+        '
+        'lblDamage
+        '
+        Me.lblDamage.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
+        Me.lblDamage.Location = New System.Drawing.Point(167, 42)
+        Me.lblDamage.Name = "lblDamage"
+        Me.lblDamage.Size = New System.Drawing.Size(71, 29)
+        Me.lblDamage.TabIndex = 12
+        Me.lblDamage.Text = "333"
+        Me.lblDamage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblKills
+        '
+        Me.lblKills.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
+        Me.lblKills.Location = New System.Drawing.Point(115, 42)
+        Me.lblKills.Name = "lblKills"
+        Me.lblKills.Size = New System.Drawing.Size(41, 29)
+        Me.lblKills.TabIndex = 11
+        Me.lblKills.Text = "12"
+        Me.lblKills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(174, 20)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(55, 13)
+        Me.Label4.TabIndex = 10
+        Me.Label4.Text = "Dammage"
+        '
+        'pbLived
+        '
+        Me.pbLived.Location = New System.Drawing.Point(69, 44)
+        Me.pbLived.Name = "pbLived"
+        Me.pbLived.Size = New System.Drawing.Size(30, 30)
+        Me.pbLived.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pbLived.TabIndex = 8
+        Me.pbLived.TabStop = False
+        '
+        'pbWin
+        '
+        Me.pbWin.Location = New System.Drawing.Point(18, 44)
+        Me.pbWin.Name = "pbWin"
+        Me.pbWin.Size = New System.Drawing.Size(30, 30)
+        Me.pbWin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pbWin.TabIndex = 7
+        Me.pbWin.TabStop = False
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(123, 20)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(25, 13)
+        Me.Label3.TabIndex = 6
+        Me.Label3.Text = "Kills"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(66, 20)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(39, 13)
+        Me.Label2.TabIndex = 4
+        Me.Label2.Text = "Lived?"
+        '
         'clMechMatch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.gbLastMatch)
         Me.Controls.Add(Me.pbMech)
         Me.Controls.Add(Me.pnlHeader)
         Me.Name = "clMechMatch"
@@ -89,6 +254,10 @@ Public Class clMechMatch
         Me.pnlHeader.ResumeLayout(False)
         Me.pnlHeader.PerformLayout()
         CType(Me.pbMech, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.gbLastMatch.ResumeLayout(False)
+        Me.gbLastMatch.PerformLayout()
+        CType(Me.pbLived, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbWin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -211,7 +380,7 @@ Public Class clMechMatch
         End Set
     End Property
 
-    Public Property Image As Image
+    Public Property MechImage As Image
         Get
             Return pbMech.Image
         End Get
@@ -220,6 +389,50 @@ Public Class clMechMatch
         End Set
     End Property
 
+    Private _MechId As Integer = -1
+    Public Property MechId As Integer
+        Get
+            Return _MechId
+        End Get
+        Set(value As Integer)
+            _MechId = value
+        End Set
+    End Property
+
+    Public WriteOnly Property Win As Image
+        Set(value As Image)
+            pbWin.Image = value
+        End Set
+    End Property
+
+    Public WriteOnly Property Lived As Image
+        Set(value As Image)
+            pbLived.Image = value
+        End Set
+    End Property
+
+    Public WriteOnly Property Kills As Integer
+        Set(value As Integer)
+            lblKills.Text = value
+        End Set
+    End Property
+
+    Public WriteOnly Property Damage As String
+        Set(value As String)
+            lblDamage.Text = String.Format("{0:#,###}", value)
+        End Set
+    End Property
+
+    Public WriteOnly Property Exp As Integer
+        Set(value As Integer)
+            lblExp.Text = String.Format("{0:#,###}", value)
+        End Set
+    End Property
+    Public WriteOnly Property cBills As Integer
+        Set(value As Integer)
+            lblCBills.Text = String.Format("{0:###,###}", value)
+        End Set
+    End Property
 #End Region
 
     Public Sub New()
@@ -228,7 +441,7 @@ Public Class clMechMatch
 
         ' Add any initialization after the InitializeComponent() call.
         Me.BorderColor = Color.FromArgb(214, 213, 217)
-        Me.Expanded = True
+        Me.Expanded = False
         Me.CaptionColor = Color.FromArgb(51, 94, 168)
         Me.HeaderClickExpand = True
 
@@ -256,7 +469,7 @@ Public Class clMechMatch
 
 #Region " Events "
 
-    Private Sub ExpandButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExpandButton.Click
+    Private Sub ExpandButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ExpandButton.Click, pbMech.Click
         'Toggle the expansion
         Me.Expanded = Not Me.Expanded
 
@@ -281,6 +494,9 @@ Public Class clMechMatch
                 Me.ExpandedSize = New Size(Me.Size.Width, Me.ExpandedSize.Height)
             End If
         End If
+
+        gbLastMatch.Width = (Me.Size.Width - gbLastMatch.Location.X)
+
     End Sub
 
     Private Sub pnlHeader_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pnlHeader.Click
