@@ -311,7 +311,7 @@ namespace MWOStatSystem.Support_Classes
             return false;
         } // end of bDataChanged
 
-        public void insertDetails( int iMatchId )
+        public decimal insertDetails( int iMatchId )
         {
             if ( m_bFoundMatch )
             {
@@ -321,10 +321,12 @@ namespace MWOStatSystem.Support_Classes
                     "values(" + iMatchId + ", " + iWeaponId + ", " + m_iMatchHits + ", " + m_iMatchMisses + ", " + m_iMatchDmg + ")";
 
                 m_myDb.Insert( sCommand );
+                return m_iMatchDmg;
             }
             else
             {
                 Log.doIt( 2, sWeapon + ": not found in match, not entering details to matchdetails table.." );
+                return 0;
             }
 
         } // end of InsertDetails..

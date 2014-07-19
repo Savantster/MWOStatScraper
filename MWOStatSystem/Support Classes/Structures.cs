@@ -36,6 +36,7 @@ namespace MWOStatSystem.Support_Classes
         public int iExp = 0;
         public int iCBills = 0;
         public int iDuration = 0;
+        public decimal dDamage = 0;
         public DateTime? dtDate = null; // DateTime.Now;
     }
 

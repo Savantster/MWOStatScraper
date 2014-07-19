@@ -195,7 +195,7 @@ namespace MWOStatSystem.Support_Classes
         {
             if ( !bScraped )
             {
-                Log.doIt( 1, "Hmm.. showing we haven't scraped for mode: " + sMech + ".. not going to move web values over.." );
+                Log.doIt( 1, "Hmm.. showing we haven't scraped for mech: " + sMech + ".. not going to move web values over.." );
                 return;
             }
 

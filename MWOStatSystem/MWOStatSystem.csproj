@@ -141,8 +141,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExternalDLLs\ExpandableGroupBox.dll" />
-    <Content Include="ExternalDLLs\ObjectListView.dll" />
     <Content Include="MWOStatSystemDB.sdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -408,6 +406,9 @@
       <Project>{04305da3-8ad5-4ce4-a55e-2dda5da63cf8}</Project>
       <Name>MechMatchDetail</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExternalDLLs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

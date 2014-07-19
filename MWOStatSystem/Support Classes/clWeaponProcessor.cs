@@ -126,14 +126,15 @@ namespace MWOStatSystem.Support_Classes
 
         } // end of parsing
 
-        public void fillMatch( int iMatchId = -1 )
+        public decimal fillMatch( int iMatchId = -1 )
         {
             clWeapon Weapon;
+            decimal dDamage = 0;
 
             if ( iMatchId == -1 )
             {
                 Log.doIt( 1, "Hmm.. passed in an invalid match ID.. not going to insert these weapons.." );
-                return;
+                return 0;
             }
 
             foreach ( KeyValuePair<string, clWeapon> keyPair in dicWeapons )
@@ -142,9 +143,11 @@ namespace MWOStatSystem.Support_Classes
 
                 if ( Weapon.bDataChanged() )
                 {
-                    Weapon.insertDetails( iMatchId );
+                   dDamage += Weapon.insertDetails( iMatchId );
                 }
             }
+
+            return dDamage;
 
         } // end of Fill Match
 

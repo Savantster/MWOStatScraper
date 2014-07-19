@@ -150,13 +150,6 @@ namespace MWOStatSystem
                 Color cBlue = Color.FromArgb( 150, Color.DodgerBlue );
                 Color cYellow = Color.FromArgb( 150, Color.Goldenrod );
 
-                //tlvMechView.SelectedIndex = -1;
-                //// Draw the system icon next to the name
-                //this.olvColMatch.ImageGetter = delegate(object x)
-                //{
-                //    return  ilMechs.Images.IndexOfKey(((clMechInfo)x).strMechDesignation);
-                //};
-
                 // default colors are putting red on hits and green on misses, but I'd prefer to flip them
                 chtAccuracy.ApplyPaletteColors();
                 chtAccuracy.Palette = ChartColorPalette.None;
@@ -571,7 +564,7 @@ namespace MWOStatSystem
             // now that we have the match ID from putting the base match in the database, have the weapon manager put all the
             // found weapons in the details table, with our new match id
             Log.doIt( 2, "Putting weapons in match detials.." );
-            Weapons.fillMatch( stMatch.iMatchId );
+            stMatch.dDamage = Weapons.fillMatch( stMatch.iMatchId );
 
             // now we reseed everything..
             Log.doIt( 2, "Re-Seeding our managers with scraped data.." );
@@ -587,11 +580,41 @@ namespace MWOStatSystem
             btnShowError.UseVisualStyleBackColor = false;
             btnShowError.BackColor = Color.Green;
 
-            vFillMechList();
+            vUpdateLastMechMatch(ref stMatch);
             //tlvMechView.SelectedIndex = stMatch.iMech;
 
             Cursor = Cursors.Default;
 
+        } // End of Scrape processing/button click
+
+        /// <summary>
+        /// Updates the MechMatchDetail object that matches the newly scraped match
+        /// </summary>
+        /// <param name="clMatch">
+        /// Match info object for our last match; gives us the mech and matchid for stat gathering
+        /// </param>
+        private void vUpdateLastMechMatch(ref clSingleMatch clMatch)
+        {
+            foreach (clMechMatch clTmp in tabMechInfo.Controls)
+            {
+                if (clTmp.MechId == clMatch.iMech)
+                {
+                    clTmp.Win = clMatch.cWinLoss == 'W' ? (Image)rm.GetObject("check") : (Image)rm.GetObject("x");
+                    clTmp.Lived = clMatch.bDeath ? (Image)rm.GetObject("x") : (Image)rm.GetObject("check");
+                    clTmp.Kills = clMatch.iKills;
+                    clTmp.Damage = clMatch.dDamage.ToString();
+                    clTmp.Exp = clMatch.iExp;
+                    clTmp.cBills = clMatch.iCBills;
+                    clTmp.SetHighlight();
+
+                    //clTmp.AutoScrollOffset = new Point (0, 0);
+                    tabMechInfo.ScrollControlIntoView(clTmp);
+                }
+                else
+                {
+                    clTmp.ClearHighlight();
+                }
+            }
         }
 
         private void fillGridsFromFiles()
@@ -677,11 +700,13 @@ namespace MWOStatSystem
                 int.TryParse(rs2.GetValue(4).ToString(), out tmpInt);
                 clMM.cBills = tmpInt;
 
+                decimal tmpDec;
                 rs2 = m_myDB.ResultSet("select sum(DmgDone) from matchdetails where matchid = " + iMatchId);
                 rs2.ReadFirst();
-                int.TryParse(rs2.GetValue(0).ToString(), out tmpInt);
-                clMM.Damage = tmpInt.ToString();
+                decimal.TryParse(rs2.GetValue(0).ToString(), out tmpDec);
+                clMM.Damage = tmpDec.ToString();
 
+                clMM.AutoScrollOffset = new Point(0, 0);
                 tabMechInfo.Controls.Add(clMM);
             }
 

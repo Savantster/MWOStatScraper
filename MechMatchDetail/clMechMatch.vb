@@ -8,6 +8,7 @@ Imports System.ComponentModel
 Imports System.ComponentModel.Design
 Imports System.Runtime.InteropServices
 Imports System.Windows.Forms.Design
+Imports System.Drawing.Drawing2D
 
 <Designer(GetType(ExpandableGroupboxDesigner))> _
 Public Class clMechMatch
@@ -40,6 +41,7 @@ Public Class clMechMatch
     Friend WithEvents pbWin As System.Windows.Forms.PictureBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents pnlStats As System.Windows.Forms.Panel
 
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
@@ -66,11 +68,13 @@ Public Class clMechMatch
         Me.pbWin = New System.Windows.Forms.PictureBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.pnlStats = New System.Windows.Forms.Panel()
         Me.pnlHeader.SuspendLayout()
         CType(Me.pbMech, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbLastMatch.SuspendLayout()
         CType(Me.pbLived, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbWin, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlStats.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlHeader
@@ -110,7 +114,7 @@ Public Class clMechMatch
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(20, 20)
+        Me.Label1.Location = New System.Drawing.Point(11, 10)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(32, 13)
         Me.Label1.TabIndex = 2
@@ -118,22 +122,11 @@ Public Class clMechMatch
         '
         'gbLastMatch
         '
-        Me.gbLastMatch.BackColor = System.Drawing.SystemColors.Control
-        Me.gbLastMatch.Controls.Add(Me.lblCBills)
-        Me.gbLastMatch.Controls.Add(Me.Label9)
-        Me.gbLastMatch.Controls.Add(Me.lblExp)
-        Me.gbLastMatch.Controls.Add(Me.Label7)
-        Me.gbLastMatch.Controls.Add(Me.lblDamage)
-        Me.gbLastMatch.Controls.Add(Me.lblKills)
-        Me.gbLastMatch.Controls.Add(Me.Label4)
-        Me.gbLastMatch.Controls.Add(Me.pbLived)
-        Me.gbLastMatch.Controls.Add(Me.pbWin)
-        Me.gbLastMatch.Controls.Add(Me.Label3)
-        Me.gbLastMatch.Controls.Add(Me.Label2)
-        Me.gbLastMatch.Controls.Add(Me.Label1)
-        Me.gbLastMatch.Location = New System.Drawing.Point(116, 23)
+        Me.gbLastMatch.BackColor = System.Drawing.Color.Transparent
+        Me.gbLastMatch.Controls.Add(Me.pnlStats)
+        Me.gbLastMatch.Location = New System.Drawing.Point(116, 25)
         Me.gbLastMatch.Name = "gbLastMatch"
-        Me.gbLastMatch.Size = New System.Drawing.Size(613, 95)
+        Me.gbLastMatch.Size = New System.Drawing.Size(469, 95)
         Me.gbLastMatch.TabIndex = 4
         Me.gbLastMatch.TabStop = False
         Me.gbLastMatch.Text = "Last Match Details"
@@ -141,7 +134,7 @@ Public Class clMechMatch
         'lblCBills
         '
         Me.lblCBills.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
-        Me.lblCBills.Location = New System.Drawing.Point(344, 42)
+        Me.lblCBills.Location = New System.Drawing.Point(335, 32)
         Me.lblCBills.Name = "lblCBills"
         Me.lblCBills.Size = New System.Drawing.Size(104, 29)
         Me.lblCBills.TabIndex = 16
@@ -151,7 +144,7 @@ Public Class clMechMatch
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(377, 20)
+        Me.Label9.Location = New System.Drawing.Point(368, 10)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(35, 13)
         Me.Label9.TabIndex = 15
@@ -160,7 +153,7 @@ Public Class clMechMatch
         'lblExp
         '
         Me.lblExp.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
-        Me.lblExp.Location = New System.Drawing.Point(239, 42)
+        Me.lblExp.Location = New System.Drawing.Point(230, 32)
         Me.lblExp.Name = "lblExp"
         Me.lblExp.Size = New System.Drawing.Size(90, 29)
         Me.lblExp.TabIndex = 14
@@ -171,7 +164,7 @@ Public Class clMechMatch
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(269, 20)
+        Me.Label7.Location = New System.Drawing.Point(260, 10)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(28, 13)
         Me.Label7.TabIndex = 13
@@ -180,7 +173,7 @@ Public Class clMechMatch
         'lblDamage
         '
         Me.lblDamage.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
-        Me.lblDamage.Location = New System.Drawing.Point(167, 42)
+        Me.lblDamage.Location = New System.Drawing.Point(158, 32)
         Me.lblDamage.Name = "lblDamage"
         Me.lblDamage.Size = New System.Drawing.Size(71, 29)
         Me.lblDamage.TabIndex = 12
@@ -190,7 +183,7 @@ Public Class clMechMatch
         'lblKills
         '
         Me.lblKills.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
-        Me.lblKills.Location = New System.Drawing.Point(115, 42)
+        Me.lblKills.Location = New System.Drawing.Point(106, 32)
         Me.lblKills.Name = "lblKills"
         Me.lblKills.Size = New System.Drawing.Size(41, 29)
         Me.lblKills.TabIndex = 11
@@ -200,7 +193,7 @@ Public Class clMechMatch
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(174, 20)
+        Me.Label4.Location = New System.Drawing.Point(165, 10)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(55, 13)
         Me.Label4.TabIndex = 10
@@ -208,7 +201,7 @@ Public Class clMechMatch
         '
         'pbLived
         '
-        Me.pbLived.Location = New System.Drawing.Point(69, 44)
+        Me.pbLived.Location = New System.Drawing.Point(60, 34)
         Me.pbLived.Name = "pbLived"
         Me.pbLived.Size = New System.Drawing.Size(30, 30)
         Me.pbLived.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -217,7 +210,7 @@ Public Class clMechMatch
         '
         'pbWin
         '
-        Me.pbWin.Location = New System.Drawing.Point(18, 44)
+        Me.pbWin.Location = New System.Drawing.Point(9, 34)
         Me.pbWin.Name = "pbWin"
         Me.pbWin.Size = New System.Drawing.Size(30, 30)
         Me.pbWin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -227,7 +220,7 @@ Public Class clMechMatch
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(123, 20)
+        Me.Label3.Location = New System.Drawing.Point(114, 10)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(25, 13)
         Me.Label3.TabIndex = 6
@@ -236,16 +229,37 @@ Public Class clMechMatch
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(66, 20)
+        Me.Label2.Location = New System.Drawing.Point(57, 10)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(39, 13)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Lived?"
         '
+        'pnlStats
+        '
+        Me.pnlStats.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.pnlStats.Controls.Add(Me.lblCBills)
+        Me.pnlStats.Controls.Add(Me.lblKills)
+        Me.pnlStats.Controls.Add(Me.pbWin)
+        Me.pnlStats.Controls.Add(Me.Label9)
+        Me.pnlStats.Controls.Add(Me.pbLived)
+        Me.pnlStats.Controls.Add(Me.Label3)
+        Me.pnlStats.Controls.Add(Me.lblExp)
+        Me.pnlStats.Controls.Add(Me.Label4)
+        Me.pnlStats.Controls.Add(Me.Label2)
+        Me.pnlStats.Controls.Add(Me.Label7)
+        Me.pnlStats.Controls.Add(Me.Label1)
+        Me.pnlStats.Controls.Add(Me.lblDamage)
+        Me.pnlStats.Location = New System.Drawing.Point(6, 15)
+        Me.pnlStats.Name = "pnlStats"
+        Me.pnlStats.Size = New System.Drawing.Size(457, 74)
+        Me.pnlStats.TabIndex = 0
+        '
         'clMechMatch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Transparent
         Me.Controls.Add(Me.gbLastMatch)
         Me.Controls.Add(Me.pbMech)
         Me.Controls.Add(Me.pnlHeader)
@@ -255,9 +269,10 @@ Public Class clMechMatch
         Me.pnlHeader.PerformLayout()
         CType(Me.pbMech, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbLastMatch.ResumeLayout(False)
-        Me.gbLastMatch.PerformLayout()
         CType(Me.pbLived, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbWin, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlStats.ResumeLayout(False)
+        Me.pnlStats.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -419,7 +434,11 @@ Public Class clMechMatch
 
     Public WriteOnly Property Damage As String
         Set(value As String)
-            lblDamage.Text = String.Format("{0:#,###}", value)
+            If value.Contains(".") Then
+                lblDamage.Text = String.Format("{0:#,###.##}", value)
+            Else
+                lblDamage.Text = String.Format("{0:#,###}", value)
+            End If
         End Set
     End Property
 
@@ -463,6 +482,14 @@ Public Class clMechMatch
         Else
             Me.Size = New Size(pnlHeader.Width, _CollapsedMinSize)
         End If
+    End Sub
+
+    Public Sub ClearHighlight()
+        pnlStats.BackColor = Color.Transparent
+    End Sub
+
+    Public Sub SetHighlight()
+        pnlStats.BackColor = Color.BlueViolet
     End Sub
 
 #End Region
@@ -514,7 +541,7 @@ Public Class clMechMatch
     Private Sub pnlHeader_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles pnlHeader.Paint
         Using borderPen As New Pen(Me.BorderColor, 1)
             'Right of button/text
-            e.Graphics.DrawLine(borderPen, Me.lblCaption.Left + Me.lblCaption.Width + 10, 11, Me.Width - 4, 11)
+            'e.Graphics.DrawLine(borderPen, Me.lblCaption.Left + Me.lblCaption.Width + 10, 11, Me.Width - 4, 11)
             If Me.Expanded Then
                 e.Graphics.DrawLine(borderPen, Me.Width - 4, 12, Me.Width - 3, 12)
                 e.Graphics.DrawLine(borderPen, Me.Width - 3, 13, Me.Width - 2, 13)
@@ -522,7 +549,7 @@ Public Class clMechMatch
             End If
 
             'Left of button
-            e.Graphics.DrawLine(borderPen, 4, 11, 7, 11)
+            'e.Graphics.DrawLine(borderPen, 4, 11, 7, 11)
             If Me.Expanded Then
                 e.Graphics.DrawLine(borderPen, 3, 12, 4, 12)
                 e.Graphics.DrawLine(borderPen, 2, 13, 3, 13)
