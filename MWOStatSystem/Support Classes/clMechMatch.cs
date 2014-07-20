@@ -1,22 +1,25 @@
 ﻿
-using Microsoft.VisualBasic;
+//using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.ComponentModel;
-using System.ComponentModel.Design;
+//using System.ComponentModel;
+//using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
-using System.Windows.Forms.Design;
+//using System.Windows.Forms.Design;
 using System.Drawing.Drawing2D;
 using System.Drawing;
 using System.Windows.Forms;
 using MWOStatSystem.Support_Classes;
+using System.Data.SqlServerCe;
 
-[Designer(typeof(ExpandableGroupboxDesigner))]
+//[Designer(typeof(ExpandableGroupboxDesigner))]
 public class clMechMatch : System.Windows.Forms.UserControl
 {
+    private MWO_DB m_myDB;
+    private List<clSingleMatch> _lstMatchHistory = null;
 
     #region " Designer Generated (do not edit) "
 
@@ -56,62 +59,62 @@ public class clMechMatch : System.Windows.Forms.UserControl
     internal Label Label1;
     internal Label lblDamage;
     internal GroupBox gbLastMatch;
-    internal GroupBox groupBox1;
+    internal GroupBox gbPM1;
     internal ucRoundedPanel ucRoundedPanel1;
-    internal Label label5;
-    internal Label label6;
-    internal PictureBox pictureBox1;
+    internal Label lblPM1cBills;
+    internal Label lblPM1Kills;
+    internal PictureBox pbPM1Win;
     internal Label label8;
-    internal PictureBox pictureBox2;
+    internal PictureBox pbPM1Live;
     internal Label label10;
-    internal Label label11;
+    internal Label lblPM1Exp;
     internal Label label12;
     internal Label label13;
     internal Label label14;
     internal Label label15;
-    internal Label label16;
-    internal GroupBox groupBox2;
+    internal Label lblPM1Damage;
+    internal GroupBox gbPm2;
     internal ucRoundedPanel ucRoundedPanel2;
-    internal Label label17;
-    internal Label label18;
-    internal PictureBox pictureBox3;
+    internal Label lblPM2cBills;
+    internal Label lblPM2Kills;
+    internal PictureBox pbPM2Win;
     internal Label label19;
-    internal PictureBox pictureBox4;
+    internal PictureBox pbPM2Live;
     internal Label label20;
-    internal Label label21;
+    internal Label lblPM2Exp;
     internal Label label22;
     internal Label label23;
     internal Label label24;
     internal Label label25;
-    internal Label label26;
-    internal GroupBox groupBox3;
+    internal Label lblPM2Damage;
+    internal GroupBox gbPM3;
     internal ucRoundedPanel ucRoundedPanel3;
-    internal Label label27;
-    internal Label label28;
-    internal PictureBox pictureBox5;
+    internal Label lblPM3cBills;
+    internal Label lblPM3Kills;
+    internal PictureBox pbPM3Win;
     internal Label label29;
-    internal PictureBox pictureBox6;
+    internal PictureBox pbPM3Live;
     internal Label label30;
-    internal Label label31;
+    internal Label lblPM3Exp;
     internal Label label32;
     internal Label label33;
     internal Label label34;
     internal Label label35;
-    internal Label label36;
-    internal GroupBox groupBox4;
+    internal Label lblPM3Damage;
+    internal GroupBox gbPM4;
     internal ucRoundedPanel ucRoundedPanel4;
-    internal Label label37;
-    internal Label label38;
-    internal PictureBox pictureBox7;
+    internal Label lblPM4cBills;
+    internal Label lblPM4Kills;
+    internal PictureBox pbPM4Win;
     internal Label label39;
-    internal PictureBox pictureBox8;
+    internal PictureBox pbPM4Live;
     internal Label label40;
-    internal Label label41;
+    internal Label lblPM4Exp;
     internal Label label42;
     internal Label label43;
     internal Label label44;
     internal Label label45;
-    internal Label label46;
+    internal Label lblPM4Damage;
     
     //Required by the Windows Form Designer
 
@@ -127,62 +130,62 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.lblCaption = new System.Windows.Forms.Label();
             this.pbMech = new System.Windows.Forms.PictureBox();
             this.gbLastMatch = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.gbPM1 = new System.Windows.Forms.GroupBox();
+            this.gbPm2 = new System.Windows.Forms.GroupBox();
+            this.gbPM3 = new System.Windows.Forms.GroupBox();
+            this.gbPM4 = new System.Windows.Forms.GroupBox();
             this.ucRoundedPanel4 = new MWOStatSystem.Support_Classes.ucRoundedPanel();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.lblPM4cBills = new System.Windows.Forms.Label();
+            this.lblPM4Kills = new System.Windows.Forms.Label();
+            this.pbPM4Win = new System.Windows.Forms.PictureBox();
             this.label39 = new System.Windows.Forms.Label();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pbPM4Live = new System.Windows.Forms.PictureBox();
             this.label40 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
+            this.lblPM4Exp = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
+            this.lblPM4Damage = new System.Windows.Forms.Label();
             this.ucRoundedPanel3 = new MWOStatSystem.Support_Classes.ucRoundedPanel();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.lblPM3cBills = new System.Windows.Forms.Label();
+            this.lblPM3Kills = new System.Windows.Forms.Label();
+            this.pbPM3Win = new System.Windows.Forms.PictureBox();
             this.label29 = new System.Windows.Forms.Label();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pbPM3Live = new System.Windows.Forms.PictureBox();
             this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
+            this.lblPM3Exp = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
+            this.lblPM3Damage = new System.Windows.Forms.Label();
             this.ucRoundedPanel2 = new MWOStatSystem.Support_Classes.ucRoundedPanel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.lblPM2cBills = new System.Windows.Forms.Label();
+            this.lblPM2Kills = new System.Windows.Forms.Label();
+            this.pbPM2Win = new System.Windows.Forms.PictureBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pbPM2Live = new System.Windows.Forms.PictureBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
+            this.lblPM2Exp = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
+            this.lblPM2Damage = new System.Windows.Forms.Label();
             this.ucRoundedPanel1 = new MWOStatSystem.Support_Classes.ucRoundedPanel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblPM1cBills = new System.Windows.Forms.Label();
+            this.lblPM1Kills = new System.Windows.Forms.Label();
+            this.pbPM1Win = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbPM1Live = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblPM1Exp = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lblPM1Damage = new System.Windows.Forms.Label();
             this.pnlStats = new MWOStatSystem.Support_Classes.ucRoundedPanel();
             this.lblCBills = new System.Windows.Forms.Label();
             this.lblKills = new System.Windows.Forms.Label();
@@ -199,22 +202,22 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMech)).BeginInit();
             this.gbLastMatch.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.gbPM1.SuspendLayout();
+            this.gbPm2.SuspendLayout();
+            this.gbPM3.SuspendLayout();
+            this.gbPM4.SuspendLayout();
             this.ucRoundedPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM4Win)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM4Live)).BeginInit();
             this.ucRoundedPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM3Win)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM3Live)).BeginInit();
             this.ucRoundedPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM2Win)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM2Live)).BeginInit();
             this.ucRoundedPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM1Win)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM1Live)).BeginInit();
             this.pnlStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLived)).BeginInit();
@@ -266,124 +269,124 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.gbLastMatch.Controls.Add(this.pnlStats);
             this.gbLastMatch.Location = new System.Drawing.Point(116, 25);
             this.gbLastMatch.Name = "gbLastMatch";
-            this.gbLastMatch.Size = new System.Drawing.Size(469, 95);
+            this.gbLastMatch.Size = new System.Drawing.Size(573, 95);
             this.gbLastMatch.TabIndex = 4;
             this.gbLastMatch.TabStop = false;
             this.gbLastMatch.Text = "Last Match Details";
             // 
-            // groupBox1
+            // gbPM1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.ucRoundedPanel1);
-            this.groupBox1.Location = new System.Drawing.Point(157, 133);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(469, 70);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Last Match Details";
+            this.gbPM1.BackColor = System.Drawing.Color.Transparent;
+            this.gbPM1.Controls.Add(this.ucRoundedPanel1);
+            this.gbPM1.Location = new System.Drawing.Point(157, 133);
+            this.gbPM1.Name = "gbPM1";
+            this.gbPM1.Size = new System.Drawing.Size(532, 70);
+            this.gbPM1.TabIndex = 5;
+            this.gbPM1.TabStop = false;
+            this.gbPM1.Text = "Previous Match Details";
             // 
-            // groupBox2
+            // gbPm2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox2.Controls.Add(this.ucRoundedPanel2);
-            this.groupBox2.Location = new System.Drawing.Point(157, 209);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(469, 70);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Last Match Details";
+            this.gbPm2.BackColor = System.Drawing.Color.Transparent;
+            this.gbPm2.Controls.Add(this.ucRoundedPanel2);
+            this.gbPm2.Location = new System.Drawing.Point(157, 209);
+            this.gbPm2.Name = "gbPm2";
+            this.gbPm2.Size = new System.Drawing.Size(532, 70);
+            this.gbPm2.TabIndex = 6;
+            this.gbPm2.TabStop = false;
+            this.gbPm2.Text = "Next Previous Match Details";
             // 
-            // groupBox3
+            // gbPM3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox3.Controls.Add(this.ucRoundedPanel3);
-            this.groupBox3.Location = new System.Drawing.Point(157, 285);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(469, 70);
-            this.groupBox3.TabIndex = 7;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Last Match Details";
+            this.gbPM3.BackColor = System.Drawing.Color.Transparent;
+            this.gbPM3.Controls.Add(this.ucRoundedPanel3);
+            this.gbPM3.Location = new System.Drawing.Point(157, 285);
+            this.gbPM3.Name = "gbPM3";
+            this.gbPM3.Size = new System.Drawing.Size(532, 70);
+            this.gbPM3.TabIndex = 7;
+            this.gbPM3.TabStop = false;
+            this.gbPM3.Text = "Next Previous Match Details";
             // 
-            // groupBox4
+            // gbPM4
             // 
-            this.groupBox4.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox4.Controls.Add(this.ucRoundedPanel4);
-            this.groupBox4.Location = new System.Drawing.Point(157, 361);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(469, 70);
-            this.groupBox4.TabIndex = 8;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Last Match Details";
+            this.gbPM4.BackColor = System.Drawing.Color.Transparent;
+            this.gbPM4.Controls.Add(this.ucRoundedPanel4);
+            this.gbPM4.Location = new System.Drawing.Point(157, 361);
+            this.gbPM4.Name = "gbPM4";
+            this.gbPM4.Size = new System.Drawing.Size(532, 70);
+            this.gbPM4.TabIndex = 8;
+            this.gbPM4.TabStop = false;
+            this.gbPM4.Text = "Next Previous Match Details";
             // 
             // ucRoundedPanel4
             // 
-            this.ucRoundedPanel4.Controls.Add(this.label37);
-            this.ucRoundedPanel4.Controls.Add(this.label38);
-            this.ucRoundedPanel4.Controls.Add(this.pictureBox7);
+            this.ucRoundedPanel4.Controls.Add(this.lblPM4cBills);
+            this.ucRoundedPanel4.Controls.Add(this.lblPM4Kills);
+            this.ucRoundedPanel4.Controls.Add(this.pbPM4Win);
             this.ucRoundedPanel4.Controls.Add(this.label39);
-            this.ucRoundedPanel4.Controls.Add(this.pictureBox8);
+            this.ucRoundedPanel4.Controls.Add(this.pbPM4Live);
             this.ucRoundedPanel4.Controls.Add(this.label40);
-            this.ucRoundedPanel4.Controls.Add(this.label41);
+            this.ucRoundedPanel4.Controls.Add(this.lblPM4Exp);
             this.ucRoundedPanel4.Controls.Add(this.label42);
             this.ucRoundedPanel4.Controls.Add(this.label43);
             this.ucRoundedPanel4.Controls.Add(this.label44);
             this.ucRoundedPanel4.Controls.Add(this.label45);
-            this.ucRoundedPanel4.Controls.Add(this.label46);
+            this.ucRoundedPanel4.Controls.Add(this.lblPM4Damage);
             this.ucRoundedPanel4.HighlightedBackColor = System.Drawing.Color.Empty;
             this.ucRoundedPanel4.Location = new System.Drawing.Point(3, 13);
             this.ucRoundedPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.ucRoundedPanel4.Name = "ucRoundedPanel4";
-            this.ucRoundedPanel4.Size = new System.Drawing.Size(460, 55);
+            this.ucRoundedPanel4.Size = new System.Drawing.Size(529, 55);
             this.ucRoundedPanel4.TabIndex = 0;
             // 
-            // label37
+            // lblPM4cBills
             // 
-            this.label37.BackColor = System.Drawing.Color.Transparent;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(331, 18);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(104, 29);
-            this.label37.TabIndex = 16;
-            this.label37.Text = "125,000";
-            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM4cBills.BackColor = System.Drawing.Color.Transparent;
+            this.lblPM4cBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM4cBills.Location = new System.Drawing.Point(325, 18);
+            this.lblPM4cBills.Name = "lblPM4cBills";
+            this.lblPM4cBills.Size = new System.Drawing.Size(104, 29);
+            this.lblPM4cBills.TabIndex = 16;
+            this.lblPM4cBills.Text = "------";
+            this.lblPM4cBills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label38
+            // lblPM4Kills
             // 
-            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(106, 18);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(41, 29);
-            this.label38.TabIndex = 11;
-            this.label38.Text = "12";
-            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM4Kills.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM4Kills.Location = new System.Drawing.Point(106, 18);
+            this.lblPM4Kills.Name = "lblPM4Kills";
+            this.lblPM4Kills.Size = new System.Drawing.Size(41, 29);
+            this.lblPM4Kills.TabIndex = 11;
+            this.lblPM4Kills.Text = "--";
+            this.lblPM4Kills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox7
+            // pbPM4Win
             // 
-            this.pictureBox7.Location = new System.Drawing.Point(9, 22);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox7.TabIndex = 7;
-            this.pictureBox7.TabStop = false;
+            this.pbPM4Win.Location = new System.Drawing.Point(9, 22);
+            this.pbPM4Win.Name = "pbPM4Win";
+            this.pbPM4Win.Size = new System.Drawing.Size(20, 20);
+            this.pbPM4Win.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPM4Win.TabIndex = 7;
+            this.pbPM4Win.TabStop = false;
             // 
             // label39
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(364, 10);
+            this.label39.Location = new System.Drawing.Point(358, 10);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(29, 9);
             this.label39.TabIndex = 15;
             this.label39.Text = "C-Bills";
             // 
-            // pictureBox8
+            // pbPM4Live
             // 
-            this.pictureBox8.Location = new System.Drawing.Point(60, 22);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox8.TabIndex = 8;
-            this.pictureBox8.TabStop = false;
+            this.pbPM4Live.Location = new System.Drawing.Point(60, 22);
+            this.pbPM4Live.Name = "pbPM4Live";
+            this.pbPM4Live.Size = new System.Drawing.Size(20, 20);
+            this.pbPM4Live.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPM4Live.TabIndex = 8;
+            this.pbPM4Live.TabStop = false;
             // 
             // label40
             // 
@@ -395,16 +398,16 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.label40.TabIndex = 6;
             this.label40.Text = "Kills";
             // 
-            // label41
+            // lblPM4Exp
             // 
-            this.label41.BackColor = System.Drawing.Color.Transparent;
-            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(228, 18);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(90, 29);
-            this.label41.TabIndex = 14;
-            this.label41.Text = "1,500";
-            this.label41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM4Exp.BackColor = System.Drawing.Color.Transparent;
+            this.lblPM4Exp.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM4Exp.Location = new System.Drawing.Point(228, 18);
+            this.lblPM4Exp.Name = "lblPM4Exp";
+            this.lblPM4Exp.Size = new System.Drawing.Size(90, 29);
+            this.lblPM4Exp.TabIndex = 14;
+            this.lblPM4Exp.Text = "----";
+            this.lblPM4Exp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label42
             // 
@@ -446,85 +449,85 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.label45.TabIndex = 2;
             this.label45.Text = "Win?";
             // 
-            // label46
+            // lblPM4Damage
             // 
-            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(158, 18);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(71, 29);
-            this.label46.TabIndex = 12;
-            this.label46.Text = "333";
-            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM4Damage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM4Damage.Location = new System.Drawing.Point(158, 18);
+            this.lblPM4Damage.Name = "lblPM4Damage";
+            this.lblPM4Damage.Size = new System.Drawing.Size(71, 29);
+            this.lblPM4Damage.TabIndex = 12;
+            this.lblPM4Damage.Text = "---";
+            this.lblPM4Damage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ucRoundedPanel3
             // 
-            this.ucRoundedPanel3.Controls.Add(this.label27);
-            this.ucRoundedPanel3.Controls.Add(this.label28);
-            this.ucRoundedPanel3.Controls.Add(this.pictureBox5);
+            this.ucRoundedPanel3.Controls.Add(this.lblPM3cBills);
+            this.ucRoundedPanel3.Controls.Add(this.lblPM3Kills);
+            this.ucRoundedPanel3.Controls.Add(this.pbPM3Win);
             this.ucRoundedPanel3.Controls.Add(this.label29);
-            this.ucRoundedPanel3.Controls.Add(this.pictureBox6);
+            this.ucRoundedPanel3.Controls.Add(this.pbPM3Live);
             this.ucRoundedPanel3.Controls.Add(this.label30);
-            this.ucRoundedPanel3.Controls.Add(this.label31);
+            this.ucRoundedPanel3.Controls.Add(this.lblPM3Exp);
             this.ucRoundedPanel3.Controls.Add(this.label32);
             this.ucRoundedPanel3.Controls.Add(this.label33);
             this.ucRoundedPanel3.Controls.Add(this.label34);
             this.ucRoundedPanel3.Controls.Add(this.label35);
-            this.ucRoundedPanel3.Controls.Add(this.label36);
+            this.ucRoundedPanel3.Controls.Add(this.lblPM3Damage);
             this.ucRoundedPanel3.HighlightedBackColor = System.Drawing.Color.Empty;
             this.ucRoundedPanel3.Location = new System.Drawing.Point(3, 13);
             this.ucRoundedPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.ucRoundedPanel3.Name = "ucRoundedPanel3";
-            this.ucRoundedPanel3.Size = new System.Drawing.Size(460, 55);
+            this.ucRoundedPanel3.Size = new System.Drawing.Size(529, 55);
             this.ucRoundedPanel3.TabIndex = 0;
             // 
-            // label27
+            // lblPM3cBills
             // 
-            this.label27.BackColor = System.Drawing.Color.Transparent;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(331, 18);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(104, 29);
-            this.label27.TabIndex = 16;
-            this.label27.Text = "125,000";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM3cBills.BackColor = System.Drawing.Color.Transparent;
+            this.lblPM3cBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM3cBills.Location = new System.Drawing.Point(325, 18);
+            this.lblPM3cBills.Name = "lblPM3cBills";
+            this.lblPM3cBills.Size = new System.Drawing.Size(104, 29);
+            this.lblPM3cBills.TabIndex = 16;
+            this.lblPM3cBills.Text = "------";
+            this.lblPM3cBills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label28
+            // lblPM3Kills
             // 
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(106, 18);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(41, 29);
-            this.label28.TabIndex = 11;
-            this.label28.Text = "12";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM3Kills.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM3Kills.Location = new System.Drawing.Point(106, 18);
+            this.lblPM3Kills.Name = "lblPM3Kills";
+            this.lblPM3Kills.Size = new System.Drawing.Size(41, 29);
+            this.lblPM3Kills.TabIndex = 11;
+            this.lblPM3Kills.Text = "--";
+            this.lblPM3Kills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox5
+            // pbPM3Win
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(9, 22);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 7;
-            this.pictureBox5.TabStop = false;
+            this.pbPM3Win.Location = new System.Drawing.Point(9, 22);
+            this.pbPM3Win.Name = "pbPM3Win";
+            this.pbPM3Win.Size = new System.Drawing.Size(20, 20);
+            this.pbPM3Win.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPM3Win.TabIndex = 7;
+            this.pbPM3Win.TabStop = false;
             // 
             // label29
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(364, 10);
+            this.label29.Location = new System.Drawing.Point(358, 10);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(29, 9);
             this.label29.TabIndex = 15;
             this.label29.Text = "C-Bills";
             // 
-            // pictureBox6
+            // pbPM3Live
             // 
-            this.pictureBox6.Location = new System.Drawing.Point(60, 22);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 8;
-            this.pictureBox6.TabStop = false;
+            this.pbPM3Live.Location = new System.Drawing.Point(60, 22);
+            this.pbPM3Live.Name = "pbPM3Live";
+            this.pbPM3Live.Size = new System.Drawing.Size(20, 20);
+            this.pbPM3Live.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPM3Live.TabIndex = 8;
+            this.pbPM3Live.TabStop = false;
             // 
             // label30
             // 
@@ -536,16 +539,16 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.label30.TabIndex = 6;
             this.label30.Text = "Kills";
             // 
-            // label31
+            // lblPM3Exp
             // 
-            this.label31.BackColor = System.Drawing.Color.Transparent;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(228, 18);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(90, 29);
-            this.label31.TabIndex = 14;
-            this.label31.Text = "1,500";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM3Exp.BackColor = System.Drawing.Color.Transparent;
+            this.lblPM3Exp.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM3Exp.Location = new System.Drawing.Point(228, 18);
+            this.lblPM3Exp.Name = "lblPM3Exp";
+            this.lblPM3Exp.Size = new System.Drawing.Size(90, 29);
+            this.lblPM3Exp.TabIndex = 14;
+            this.lblPM3Exp.Text = "----";
+            this.lblPM3Exp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label32
             // 
@@ -587,85 +590,85 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.label35.TabIndex = 2;
             this.label35.Text = "Win?";
             // 
-            // label36
+            // lblPM3Damage
             // 
-            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(158, 18);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(71, 29);
-            this.label36.TabIndex = 12;
-            this.label36.Text = "333";
-            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM3Damage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM3Damage.Location = new System.Drawing.Point(158, 18);
+            this.lblPM3Damage.Name = "lblPM3Damage";
+            this.lblPM3Damage.Size = new System.Drawing.Size(71, 29);
+            this.lblPM3Damage.TabIndex = 12;
+            this.lblPM3Damage.Text = "---";
+            this.lblPM3Damage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ucRoundedPanel2
             // 
-            this.ucRoundedPanel2.Controls.Add(this.label17);
-            this.ucRoundedPanel2.Controls.Add(this.label18);
-            this.ucRoundedPanel2.Controls.Add(this.pictureBox3);
+            this.ucRoundedPanel2.Controls.Add(this.lblPM2cBills);
+            this.ucRoundedPanel2.Controls.Add(this.lblPM2Kills);
+            this.ucRoundedPanel2.Controls.Add(this.pbPM2Win);
             this.ucRoundedPanel2.Controls.Add(this.label19);
-            this.ucRoundedPanel2.Controls.Add(this.pictureBox4);
+            this.ucRoundedPanel2.Controls.Add(this.pbPM2Live);
             this.ucRoundedPanel2.Controls.Add(this.label20);
-            this.ucRoundedPanel2.Controls.Add(this.label21);
+            this.ucRoundedPanel2.Controls.Add(this.lblPM2Exp);
             this.ucRoundedPanel2.Controls.Add(this.label22);
             this.ucRoundedPanel2.Controls.Add(this.label23);
             this.ucRoundedPanel2.Controls.Add(this.label24);
             this.ucRoundedPanel2.Controls.Add(this.label25);
-            this.ucRoundedPanel2.Controls.Add(this.label26);
+            this.ucRoundedPanel2.Controls.Add(this.lblPM2Damage);
             this.ucRoundedPanel2.HighlightedBackColor = System.Drawing.Color.Empty;
             this.ucRoundedPanel2.Location = new System.Drawing.Point(3, 13);
             this.ucRoundedPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.ucRoundedPanel2.Name = "ucRoundedPanel2";
-            this.ucRoundedPanel2.Size = new System.Drawing.Size(460, 55);
+            this.ucRoundedPanel2.Size = new System.Drawing.Size(526, 55);
             this.ucRoundedPanel2.TabIndex = 0;
             // 
-            // label17
+            // lblPM2cBills
             // 
-            this.label17.BackColor = System.Drawing.Color.Transparent;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(331, 18);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(104, 29);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "125,000";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM2cBills.BackColor = System.Drawing.Color.Transparent;
+            this.lblPM2cBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM2cBills.Location = new System.Drawing.Point(325, 18);
+            this.lblPM2cBills.Name = "lblPM2cBills";
+            this.lblPM2cBills.Size = new System.Drawing.Size(104, 29);
+            this.lblPM2cBills.TabIndex = 16;
+            this.lblPM2cBills.Text = "------";
+            this.lblPM2cBills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label18
+            // lblPM2Kills
             // 
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(106, 18);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(41, 29);
-            this.label18.TabIndex = 11;
-            this.label18.Text = "12";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM2Kills.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM2Kills.Location = new System.Drawing.Point(106, 18);
+            this.lblPM2Kills.Name = "lblPM2Kills";
+            this.lblPM2Kills.Size = new System.Drawing.Size(41, 29);
+            this.lblPM2Kills.TabIndex = 11;
+            this.lblPM2Kills.Text = "--";
+            this.lblPM2Kills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox3
+            // pbPM2Win
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(9, 22);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 7;
-            this.pictureBox3.TabStop = false;
+            this.pbPM2Win.Location = new System.Drawing.Point(9, 22);
+            this.pbPM2Win.Name = "pbPM2Win";
+            this.pbPM2Win.Size = new System.Drawing.Size(20, 20);
+            this.pbPM2Win.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPM2Win.TabIndex = 7;
+            this.pbPM2Win.TabStop = false;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(364, 10);
+            this.label19.Location = new System.Drawing.Point(358, 10);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(29, 9);
             this.label19.TabIndex = 15;
             this.label19.Text = "C-Bills";
             // 
-            // pictureBox4
+            // pbPM2Live
             // 
-            this.pictureBox4.Location = new System.Drawing.Point(60, 22);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 8;
-            this.pictureBox4.TabStop = false;
+            this.pbPM2Live.Location = new System.Drawing.Point(60, 22);
+            this.pbPM2Live.Name = "pbPM2Live";
+            this.pbPM2Live.Size = new System.Drawing.Size(20, 20);
+            this.pbPM2Live.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPM2Live.TabIndex = 8;
+            this.pbPM2Live.TabStop = false;
             // 
             // label20
             // 
@@ -677,16 +680,16 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.label20.TabIndex = 6;
             this.label20.Text = "Kills";
             // 
-            // label21
+            // lblPM2Exp
             // 
-            this.label21.BackColor = System.Drawing.Color.Transparent;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(228, 18);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(90, 29);
-            this.label21.TabIndex = 14;
-            this.label21.Text = "1,500";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM2Exp.BackColor = System.Drawing.Color.Transparent;
+            this.lblPM2Exp.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM2Exp.Location = new System.Drawing.Point(228, 18);
+            this.lblPM2Exp.Name = "lblPM2Exp";
+            this.lblPM2Exp.Size = new System.Drawing.Size(90, 29);
+            this.lblPM2Exp.TabIndex = 14;
+            this.lblPM2Exp.Text = "----";
+            this.lblPM2Exp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label22
             // 
@@ -728,85 +731,85 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.label25.TabIndex = 2;
             this.label25.Text = "Win?";
             // 
-            // label26
+            // lblPM2Damage
             // 
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(158, 18);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(71, 29);
-            this.label26.TabIndex = 12;
-            this.label26.Text = "333";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM2Damage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM2Damage.Location = new System.Drawing.Point(158, 18);
+            this.lblPM2Damage.Name = "lblPM2Damage";
+            this.lblPM2Damage.Size = new System.Drawing.Size(71, 29);
+            this.lblPM2Damage.TabIndex = 12;
+            this.lblPM2Damage.Text = "---";
+            this.lblPM2Damage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ucRoundedPanel1
             // 
-            this.ucRoundedPanel1.Controls.Add(this.label5);
-            this.ucRoundedPanel1.Controls.Add(this.label6);
-            this.ucRoundedPanel1.Controls.Add(this.pictureBox1);
+            this.ucRoundedPanel1.Controls.Add(this.lblPM1cBills);
+            this.ucRoundedPanel1.Controls.Add(this.lblPM1Kills);
+            this.ucRoundedPanel1.Controls.Add(this.pbPM1Win);
             this.ucRoundedPanel1.Controls.Add(this.label8);
-            this.ucRoundedPanel1.Controls.Add(this.pictureBox2);
+            this.ucRoundedPanel1.Controls.Add(this.pbPM1Live);
             this.ucRoundedPanel1.Controls.Add(this.label10);
-            this.ucRoundedPanel1.Controls.Add(this.label11);
+            this.ucRoundedPanel1.Controls.Add(this.lblPM1Exp);
             this.ucRoundedPanel1.Controls.Add(this.label12);
             this.ucRoundedPanel1.Controls.Add(this.label13);
             this.ucRoundedPanel1.Controls.Add(this.label14);
             this.ucRoundedPanel1.Controls.Add(this.label15);
-            this.ucRoundedPanel1.Controls.Add(this.label16);
+            this.ucRoundedPanel1.Controls.Add(this.lblPM1Damage);
             this.ucRoundedPanel1.HighlightedBackColor = System.Drawing.Color.Empty;
             this.ucRoundedPanel1.Location = new System.Drawing.Point(3, 13);
             this.ucRoundedPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.ucRoundedPanel1.Name = "ucRoundedPanel1";
-            this.ucRoundedPanel1.Size = new System.Drawing.Size(460, 55);
+            this.ucRoundedPanel1.Size = new System.Drawing.Size(526, 55);
             this.ucRoundedPanel1.TabIndex = 0;
             // 
-            // label5
+            // lblPM1cBills
             // 
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(331, 18);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 29);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "125,000";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM1cBills.BackColor = System.Drawing.Color.Transparent;
+            this.lblPM1cBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM1cBills.Location = new System.Drawing.Point(325, 18);
+            this.lblPM1cBills.Name = "lblPM1cBills";
+            this.lblPM1cBills.Size = new System.Drawing.Size(104, 29);
+            this.lblPM1cBills.TabIndex = 16;
+            this.lblPM1cBills.Text = "------";
+            this.lblPM1cBills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // lblPM1Kills
             // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(106, 18);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 29);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "12";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM1Kills.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM1Kills.Location = new System.Drawing.Point(106, 18);
+            this.lblPM1Kills.Name = "lblPM1Kills";
+            this.lblPM1Kills.Size = new System.Drawing.Size(41, 29);
+            this.lblPM1Kills.TabIndex = 11;
+            this.lblPM1Kills.Text = "--";
+            this.lblPM1Kills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
+            // pbPM1Win
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(9, 22);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
+            this.pbPM1Win.Location = new System.Drawing.Point(9, 22);
+            this.pbPM1Win.Name = "pbPM1Win";
+            this.pbPM1Win.Size = new System.Drawing.Size(20, 20);
+            this.pbPM1Win.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPM1Win.TabIndex = 7;
+            this.pbPM1Win.TabStop = false;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(364, 10);
+            this.label8.Location = new System.Drawing.Point(358, 10);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 9);
             this.label8.TabIndex = 15;
             this.label8.Text = "C-Bills";
             // 
-            // pictureBox2
+            // pbPM1Live
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(60, 22);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 8;
-            this.pictureBox2.TabStop = false;
+            this.pbPM1Live.Location = new System.Drawing.Point(60, 22);
+            this.pbPM1Live.Name = "pbPM1Live";
+            this.pbPM1Live.Size = new System.Drawing.Size(20, 20);
+            this.pbPM1Live.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPM1Live.TabIndex = 8;
+            this.pbPM1Live.TabStop = false;
             // 
             // label10
             // 
@@ -818,16 +821,16 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.label10.TabIndex = 6;
             this.label10.Text = "Kills";
             // 
-            // label11
+            // lblPM1Exp
             // 
-            this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(228, 18);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(90, 29);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "1,500";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM1Exp.BackColor = System.Drawing.Color.Transparent;
+            this.lblPM1Exp.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM1Exp.Location = new System.Drawing.Point(228, 18);
+            this.lblPM1Exp.Name = "lblPM1Exp";
+            this.lblPM1Exp.Size = new System.Drawing.Size(90, 29);
+            this.lblPM1Exp.TabIndex = 14;
+            this.lblPM1Exp.Text = "----";
+            this.lblPM1Exp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label12
             // 
@@ -869,15 +872,15 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.label15.TabIndex = 2;
             this.label15.Text = "Win?";
             // 
-            // label16
+            // lblPM1Damage
             // 
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(158, 18);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(71, 29);
-            this.label16.TabIndex = 12;
-            this.label16.Text = "333";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPM1Damage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblPM1Damage.Location = new System.Drawing.Point(158, 18);
+            this.lblPM1Damage.Name = "lblPM1Damage";
+            this.lblPM1Damage.Size = new System.Drawing.Size(71, 29);
+            this.lblPM1Damage.TabIndex = 12;
+            this.lblPM1Damage.Text = "---";
+            this.lblPM1Damage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlStats
             // 
@@ -897,7 +900,7 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.pnlStats.Location = new System.Drawing.Point(3, 13);
             this.pnlStats.Margin = new System.Windows.Forms.Padding(0);
             this.pnlStats.Name = "pnlStats";
-            this.pnlStats.Size = new System.Drawing.Size(460, 79);
+            this.pnlStats.Size = new System.Drawing.Size(567, 79);
             this.pnlStats.TabIndex = 0;
             // 
             // lblCBills
@@ -1020,10 +1023,10 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbPM4);
+            this.Controls.Add(this.gbPM3);
+            this.Controls.Add(this.gbPm2);
+            this.Controls.Add(this.gbPM1);
             this.Controls.Add(this.gbLastMatch);
             this.Controls.Add(this.pbMech);
             this.Controls.Add(this.pnlHeader);
@@ -1033,26 +1036,26 @@ public class clMechMatch : System.Windows.Forms.UserControl
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbMech)).EndInit();
             this.gbLastMatch.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
+            this.gbPM1.ResumeLayout(false);
+            this.gbPm2.ResumeLayout(false);
+            this.gbPM3.ResumeLayout(false);
+            this.gbPM4.ResumeLayout(false);
             this.ucRoundedPanel4.ResumeLayout(false);
             this.ucRoundedPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM4Win)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM4Live)).EndInit();
             this.ucRoundedPanel3.ResumeLayout(false);
             this.ucRoundedPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM3Win)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM3Live)).EndInit();
             this.ucRoundedPanel2.ResumeLayout(false);
             this.ucRoundedPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM2Win)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM2Live)).EndInit();
             this.ucRoundedPanel1.ResumeLayout(false);
             this.ucRoundedPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM1Win)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPM1Live)).EndInit();
             this.pnlStats.ResumeLayout(false);
             this.pnlStats.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWin)).EndInit();
@@ -1074,7 +1077,7 @@ public class clMechMatch : System.Windows.Forms.UserControl
     /// <summary>
     /// The text shown as the caption of the <see cref="clMechMatch" />.
     /// </summary>
-    [Browsable(true)]
+    //[Browsable(true)]
     public string Caption
     {
         get { return _Caption; }
@@ -1085,11 +1088,11 @@ public class clMechMatch : System.Windows.Forms.UserControl
         }
     }
 
-    private Color _BorderColor;
+    private Color _BorderColor = Color.FromArgb(214, 213, 217);
     /// <summary>
     /// The color of the custom-drawn rounded border.
     /// </summary>
-    [DefaultValue(typeof(Color), "214, 213, 217")]
+    //[DefaultValue(typeof(Color), "214, 213, 217")]
     public Color BorderColor
     {
         get { return _BorderColor; }
@@ -1100,7 +1103,7 @@ public class clMechMatch : System.Windows.Forms.UserControl
     /// <summary>
     /// True when the control is expanded.
     /// </summary>
-    [DefaultValue(true)]
+    //[DefaultValue(true)]
     public bool Expanded
     {
         get { return _Expanded; }
@@ -1113,11 +1116,11 @@ public class clMechMatch : System.Windows.Forms.UserControl
         }
     }
 
-    private Color _CaptionColor;
+    private Color _CaptionColor = Color.FromArgb(51, 94, 169);
     /// <summary>
     /// The ForeColor of the text shown as the caption of the <see cref="clMechMatch" />.
     /// </summary>
-    [DefaultValue(typeof(Color), "51, 94, 168")]
+    //[DefaultValue(typeof(Color), "51, 94, 168")]
     public Color CaptionColor
     {
         get { return _CaptionColor; }
@@ -1129,33 +1132,33 @@ public class clMechMatch : System.Windows.Forms.UserControl
         }
     }
 
-    private Size _ExpandedSize;
+    private Size _ExpandedSize = new Size(200, 100);
     /// <summary>
     /// The Size of the <see cref="clMechMatch" /> when expanded. Should be set by resizing the control in the designer as usual.
     /// </summary>
-    [Browsable(false), DefaultValue(typeof(Size), "200, 100")]
+    //[Browsable(false), DefaultValue(typeof(Size), "200, 100")]
     public Size ExpandedSize
     {
         get { return _ExpandedSize; }
         set { _ExpandedSize = value; }
     }
 
-    private int _CollapsedMinSize;
+    private int _CollapsedMinSize = 130;
     /// <summary>
     /// The minimum size to collapse too, useful if you want to force some portion of the control to remain open even when collapsed
     /// </summary>
-    [DefaultValue(0)]
+    //[DefaultValue(0)]
     public int CollapsedMinSize
     {
         get { return _CollapsedMinSize; }
         set { _CollapsedMinSize = value < pnlHeader.Height ? pnlHeader.Height : value; }
     }
 
-    private bool _HeaderClickExpand;
+    private bool _HeaderClickExpand = true;
     /// <summary>
     /// If True, expands / collapses the control when the header (caption) is clicked, instead of using the button only.
     /// </summary>
-    [DefaultValue(false)]
+    //[DefaultValue(false)]
     public bool HeaderClickExpand
     {
         get { return _HeaderClickExpand; }
@@ -1175,14 +1178,34 @@ public class clMechMatch : System.Windows.Forms.UserControl
         set { _MechId = value; }
     }
 
-    public Image Win
+    public bool Win
     {
-        set { pbWin.Image = value; }
+        set
+        {
+            if (value)
+            {
+                pbWin.Image = _imgYes;
+            }
+            else
+            {
+                pbWin.Image = _imgNo;
+            }
+        }
     }
 
-    public Image Lived
+    public bool Lived
     {
-        set { pbLived.Image = value; }
+        set
+        {
+            if (value)
+            {
+                pbLived.Image = _imgYes;
+            }
+            else
+            {
+                pbLived.Image = _imgNo;
+            }
+        }
     }
 
     public int Kills
@@ -1209,13 +1232,44 @@ public class clMechMatch : System.Windows.Forms.UserControl
     {
         set { lblExp.Text = string.Format("{0:#,###}", value); }
     }
+    
     public int cBills
     {
         set { lblCBills.Text = string.Format("{0:###,###}", value); }
     }
+
+    private string m_strMechName = "";
+    public string MechName
+    {
+        get { return m_strMechName; }
+        set { m_strMechName = value; }
+    }
+
+    private string m_strMechDesignation = "";
+    public string MechDesignation
+    {
+        get { return m_strMechDesignation; }
+        set { m_strMechDesignation = value; }
+    }
+
+    private Image _imgYes;
+    public Image YesImage
+    {
+        get { return _imgYes; }
+        set { _imgYes = value; }
+    }
+
+    private Image _imgNo;
+    public Image NoImage
+    {
+        get { return _imgNo; }
+        set { _imgNo = value; }
+    }
+
     #endregion
 
-    public clMechMatch()
+    #region " Constructor "
+    public clMechMatch(int iMechId, string strNameFromDb, int iExpandedWidth, ref MWO_DB Db)
     {
         Paint += pnlContainer_Paint;
         // This call is required by the Windows Form Designer.
@@ -1226,12 +1280,20 @@ public class clMechMatch : System.Windows.Forms.UserControl
         this.Expanded = false;
         this.CaptionColor = Color.FromArgb(51, 94, 168);
         this.HeaderClickExpand = true;
+        this.Dock = System.Windows.Forms.DockStyle.Top;
 
+        // custom seeding for this class, as opposed to the basic expandable group box stuff..
+        this.MechId = iMechId;
+        vParseName(strNameFromDb); // seeds name and designation, do this before trying to use them!
+        this.Caption = this.MechName + " - " + this.MechDesignation;
+        this.ExpandedSize = new Size(iExpandedWidth, 445);
+        this.m_myDB = Db;
         this.Size = new Size(200, 100);
 
-        this.lblCaption.Text = this.Caption;
-        this.lblCaption.ForeColor = this.CaptionColor;
+        //this.lblCaption.Text = this.Caption;
+        //this.lblCaption.ForeColor = this.CaptionColor;
     }
+    #endregion
 
     #region " Methods "
 
@@ -1244,6 +1306,10 @@ public class clMechMatch : System.Windows.Forms.UserControl
         if (this.Expanded)
         {
             this.Size = this.ExpandedSize;
+
+            // if we haven't yet built their 5 match list, go do that..
+            if (_lstMatchHistory == null)
+                vGetHistory();
         }
         else
         {
@@ -1253,7 +1319,7 @@ public class clMechMatch : System.Windows.Forms.UserControl
 
     public void ClearHighlight()
     {
-        pnlStats.BackColor = Color.Transparent;
+        pnlStats.HighlightedBackColor = Color.Transparent;
         Invalidate();
     }
 
@@ -1263,6 +1329,154 @@ public class clMechMatch : System.Windows.Forms.UserControl
         Invalidate();
     }
 
+    private void vParseName(string strName)
+    {
+        if (strName.ToLower().Contains("kit fox"))
+        {
+            MechName = strName.Substring(0, 7).Trim();
+            MechDesignation = strName.Substring(8).Trim().Replace("(", "");
+            MechDesignation = MechDesignation.Replace(")", "");
+        }
+        else
+        {
+            MechName = strName.Substring(0, strName.IndexOf(' ')).Trim();
+            MechDesignation = strName.Substring(strName.IndexOf(' ') + 1).Trim();
+        }
+    }
+
+    // called the first time they expand a mech. We'll get the last 5 matches
+    // and fill the 4 'previous' match panels..
+    private void vGetHistory()
+    {
+        clSingleMatch clMatch;
+
+        SqlCeResultSet rs;
+
+        rs = m_myDB.ResultSet("select top(5) matchid from match where mech = " + MechId + " order by matchid desc");
+
+        _lstMatchHistory = new List<clSingleMatch>();
+
+        while (rs.Read())
+        {
+            clMatch = new clSingleMatch();
+            clMatch.LoadMatch(ref m_myDB, (int)(rs.GetValue(0)));
+            _lstMatchHistory.Add(clMatch);
+
+        } // end while we have match IDs to process
+
+        vAdjustHistory(1);
+        vAdjustHistory(2);
+        vAdjustHistory(3);
+        vAdjustHistory(4);
+
+    } // end of vGetHistory()
+
+    private void vAdjustHistory(int iLoc)
+    {
+        // sanity checking.. if we're asking for an update that's not in our list, just bail..
+        if ((iLoc < 1) || (iLoc > _lstMatchHistory.Count - 1))
+            return;
+
+        clSingleMatch clMatch = _lstMatchHistory[iLoc];
+
+        switch (iLoc)
+        {
+            case 0:
+                break;
+            case 1:
+                // now we need to fill the "previous" panel..
+                this.pbPM1Win.Image = clMatch.cWinLoss.ToString() == "W" ? _imgYes : _imgNo;
+                this.pbPM1Live.Image = clMatch.bDeath ? _imgNo : _imgYes;
+                this.lblPM1Kills.Text = clMatch.iKills.ToString();
+                this.lblPM1Damage.Text = clMatch.iDamage.ToString();
+                this.lblPM1Exp.Text = clMatch.iExp.ToString();
+                this.lblPM1cBills.Text = clMatch.iCBills.ToString();
+                break;
+            case 2:
+                // now we need to fill the "previous" panel..
+                this.pbPM2Win.Image = clMatch.cWinLoss.ToString() == "W" ? _imgYes : _imgNo;
+                this.pbPM2Live.Image = clMatch.bDeath ? _imgNo : _imgYes;
+                this.lblPM2Kills.Text = clMatch.iKills.ToString();
+                this.lblPM2Damage.Text = clMatch.iDamage.ToString();
+                this.lblPM2Exp.Text = clMatch.iExp.ToString();
+                this.lblPM2cBills.Text = clMatch.iCBills.ToString();
+                break;
+            case 3:
+                // now we need to fill the "previous" panel..
+                this.pbPM3Win.Image = clMatch.cWinLoss.ToString() == "W" ? _imgYes : _imgNo;
+                this.pbPM3Live.Image = clMatch.bDeath ? _imgNo : _imgYes;
+                this.lblPM3Kills.Text = clMatch.iKills.ToString();
+                this.lblPM3Damage.Text = clMatch.iDamage.ToString();
+                this.lblPM3Exp.Text = clMatch.iExp.ToString();
+                this.lblPM3cBills.Text = clMatch.iCBills.ToString();
+                break;
+            case 4:
+                // now we need to fill the "previous" panel..
+                this.pbPM4Win.Image = clMatch.cWinLoss.ToString() == "W" ? _imgYes : _imgNo;
+                this.pbPM4Live.Image = clMatch.bDeath ? _imgNo : _imgYes;
+                this.lblPM4Kills.Text = clMatch.iKills.ToString();
+                this.lblPM4Damage.Text = clMatch.iDamage.ToString();
+                this.lblPM4Exp.Text = clMatch.iExp.ToString();
+                this.lblPM4cBills.Text = clMatch.iCBills.ToString();
+                break;
+        } // end switch
+
+    } // end updating the match history panels..
+
+    /// <summary>
+    /// Used to update our match tracking stuff. We will put the provided match into the main match
+    /// slot, then update all the other previous match panels.
+    /// </summary>
+    /// <param name="clMatch"></param>
+    public void LastMatch(ref clSingleMatch clMatch)
+    {
+        LoadMainMatch(ref clMatch);
+
+        // if this was our first scrape, we'll end up reading everything in for all 5 matches. It's
+        // one more read of a match, but it keeps it cleaner for maint going forward..
+        if (_lstMatchHistory == null)
+        {
+            vGetHistory();
+        }
+        else
+        {
+            _lstMatchHistory.Insert(0, clMatch); // put it up front
+
+            // So, we should have had 5 items in our list, and we just added one. Now we'll
+            // remove from the back of the list until we only have 5 items left.
+            while (_lstMatchHistory.Count > 5)
+            {
+                _lstMatchHistory.RemoveAt(_lstMatchHistory.Count - 1);
+            }
+
+            vAdjustHistory(1);
+            vAdjustHistory(2);
+            vAdjustHistory(3);
+            vAdjustHistory(4);
+        }
+    }
+
+    /// <summary>
+    /// Used to initialize the class with a match. This will clear out our internal list and get us
+    /// ready for updating per match going forward..
+    /// </summary>
+    /// <param name="clMatch">
+    /// Single Match class that contains the information about the match we should use to seed with
+    /// </param>
+    public void SeedMatch(ref clSingleMatch clMatch)
+    {
+        LoadMainMatch(ref clMatch);
+    }
+
+    private void LoadMainMatch(ref clSingleMatch clMatch)
+    {
+        this.Win = clMatch.cWinLoss == 'W' ? true : false;
+        this.Lived = !clMatch.bDeath;
+        this.Kills = clMatch.iKills;
+        this.Damage = clMatch.iDamage.ToString();
+        this.Exp = clMatch.iExp;
+        this.cBills = clMatch.iCBills;
+    }
     #endregion
 
     #region " Events "
@@ -1304,7 +1518,7 @@ public class clMechMatch : System.Windows.Forms.UserControl
             }
         }
 
-        gbLastMatch.Width = (this.Size.Width - gbLastMatch.Location.X);
+        gbLastMatch.Width = (this.Size.Width - gbLastMatch.Location.X - 8);
         pnlStats.Width = gbLastMatch.Width - this.Location.X - 8;
 
     }
@@ -1351,8 +1565,12 @@ public class clMechMatch : System.Windows.Forms.UserControl
 
     private void pnlContainer_Paint(System.Object sender, System.Windows.Forms.PaintEventArgs e)
     {
-        using (Pen borderPen = new Pen(this.BorderColor, 1))
-        {
+        Pen borderPen;
+        if (this.Expanded)
+         borderPen = new Pen(Color.Firebrick, 1);
+        else
+        borderPen = new Pen(this.BorderColor,1);
+
 
             e.Graphics.DrawLine(borderPen, 2, 0, 2, this.Height - 4);
             e.Graphics.DrawLine(borderPen, this.Width - 2, 0, this.Width - 2, this.Height - 4);
@@ -1364,7 +1582,9 @@ public class clMechMatch : System.Windows.Forms.UserControl
 
             e.Graphics.DrawLine(borderPen, this.Width - 4, this.Height - 2, this.Width - 3, this.Height - 2);
             e.Graphics.DrawLine(borderPen, this.Width - 3, this.Height - 3, this.Width - 2, this.Height - 3);
-        }
+
+        borderPen.Dispose();
+
     }
 
     private void ExpandButton_Paint(System.Object sender, System.Windows.Forms.PaintEventArgs e)
@@ -1384,37 +1604,37 @@ public class clMechMatch : System.Windows.Forms.UserControl
 /// Designer class that enables the user to expand/collapse the <see cref="clMechMatch" /> control during Design-Time.
 /// </summary>
 /// <remarks></remarks>
-public class ExpandableGroupboxDesigner : ParentControlDesigner
-{
+//public class ExpandableGroupboxDesigner : ParentControlDesigner
+//{
 
-    public override void Initialize(System.ComponentModel.IComponent component)
-    {
-        base.Initialize(component);
+//    public override void Initialize(System.ComponentModel.IComponent component)
+//    {
+//        base.Initialize(component);
 
-        //Add an event handler for the button click event so we can update the control
-        Button btnExpand = ((clMechMatch)this.Control).ExpandButton;
-        btnExpand.Click += ExpandButtonClicked;
-    }
+//        //Add an event handler for the button click event so we can update the control
+//        Button btnExpand = ((clMechMatch)this.Control).ExpandButton;
+//        btnExpand.Click += ExpandButtonClicked;
+//    }
 
-    public void ExpandButtonClicked(object sender, EventArgs ev)
-    {
-        //Tell the designer to update the control
-        //If we don't do this, the selection rectangle would not update
-        this.RaiseComponentChanged(TypeDescriptor.GetProperties(this.Control)["Size"], null, null);
-    }
+//    public void ExpandButtonClicked(object sender, EventArgs ev)
+//    {
+//        //Tell the designer to update the control
+//        //If we don't do this, the selection rectangle would not update
+//        this.RaiseComponentChanged(TypeDescriptor.GetProperties(this.Control)["Size"], null, null);
+//    }
 
-    //This function enables us to click the button during design-time
-    protected override bool GetHitTest(System.Drawing.Point point)
-    {
-        Button btnExpand = ((clMechMatch)this.Control).ExpandButton;
-        if ((btnExpand.Bounds.Contains(this.Control.PointToClient(point))))
-        {
-            return true;
-        }
-        return base.GetHitTest(point);
-    }
+//    //This function enables us to click the button during design-time
+//    protected override bool GetHitTest(System.Drawing.Point point)
+//    {
+//        Button btnExpand = ((clMechMatch)this.Control).ExpandButton;
+//        if ((btnExpand.Bounds.Contains(this.Control.PointToClient(point))))
+//        {
+//            return true;
+//        }
+//        return base.GetHitTest(point);
+//    }
 
-}
+//}
 
 //=======================================================
 //

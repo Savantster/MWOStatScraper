@@ -107,6 +107,8 @@ namespace MWOStatSystem
         private clMapProcessor Maps = null;
         private clWeaponProcessor Weapons = null;
 
+        private List<int> lstLoadedMechs = new List<int>();
+
         private ResourceManager rm = Resources.ResourceManager;
 
         //DataTable dtMechList;
@@ -563,7 +565,7 @@ namespace MWOStatSystem
             // now that we have the match ID from putting the base match in the database, have the weapon manager put all the
             // found weapons in the details table, with our new match id
             Log.doIt( 2, "Putting weapons in match detials.." );
-            stMatch.dDamage = Weapons.fillMatch( stMatch.iMatchId );
+            stMatch.iDamage = Weapons.fillMatch( stMatch.iMatchId );
 
             // now we reseed everything..
             Log.doIt( 2, "Re-Seeding our managers with scraped data.." );
@@ -578,6 +580,13 @@ namespace MWOStatSystem
             Log.doIt( 1, "Finished parsing, match processed!" );
             btnShowError.UseVisualStyleBackColor = false;
             btnShowError.BackColor = Color.Green;
+
+            // if we run a new mech for the first time, we need to dump our list and rebuild it.
+            if ( !lstLoadedMechs.Contains(stMatch.iMech) )
+            {
+                tabMechInfo.Controls.Clear();
+                vFillMechList();                
+            }
 
             vUpdateLastMechMatch(ref stMatch);
             //tlvMechView.SelectedIndex = stMatch.iMech;
@@ -594,19 +603,17 @@ namespace MWOStatSystem
         /// </param>
         private void vUpdateLastMechMatch(ref clSingleMatch clMatch)
         {
+            Cursor = Cursors.WaitCursor;
+
             foreach (clMechMatch clTmp in tabMechInfo.Controls)
             {
                 if (clTmp.MechId == clMatch.iMech)
                 {
-                    clTmp.Win = clMatch.cWinLoss == 'W' ? (Image)rm.GetObject("check") : (Image)rm.GetObject("x");
-                    clTmp.Lived = clMatch.bDeath ? (Image)rm.GetObject("x") : (Image)rm.GetObject("check");
-                    clTmp.Kills = clMatch.iKills;
-                    clTmp.Damage = clMatch.dDamage.ToString();
-                    clTmp.Exp = clMatch.iExp;
-                    clTmp.cBills = clMatch.iCBills;
+                    clTmp.LastMatch(ref clMatch);
                     clTmp.SetHighlight();
                     iCurrentMech = clTmp.MechId;
 
+                    clTmp.AutoScrollOffset = new Point(0, 0);
                     tabMechInfo.ScrollControlIntoView(clTmp);
                     FillCharts();
                 }
@@ -615,6 +622,8 @@ namespace MWOStatSystem
                     clTmp.ClearHighlight();
                 }
             }
+
+            Cursor = Cursors.Default;
         }
 
         private void fillGridsFromFiles()
@@ -657,56 +666,37 @@ namespace MWOStatSystem
 
         private void vFillMechList()
         {
+            Cursor = Cursors.WaitCursor;
+
             bLoading = true;
             clMechMatch clMM;
-            clMechInfo clMI = new clMechInfo();
             clSingleMatch stMatch = new clSingleMatch();
 
-            string sCommand = "select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname desc";
-            //dtMechList = Parser.ResultSetToDataTable( m_myDB.ResultSet(sCommand), ref Log );
-            rs = m_myDB.ResultSet(sCommand);
+            lstLoadedMechs.Clear();
+
+            rs = m_myDB.ResultSet("select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname desc");
             while ( rs.Read() )
             {
-                clMI.Reset();
-                clMI.Names(rs.GetString(1));
+                int iMechId = (int)rs.GetValue(0);
 
-                clMM = new clMechMatch();
-                clMM.MechId = (int)rs.GetValue(0);
-                clMM.Dock = System.Windows.Forms.DockStyle.Top;
-                clMM.Caption = clMI.strMechName + " - " + clMI.strMechDesignation;
-                clMM.ExpandedSize = new Size(tabMechInfo.Width, 445);
-                clMM.CollapsedMinSize = 130;
+                clMM = new clMechMatch(iMechId, rs.GetString(1), tabMechInfo.Width, ref m_myDB);
+                clMM.MechImage = (Image)rm.GetObject(clMM.MechDesignation.Replace("-", "_").ToLower());
+
+                // to force our new sizes from our own event that makes sure only one groupbox is expanded at at time..
                 clMM.Expand += new EventHandler(clMechMatch_Expand);
-                clMM.MechImage = (Image)rm.GetObject(clMI.strMechDesignation.Replace("-","_").ToLower());
-                clMM.Expanded = false;
+                clMM.Expanded = false; 
 
-                SqlCeResultSet rs2;
-                string cmd = "select max(matchid) from match where mech = " + clMM.MechId;
-                int iMatchId = m_myDB.iNumValReturn(cmd);
-                cmd = "select kills, Death, WinLoss, Exp, cBills from Match where MatchId = " + iMatchId;
-                rs2 = m_myDB.ResultSet(cmd);
-                rs2.ReadFirst();
+                clMM.YesImage = (Image)rm.GetObject("check");
+                clMM.NoImage = (Image)rm.GetObject("x");
 
-                int tmpInt;
-                int.TryParse(rs2.GetValue(0).ToString(), out tmpInt);
-                clMM.Kills = tmpInt;
-                
-                clMM.Lived = rs2.GetBoolean(1)?(Image)rm.GetObject("x"):(Image)rm.GetObject("check");
-                clMM.Win = (rs2.GetString(2) == "W")?(Image)rm.GetObject("check"):(Image)rm.GetObject("x");
-                
-                int.TryParse(rs2.GetValue(3).ToString(), out tmpInt);
-                clMM.Exp = tmpInt;
-                
-                int.TryParse(rs2.GetValue(4).ToString(), out tmpInt);
-                clMM.cBills = tmpInt;
+                // get the last match for this mech..
+                int iMatchId = m_myDB.iNumValReturn("select max(matchid) from match where mech = " + iMechId);
 
-                decimal tmpDec;
-                rs2 = m_myDB.ResultSet("select sum(DmgDone) from matchdetails where matchid = " + iMatchId);
-                rs2.ReadFirst();
-                decimal.TryParse(rs2.GetValue(0).ToString(), out tmpDec);
-                clMM.Damage = tmpDec.ToString();
+                stMatch.LoadMatch(ref m_myDB, iMatchId);
 
-                clMM.AutoScrollOffset = new Point(0, 0);
+                clMM.SeedMatch(ref stMatch); 
+
+                //clMM.AutoScrollOffset = new Point(0, 0);
                 //if (clMM.MechId == 6)
                 //{
                 //    iCurrentMech = 6;
@@ -714,19 +704,18 @@ namespace MWOStatSystem
                 //}
 
                 tabMechInfo.Controls.Add(clMM);
+                lstLoadedMechs.Add(clMM.MechId);
             }
 
-            //lbMechs.ValueMember = "MechId";
-            //lbMechs.DisplayMember = "fullname";
-            //lbMechs.DataSource = dtMechList;
-            //lbMechs.SelectedIndex = -1;
             bLoading = false;
+            Cursor = Cursors.Default;
         }
       
         private void btnTest_Click( object sender, EventArgs e )
         {
             bTesting = true;
-            btnScrapeIt_Click( this, null );
+            btnScrapeIt.PerformClick();
+            //btnScrapeIt_Click( this, null );
             return;
 
         }
@@ -739,7 +728,8 @@ namespace MWOStatSystem
             // bit when we try to scrape, so we'll worry about re-logging in at that point.
             if ( !bLoggedIn )
             {
-                btnStart_Click( this, null );
+                btnStart.PerformClick();
+                //btnStart_Click( this, null );
 
                 if ( !bLoggedIn )
                 {
@@ -905,7 +895,7 @@ namespace MWOStatSystem
             //}
 
             bLoading = false;
-            FillCharts();
+            //FillCharts(); // I turned this on when I was testing setting the active mech/match during load, to play with the panel colors..
 
         }
 
@@ -1317,15 +1307,27 @@ namespace MWOStatSystem
 
         private void clMechMatch_Expand(object sender, EventArgs e)
         {
+            clMechMatch tmp = null;
             foreach (clMechMatch ctrl in tabMechInfo.Controls)
             {
                 if (ctrl == sender)
-                    ctrl.Expanded = ctrl.Expanded;
+                    tmp = ctrl;
                 else
                     ctrl.Expanded = false;
 
                 ctrl.Refresh();
             }
+
+            if (tmp != null)
+            {
+                tmp.Expanded = tmp.Expanded;
+                iCurrentMech = tmp.MechId;
+                tabMechInfo.ScrollControlIntoView(tmp);
+                tmp.Refresh();
+            }
+
+            FillCharts(); // since we have a new active mech, fill his charts..
+            tabMechInfo.Focus();
         }
 
     }

@@ -311,7 +311,7 @@ namespace MWOStatSystem.Support_Classes
             return false;
         } // end of bDataChanged
 
-        public decimal insertDetails( int iMatchId )
+        public int insertDetails( int iMatchId )
         {
             if ( m_bFoundMatch )
             {

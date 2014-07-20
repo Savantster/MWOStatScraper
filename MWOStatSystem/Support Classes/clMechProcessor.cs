@@ -122,11 +122,11 @@ namespace MWOStatSystem.Support_Classes
                 Mech = keyPair.Value;
 
                 // TODO: cut out the broken KIT FOX duped reporting, only keep the one I own (the PRIME(I), the rest should be discarded)
-                strTestMech = Mech.ToString().ToLower();
+                strTestMech = Mech.Key.ToString().ToLower().Trim();
                 if ((strTestMech == "kit fox kfx-prime(g)") || (strTestMech == "kit fox kfx-prime"))
                 {
                     // logging it so I remember to pull it out eventually..
-                    Log.doIt(1, "Skipping dupe reported Kit Fox: " + Mech);
+                    Log.doIt(1, "Skipping dupe reported Kit Fox: " + Mech.Key);
                     continue;
                 }
 

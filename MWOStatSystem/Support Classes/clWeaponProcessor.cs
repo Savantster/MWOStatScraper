@@ -126,10 +126,10 @@ namespace MWOStatSystem.Support_Classes
 
         } // end of parsing
 
-        public decimal fillMatch( int iMatchId = -1 )
+        public int fillMatch( int iMatchId = -1 )
         {
             clWeapon Weapon;
-            decimal dDamage = 0;
+            int iDamage = 0;
 
             if ( iMatchId == -1 )
             {
@@ -143,11 +143,11 @@ namespace MWOStatSystem.Support_Classes
 
                 if ( Weapon.bDataChanged() )
                 {
-                   dDamage += Weapon.insertDetails( iMatchId );
+                   iDamage += Weapon.insertDetails( iMatchId );
                 }
             }
 
-            return dDamage;
+            return iDamage;
 
         } // end of Fill Match
 
