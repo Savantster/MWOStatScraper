@@ -613,9 +613,8 @@ namespace MWOStatSystem
                     clTmp.SetHighlight();
                     iCurrentMech = clTmp.MechId;
 
-                    clTmp.AutoScrollOffset = new Point(0, 0);
-                    tabMechInfo.ScrollControlIntoView(clTmp);
-                    FillCharts();
+                    clTmp.ExpandButton.PerformClick();
+                    //FillCharts(); expanding the groupbox fills chart..
                 }
                 else
                 {
