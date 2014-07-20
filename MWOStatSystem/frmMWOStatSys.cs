@@ -45,7 +45,6 @@ using MWOStatSystem.Support_Classes;
 using IntelligentStreaming.SharpTools;
 using System.Text.RegularExpressions;
 using System.Collections;
-using MechMatchDetail;
 using System.Resources;
 using MWOStatSystem.Properties;
 
@@ -606,9 +605,10 @@ namespace MWOStatSystem
                     clTmp.Exp = clMatch.iExp;
                     clTmp.cBills = clMatch.iCBills;
                     clTmp.SetHighlight();
+                    iCurrentMech = clTmp.MechId;
 
-                    //clTmp.AutoScrollOffset = new Point (0, 0);
                     tabMechInfo.ScrollControlIntoView(clTmp);
+                    FillCharts();
                 }
                 else
                 {
@@ -674,7 +674,7 @@ namespace MWOStatSystem
                 clMM.MechId = (int)rs.GetValue(0);
                 clMM.Dock = System.Windows.Forms.DockStyle.Top;
                 clMM.Caption = clMI.strMechName + " - " + clMI.strMechDesignation;
-                clMM.ExpandedSize = new Size(tabMechInfo.Width, 400);
+                clMM.ExpandedSize = new Size(tabMechInfo.Width, 445);
                 clMM.CollapsedMinSize = 130;
                 clMM.Expand += new EventHandler(clMechMatch_Expand);
                 clMM.MechImage = (Image)rm.GetObject(clMI.strMechDesignation.Replace("-","_").ToLower());
@@ -707,6 +707,12 @@ namespace MWOStatSystem
                 clMM.Damage = tmpDec.ToString();
 
                 clMM.AutoScrollOffset = new Point(0, 0);
+                //if (clMM.MechId == 6)
+                //{
+                //    iCurrentMech = 6;
+                //    clMM.SetHighlight();
+                //}
+
                 tabMechInfo.Controls.Add(clMM);
             }
 
@@ -899,6 +905,8 @@ namespace MWOStatSystem
             //}
 
             bLoading = false;
+            FillCharts();
+
         }
 
         private void frmMWOStatSys_FormClosing( object sender, FormClosingEventArgs e )
@@ -957,17 +965,14 @@ namespace MWOStatSystem
             }
         }
 
-        private void tlvMechView_SelectedIndexChanged( object sender, EventArgs e )
+        private void FillCharts( )
         {
             // if we're loading our box, just bail.. no point in filling charts if we're not actually
             // selecting a mech
-            if ((bLoading)) // || (tlvMechView.SelectedIndex == -1))
+            if ((bLoading)  || (iCurrentMech == -1))
             {
-                iCurrentMech = -1;
                 return;
             }
-
-            iCurrentMech = 6; // iCurrentMech = (int)((clMechInfo)(tlvMechView.SelectedObject)).iMechId;
 
             try
             {
@@ -1202,7 +1207,7 @@ namespace MWOStatSystem
             bSuspendClicks = true;
             // we base our weapon exclusion on the menu, not the check box.. calling the chart updating
             // before setting the checkbox is fine..
-            tlvMechView_SelectedIndexChanged(this, null);
+            FillCharts();
             cbMG.Checked = mnuMG.Checked;
             bSuspendClicks = false;
         }
@@ -1210,7 +1215,7 @@ namespace MWOStatSystem
         private void mnuLRM_Click(object sender, EventArgs e)
         {
             bSuspendClicks = true;
-            tlvMechView_SelectedIndexChanged(this, null);
+            FillCharts();
             cbLRM.Checked = mnuLRM.Checked;
             bSuspendClicks = false;
         }
@@ -1218,7 +1223,7 @@ namespace MWOStatSystem
         private void mnuAM_Click(object sender, EventArgs e)
         {
             bSuspendClicks = true;
-            tlvMechView_SelectedIndexChanged(this, null);
+            FillCharts();
             cbAM.Checked = mnuAM.Checked;
             bSuspendClicks = false;
         }
@@ -1226,7 +1231,7 @@ namespace MWOStatSystem
         private void mnuTAG_Click(object sender, EventArgs e)
         {
             bSuspendClicks = true;
-            tlvMechView_SelectedIndexChanged(this, null);
+            FillCharts();
             cbTAG.Checked = mnuTAG.Checked;
             bSuspendClicks = false;
         }
@@ -1234,7 +1239,7 @@ namespace MWOStatSystem
         private void mnuNARC_Click(object sender, EventArgs e)
         {
             bSuspendClicks = true;
-            tlvMechView_SelectedIndexChanged(this, null);
+            FillCharts();
             cbNARC.Checked = mnuNARC.Checked;
             bSuspendClicks = false;
         }
@@ -1255,7 +1260,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuMG.Checked = cbMG.Checked;
-                tlvMechView_SelectedIndexChanged( null, null );
+                FillCharts();
             }
         }
 
@@ -1264,7 +1269,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuLRM.Checked = cbLRM.Checked;
-                tlvMechView_SelectedIndexChanged( null, null );
+                FillCharts();
             }
 
         }
@@ -1274,7 +1279,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuAM.Checked = cbAM.Checked;
-                tlvMechView_SelectedIndexChanged( null, null );
+                FillCharts();
             }
         }
 
@@ -1283,7 +1288,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuTAG.Checked = cbTAG.Checked;
-                tlvMechView_SelectedIndexChanged( null, null );
+                FillCharts();
             }
         }
 
@@ -1292,7 +1297,7 @@ namespace MWOStatSystem
             if ( !bSuspendClicks )
             {
                 mnuNARC.Checked = cbNARC.Checked;
-                tlvMechView_SelectedIndexChanged( null, null );
+                FillCharts();
             }
         }
 
@@ -1323,7 +1328,6 @@ namespace MWOStatSystem
             }
         }
 
- 
     }
 
 }
