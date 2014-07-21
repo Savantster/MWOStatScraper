@@ -1217,14 +1217,7 @@ public class clMechMatch : System.Windows.Forms.UserControl
     {
         set
         {
-            if (value.Contains("."))
-            {
-                lblDamage.Text = string.Format("{0:#,###.##}", value);
-            }
-            else
-            {
                 lblDamage.Text = string.Format("{0:#,###}", value);
-            }
         }
     }
 
@@ -1388,36 +1381,36 @@ public class clMechMatch : System.Windows.Forms.UserControl
                 this.pbPM1Win.Image = clMatch.cWinLoss.ToString() == "W" ? _imgYes : _imgNo;
                 this.pbPM1Live.Image = clMatch.bDeath ? _imgNo : _imgYes;
                 this.lblPM1Kills.Text = clMatch.iKills.ToString();
-                this.lblPM1Damage.Text = clMatch.iDamage.ToString();
-                this.lblPM1Exp.Text = clMatch.iExp.ToString();
-                this.lblPM1cBills.Text = clMatch.iCBills.ToString();
+                this.lblPM1Damage.Text = string.Format("{0:#,###}",clMatch.iDamage);
+                this.lblPM1Exp.Text = string.Format("{0:#,###}", clMatch.iExp);
+                this.lblPM1cBills.Text = string.Format("{0:###,###}", clMatch.iCBills);
                 break;
             case 2:
                 // now we need to fill the "previous" panel..
                 this.pbPM2Win.Image = clMatch.cWinLoss.ToString() == "W" ? _imgYes : _imgNo;
                 this.pbPM2Live.Image = clMatch.bDeath ? _imgNo : _imgYes;
                 this.lblPM2Kills.Text = clMatch.iKills.ToString();
-                this.lblPM2Damage.Text = clMatch.iDamage.ToString();
-                this.lblPM2Exp.Text = clMatch.iExp.ToString();
-                this.lblPM2cBills.Text = clMatch.iCBills.ToString();
+                this.lblPM2Damage.Text = string.Format("{0:#,###}", clMatch.iDamage);
+                this.lblPM2Exp.Text = string.Format("{0:#,###}", clMatch.iExp);
+                this.lblPM2cBills.Text = string.Format("{0:###,###}", clMatch.iCBills);
                 break;
             case 3:
                 // now we need to fill the "previous" panel..
                 this.pbPM3Win.Image = clMatch.cWinLoss.ToString() == "W" ? _imgYes : _imgNo;
                 this.pbPM3Live.Image = clMatch.bDeath ? _imgNo : _imgYes;
                 this.lblPM3Kills.Text = clMatch.iKills.ToString();
-                this.lblPM3Damage.Text = clMatch.iDamage.ToString();
-                this.lblPM3Exp.Text = clMatch.iExp.ToString();
-                this.lblPM3cBills.Text = clMatch.iCBills.ToString();
+                this.lblPM3Damage.Text = string.Format("{0:#,###}", clMatch.iDamage);
+                this.lblPM3Exp.Text = string.Format("{0:#,###}", clMatch.iExp);
+                this.lblPM3cBills.Text = string.Format("{0:###,###}", clMatch.iCBills);
                 break;
             case 4:
                 // now we need to fill the "previous" panel..
                 this.pbPM4Win.Image = clMatch.cWinLoss.ToString() == "W" ? _imgYes : _imgNo;
                 this.pbPM4Live.Image = clMatch.bDeath ? _imgNo : _imgYes;
                 this.lblPM4Kills.Text = clMatch.iKills.ToString();
-                this.lblPM4Damage.Text = clMatch.iDamage.ToString();
-                this.lblPM4Exp.Text = clMatch.iExp.ToString();
-                this.lblPM4cBills.Text = clMatch.iCBills.ToString();
+                this.lblPM4Damage.Text = string.Format("{0:#,###}", clMatch.iDamage);
+                this.lblPM4Exp.Text = string.Format("{0:#,###}", clMatch.iExp);
+                this.lblPM4cBills.Text = string.Format("{0:###,###}", clMatch.iCBills);
                 break;
         } // end switch
 
