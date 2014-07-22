@@ -64,6 +64,7 @@ namespace MWOStatSystem
         private bool bNeedSeed = false;
         private bool bLoggedIn = false;
         private bool bLoading = true;
+        private bool bUpdating = false;
 
         private int iCurrentMech = -1;
 
@@ -611,9 +612,21 @@ namespace MWOStatSystem
                 {
                     clTmp.LastMatch(ref clMatch);
                     clTmp.SetHighlight();
-                    iCurrentMech = clTmp.MechId;
 
-                    clTmp.ExpandButton.PerformClick();
+                    // when we're updating the same mech from two scrapes in a row, don't click.. clicking closes
+                    // an open group..
+                    if (iCurrentMech == clTmp.MechId)
+                    {
+                        if (clTmp.Expanded == true)
+                            tabMechInfo.ScrollControlIntoView(clTmp);
+                        else
+                            clTmp.ExpandButton.PerformClick();
+                    }
+                    else
+                    {
+                        iCurrentMech = clTmp.MechId;
+                        clTmp.ExpandButton.PerformClick();
+                    }
                     //FillCharts(); expanding the groupbox fills chart..
                 }
                 else
@@ -727,8 +740,8 @@ namespace MWOStatSystem
             // bit when we try to scrape, so we'll worry about re-logging in at that point.
             if ( !bLoggedIn )
             {
-                btnStart.PerformClick();
-                //btnStart_Click( this, null );
+                //btnStart.PerformClick(); // if button is hidden or disabled, this isn't working..
+                btnStart_Click( this, null );
 
                 if ( !bLoggedIn )
                 {
