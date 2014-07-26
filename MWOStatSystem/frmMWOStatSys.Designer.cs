@@ -101,6 +101,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnTryLogon = new System.Windows.Forms.Button();
+            this.lblCurrentMech = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgMechs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgWeapons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMaps)).BeginInit();
@@ -278,8 +279,9 @@
             this.tcCharts.Location = new System.Drawing.Point(4, 108);
             this.tcCharts.Name = "tcCharts";
             this.tcCharts.SelectedIndex = 0;
-            this.tcCharts.Size = new System.Drawing.Size(970, 536);
+            this.tcCharts.Size = new System.Drawing.Size(988, 536);
             this.tcCharts.TabIndex = 16;
+            this.tcCharts.SelectedIndexChanged += new System.EventHandler(this.tcCharts_SelectedIndexChanged);
             // 
             // tabMechInfo
             // 
@@ -287,7 +289,7 @@
             this.tabMechInfo.Location = new System.Drawing.Point(4, 22);
             this.tabMechInfo.Name = "tabMechInfo";
             this.tabMechInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMechInfo.Size = new System.Drawing.Size(962, 510);
+            this.tabMechInfo.Size = new System.Drawing.Size(980, 510);
             this.tabMechInfo.TabIndex = 3;
             this.tabMechInfo.Text = "Mech View";
             this.tabMechInfo.UseVisualStyleBackColor = true;
@@ -298,7 +300,7 @@
             this.tabAccuracy.Location = new System.Drawing.Point(4, 22);
             this.tabAccuracy.Name = "tabAccuracy";
             this.tabAccuracy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAccuracy.Size = new System.Drawing.Size(979, 510);
+            this.tabAccuracy.Size = new System.Drawing.Size(962, 510);
             this.tabAccuracy.TabIndex = 0;
             this.tabAccuracy.Text = "Hits And Misses";
             this.tabAccuracy.UseVisualStyleBackColor = true;
@@ -339,7 +341,7 @@
             series2.YValueMembers = "Misses";
             this.chtAccuracy.Series.Add(series1);
             this.chtAccuracy.Series.Add(series2);
-            this.chtAccuracy.Size = new System.Drawing.Size(973, 504);
+            this.chtAccuracy.Size = new System.Drawing.Size(956, 504);
             this.chtAccuracy.TabIndex = 0;
             this.chtAccuracy.Text = "Accuracy";
             // 
@@ -349,7 +351,7 @@
             this.tabEffective.Location = new System.Drawing.Point(4, 22);
             this.tabEffective.Name = "tabEffective";
             this.tabEffective.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEffective.Size = new System.Drawing.Size(979, 510);
+            this.tabEffective.Size = new System.Drawing.Size(962, 510);
             this.tabEffective.TabIndex = 1;
             this.tabEffective.Text = "Effectiveness";
             this.tabEffective.UseVisualStyleBackColor = true;
@@ -391,7 +393,7 @@
             this.chtEffective.Series.Add(series3);
             this.chtEffective.Series.Add(series4);
             this.chtEffective.Series.Add(series5);
-            this.chtEffective.Size = new System.Drawing.Size(973, 504);
+            this.chtEffective.Size = new System.Drawing.Size(956, 504);
             this.chtEffective.TabIndex = 2;
             this.chtEffective.Text = "Effectiveness";
             // 
@@ -401,7 +403,7 @@
             this.tabExpAndCbills.Location = new System.Drawing.Point(4, 22);
             this.tabExpAndCbills.Name = "tabExpAndCbills";
             this.tabExpAndCbills.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExpAndCbills.Size = new System.Drawing.Size(979, 510);
+            this.tabExpAndCbills.Size = new System.Drawing.Size(962, 510);
             this.tabExpAndCbills.TabIndex = 2;
             this.tabExpAndCbills.Text = "Exp and cBills";
             this.tabExpAndCbills.UseVisualStyleBackColor = true;
@@ -448,7 +450,7 @@
             this.chtExpCbills.Series.Add(series6);
             this.chtExpCbills.Series.Add(series7);
             this.chtExpCbills.Series.Add(series8);
-            this.chtExpCbills.Size = new System.Drawing.Size(973, 504);
+            this.chtExpCbills.Size = new System.Drawing.Size(956, 504);
             this.chtExpCbills.TabIndex = 0;
             this.chtExpCbills.Text = "chart1";
             // 
@@ -793,12 +795,25 @@
             this.btnTryLogon.UseVisualStyleBackColor = true;
             this.btnTryLogon.Click += new System.EventHandler(this.btnTryLogon_Click);
             // 
+            // lblCurrentMech
+            // 
+            this.lblCurrentMech.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCurrentMech.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblCurrentMech.Location = new System.Drawing.Point(998, 130);
+            this.lblCurrentMech.Name = "lblCurrentMech";
+            this.lblCurrentMech.Size = new System.Drawing.Size(27, 510);
+            this.lblCurrentMech.TabIndex = 25;
+            this.lblCurrentMech.Text = "TESTINGMECH - TST-XX1";
+            this.lblCurrentMech.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmMWOStatSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1054, 647);
+            this.Controls.Add(this.lblCurrentMech);
             this.Controls.Add(this.btnTryLogon);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.nmbScrapeFreq);
@@ -909,6 +924,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuLog4;
         private System.Windows.Forms.Button btnTryLogon;
         private System.Windows.Forms.TabPage tabMechInfo;
+        private System.Windows.Forms.Label lblCurrentMech;
     }
 }
 

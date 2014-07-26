@@ -66,7 +66,8 @@ namespace MWOStatSystem
         private bool bLoading = true;
         private bool bUpdating = false;
 
-        private int iCurrentMech = -1;
+        //private int iCurrentMech = -1;
+        private clMechMatch clCurrentMech = null;
 
         private LoginDetails myLogin = null;
         private MatchCollection m1;
@@ -168,6 +169,8 @@ namespace MWOStatSystem
                 chtAccuracy.Series[0]["DrawingStyle"] = "Cylinder";
                 chtAccuracy.Series[1]["DrawingStyle"] = "Cylinder";
                 chtExpCbills.Series[2]["DrawingStyle"] = "Cylinder";
+
+                lblCurrentMech.Visible = false;
 
                 vFillMechList();
  
@@ -615,7 +618,7 @@ namespace MWOStatSystem
 
                     // when we're updating the same mech from two scrapes in a row, don't click.. clicking closes
                     // an open group..
-                    if (iCurrentMech == clTmp.MechId)
+                    if (clCurrentMech.MechId == clTmp.MechId)
                     {
                         if (clTmp.Expanded == true)
                             tabMechInfo.ScrollControlIntoView(clTmp);
@@ -624,7 +627,9 @@ namespace MWOStatSystem
                     }
                     else
                     {
-                        iCurrentMech = clTmp.MechId;
+                        //iCurrentMech = clTmp.MechId;
+                        clCurrentMech = clTmp;
+                        lblCurrentMech.Text = clCurrentMech.Caption;
                         clTmp.ExpandButton.PerformClick();
                     }
                     //FillCharts(); expanding the groupbox fills chart..
@@ -726,8 +731,8 @@ namespace MWOStatSystem
         private void btnTest_Click( object sender, EventArgs e )
         {
             bTesting = true;
-            btnScrapeIt.PerformClick();
-            //btnScrapeIt_Click( this, null );
+            //btnScrapeIt.PerformClick();
+            btnScrapeIt_Click( this, null );
             return;
 
         }
@@ -971,7 +976,7 @@ namespace MWOStatSystem
         {
             // if we're loading our box, just bail.. no point in filling charts if we're not actually
             // selecting a mech
-            if ((bLoading)  || (iCurrentMech == -1))
+            if ((bLoading)  || ((clCurrentMech != null) && (clCurrentMech.MechId == -1)))
             {
                 return;
             }
@@ -1055,7 +1060,7 @@ namespace MWOStatSystem
                     "SUM(MatchDetails.DmgDone) AS Expr3, Weapons.Name as weap, Match.Date FROM  Match INNER JOIN  MatchDetails ON " +
                     "Match.MatchId = MatchDetails.MatchId INNER JOIN Weapons ON MatchDetails.Weapon = Weapons.WeaponId " +
                     "WHERE (Match.matchid in (select top (" + (int)nmbMatches.Value +") matchid from match where mech = " + 
-                      iCurrentMech + " order by matchid desc))" + sExcludeWeaps + " GROUP BY Match.MatchId, " +
+                      clCurrentMech.MechId + " order by matchid desc))" + sExcludeWeaps + " GROUP BY Match.MatchId, " +
                     "Weapons.Name, Match.Date ORDER BY Match.Date DESC";
 
                 Log.doIt(3, "Chart select, hits/misses: " + sCommand );
@@ -1082,7 +1087,7 @@ namespace MWOStatSystem
                     " weapons.name as weap, match.date FROM Match INNER JOIN MatchDetails " +
                     "ON Match.MatchId = MatchDetails.MatchId INNER JOIN Weapons ON MatchDetails.Weapon = Weapons.WeaponId " +
                     " WHERE (Match.matchid in (select top (" + (int)nmbMatches.Value +") matchid from match where mech = " + 
-                      iCurrentMech + " order by matchid desc))" + sExcludeWeaps + " GROUP BY match.date, weapons.name, " +
+                      clCurrentMech.MechId + " order by matchid desc))" + sExcludeWeaps + " GROUP BY match.date, weapons.name, " +
                     " MatchDetails.DmgDone, Weapons.MaxDmg, matchdetails.hits, matchdetails.misses order by match.date desc";
 
                 Log.doIt( 3, "Chart select, effective: " + sCommand );
@@ -1100,7 +1105,7 @@ namespace MWOStatSystem
                 chtEffective.DataBind();
 
                 sCommand = "select top(" + (int)nmbMatches.Value + ") a.exp, a.cbills, sum(b.dmgdone) as dmg, a.date from " +
-                    "match a inner join matchdetails b on a.matchid = b.matchid where mech = " + iCurrentMech + 
+                    "match a inner join matchdetails b on a.matchid = b.matchid where mech = " + clCurrentMech.MechId + 
                     " group by date, exp, cbills order by date desc";
 
                 Log.doIt( 3, "Chart select, exp and cbills: " + sCommand );
@@ -1333,13 +1338,28 @@ namespace MWOStatSystem
             if (tmp != null)
             {
                 tmp.Expanded = tmp.Expanded;
-                iCurrentMech = tmp.MechId;
+                //iCurrentMech = tmp.MechId;
+                clCurrentMech = tmp;
+                lblCurrentMech.Text = clCurrentMech.Caption;
                 tabMechInfo.ScrollControlIntoView(tmp);
                 tmp.Refresh();
             }
 
             FillCharts(); // since we have a new active mech, fill his charts..
             tabMechInfo.Focus();
+        }
+
+        private void tcCharts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tcCharts.SelectedIndex == 0)
+            {
+                lblCurrentMech.Visible = false;
+                tabMechInfo.Focus();
+            }
+            else
+            {
+                lblCurrentMech.Visible = true;
+            }
         }
 
     }
