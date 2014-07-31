@@ -42,9 +42,12 @@ namespace Plasmoid.Extensions
 			}
 			else
 			{
-				if (radius >= (Math.Min(rectangle.Width, rectangle.Height)) / 2.0)
-					return graphics.GenerateCapsule(rectangle);
-				diameter = radius * 2.0F;
+                if (radius >= (Math.Min(rectangle.Width, rectangle.Height)) / 2.0)
+                {
+                    return graphics.GenerateCapsule(rectangle);
+                }
+                
+                diameter = radius * 2.0F;
 				SizeF sizeF = new SizeF(diameter, diameter);
 				RectangleF arc = new RectangleF(rectangle.Location, sizeF);
 				if ((RectangleEdgeFilter.TopLeft & filter) == RectangleEdgeFilter.TopLeft)

@@ -64,9 +64,7 @@ namespace MWOStatSystem
         private bool bNeedSeed = false;
         private bool bLoggedIn = false;
         private bool bLoading = true;
-        private bool bUpdating = false;
 
-        //private int iCurrentMech = -1;
         private clMechMatch clCurrentMech = null;
 
         private LoginDetails myLogin = null;
@@ -93,12 +91,10 @@ namespace MWOStatSystem
         private string sModes = "";
 
         private int iTimer = 0;
-        //private int iLastMech = -1;
 
         private Logger Log = null; 
         private Parsers Parser = null;
 
-        //private StreamWriter sw;
 
         SqlCeResultSet rs;
 
@@ -132,6 +128,8 @@ namespace MWOStatSystem
 
         private void frmMWOStatSys_Load( object sender, EventArgs e )
         {
+            Cursor = Cursors.WaitCursor;
+
             try
             {
                 m_myDB = new MWO_DB();
@@ -176,10 +174,10 @@ namespace MWOStatSystem
  
                 verifyLoginCredentials();
 
-
             }
             catch ( Exception ex )
             {
+                Cursor = Cursors.Default;
                 MessageBox.Show( "Failed to initialize form: " + ex.Message );
                 Application.Exit();
             }
@@ -359,6 +357,7 @@ namespace MWOStatSystem
             // Clicking the test button will have us read from local files..
 
             Cursor = Cursors.WaitCursor;
+            btnScrapeIt.Enabled = false;
 
             if ( bTesting )
             {
@@ -389,6 +388,7 @@ namespace MWOStatSystem
                 {
                     MessageBox.Show( "Failed to perform scrape as intended..: " + ex.Message );
                     Cursor = Cursors.Default;
+                    btnScrapeIt.Enabled = true;
                     return;
                 }
             }
@@ -404,6 +404,7 @@ namespace MWOStatSystem
                     "Invalid baseline found..", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) == DialogResult.No )
                 {
                     Cursor = Cursors.Default;
+                    btnScrapeIt.Enabled = true;
                     return;
                 }
 
@@ -449,6 +450,7 @@ namespace MWOStatSystem
                     Application.Exit();
                 }
 
+                btnScrapeIt.Enabled = true;
                 return;
 
             }
@@ -473,6 +475,7 @@ namespace MWOStatSystem
                 // matches by the time we get to weapon processing.
                 Log.doIt( 1, "Failed to find a match.. exiting processing.." );
                 Cursor = Cursors.Default;
+                btnScrapeIt.Enabled = true;
                 return;
 
                 // hmm.. something might be broke, but we'll continue on and use the "unknown" for the mode. This also
@@ -552,6 +555,7 @@ namespace MWOStatSystem
                 iTimer = 0;
                 pbNextScrape.Value = 0;
                 Cursor = Cursors.Default;
+                btnScrapeIt.Enabled = true;
                 return;
             }
 
@@ -588,6 +592,7 @@ namespace MWOStatSystem
             // if we run a new mech for the first time, we need to dump our list and rebuild it.
             if ( !lstLoadedMechs.Contains(stMatch.iMech) )
             {
+                Log.doIt(1, "Found new mech, rebuilding the tab control list");
                 tabMechInfo.Controls.Clear();
                 vFillMechList();                
             }
@@ -596,6 +601,7 @@ namespace MWOStatSystem
             //tlvMechView.SelectedIndex = stMatch.iMech;
 
             Cursor = Cursors.Default;
+            btnScrapeIt.Enabled = true;
 
         } // End of Scrape processing/button click
 
@@ -607,37 +613,57 @@ namespace MWOStatSystem
         /// </param>
         private void vUpdateLastMechMatch(ref clSingleMatch clMatch)
         {
+            Log.doIt(2, "Updating last Mech's match info..");
+
             Cursor = Cursors.WaitCursor;
 
-            foreach (clMechMatch clTmp in tabMechInfo.Controls)
+            try
             {
-                if (clTmp.MechId == clMatch.iMech)
+                foreach (clMechMatch clTmp in tabMechInfo.Controls)
                 {
-                    clTmp.LastMatch(ref clMatch);
-                    clTmp.SetHighlight();
 
-                    // when we're updating the same mech from two scrapes in a row, don't click.. clicking closes
-                    // an open group..
-                    if (clCurrentMech.MechId == clTmp.MechId)
+                    if (clTmp.MechId == clMatch.iMech)
                     {
-                        if (clTmp.Expanded == true)
-                            tabMechInfo.ScrollControlIntoView(clTmp);
+                        clTmp.LastMatch(ref clMatch);
+                        clTmp.SetHighlight();
+
+                        // when we're updating the same mech from two scrapes in a row, don't click.. clicking closes
+                        // an open group..
+                        if ((clCurrentMech != null) && (clCurrentMech.MechId == clTmp.MechId))
+                        {
+                            if (clTmp.Expanded == true)
+                            {
+                                tabMechInfo.ScrollControlIntoView(clTmp);
+                            }
+                            else
+                            {
+                                clTmp.ExpandButton.PerformClick();
+                            }
+                        }
                         else
+                        {
+                            if (clCurrentMech != null)
+                            {
+                                clCurrentMech.Active = false;
+                            }
+
+                            clCurrentMech = clTmp;
+                            clCurrentMech.Active = true;
+                            lblCurrentMech.Text = clCurrentMech.Caption;
                             clTmp.ExpandButton.PerformClick();
+                        }
+                        //FillCharts(); expanding the groupbox fills chart..
                     }
                     else
                     {
-                        //iCurrentMech = clTmp.MechId;
-                        clCurrentMech = clTmp;
-                        lblCurrentMech.Text = clCurrentMech.Caption;
-                        clTmp.ExpandButton.PerformClick();
+                        clTmp.ClearHighlight();
                     }
-                    //FillCharts(); expanding the groupbox fills chart..
                 }
-                else
-                {
-                    clTmp.ClearHighlight();
-                }
+            }
+            catch (Exception ex)
+            {
+                Log.doIt(1, "Got an exception trying to update last match?");
+                Log.doIt(1, ex.Message);
             }
 
             Cursor = Cursors.Default;
@@ -689,9 +715,20 @@ namespace MWOStatSystem
             clMechMatch clMM;
             clSingleMatch stMatch = new clSingleMatch();
 
+            DataTable dt = null;
+
             lstLoadedMechs.Clear();
 
+            while (tabMechInfo.Controls.Count > 0)
+            {
+                clMM = (clMechMatch)tabMechInfo.Controls[tabMechInfo.Controls.Count - 1];
+                tabMechInfo.Controls.Remove(clMM);
+                clMM.Dispose();
+                clMM = null;
+            }
+
             rs = m_myDB.ResultSet("select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname desc");
+
             while ( rs.Read() )
             {
                 int iMechId = (int)rs.GetValue(0);
@@ -713,20 +750,23 @@ namespace MWOStatSystem
 
                 clMM.SeedMatch(ref stMatch); 
 
-                //clMM.AutoScrollOffset = new Point(0, 0);
-                //if (clMM.MechId == 6)
-                //{
-                //    iCurrentMech = 6;
-                //    clMM.SetHighlight();
-                //}
-
                 tabMechInfo.Controls.Add(clMM);
                 lstLoadedMechs.Add(clMM.MechId);
             }
 
+            // Not exactly sure how to reset the resultset, so just make the query again.. should be fast anyway..
+            rs = m_myDB.ResultSet("select MechId, fullname from mechs where mechid in (select distinct mech from match) order by fullname");
+            dt = Parser.ResultSetToDataTable(rs, ref Log);
+
+            cbMechList.ValueMember = "MechId";
+            cbMechList.DisplayMember = "fullname";
+            cbMechList.DataSource = dt;
+
+            cbMechList.SelectedIndex = -1; // unselect everything..
+
             bLoading = false;
             Cursor = Cursors.Default;
-        }
+        } // end of FillMechList..
       
         private void btnTest_Click( object sender, EventArgs e )
         {
@@ -912,6 +952,7 @@ namespace MWOStatSystem
             //}
 
             bLoading = false;
+            Cursor = Cursors.Default;
             //FillCharts(); // I turned this on when I was testing setting the active mech/match during load, to play with the panel colors..
 
         }
@@ -1339,7 +1380,10 @@ namespace MWOStatSystem
             {
                 tmp.Expanded = tmp.Expanded;
                 //iCurrentMech = tmp.MechId;
+                if (clCurrentMech != null)
+                    clCurrentMech.Active = false;
                 clCurrentMech = tmp;
+                clCurrentMech.Active = true;
                 lblCurrentMech.Text = clCurrentMech.Caption;
                 tabMechInfo.ScrollControlIntoView(tmp);
                 tmp.Refresh();
@@ -1351,10 +1395,22 @@ namespace MWOStatSystem
 
         private void tcCharts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tcCharts.SelectedIndex == 0)
+            // don't show the active mech label on the main mech list, or on the tab page
+            // that lets them change which mech they're looking at for the histories..
+            if ( (tcCharts.SelectedIndex == 0) || (tcCharts.SelectedIndex == 4) )
             {
                 lblCurrentMech.Visible = false;
-                tabMechInfo.Focus();
+                // only set focus when they go to the main mech tab..
+                if (tcCharts.SelectedIndex == 0)
+                {
+                    tabMechInfo.Focus();
+                }
+
+                if (clCurrentMech != null)
+                {
+                    cbMechList.SelectedValue = clCurrentMech.MechId;
+                }
+
             }
             else
             {
@@ -1362,6 +1418,77 @@ namespace MWOStatSystem
             }
         }
 
+        private void cbMechList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // we only want to get histories when the histories tab is selected..
+            if ((bLoading) || (tcCharts.SelectedIndex != 4))
+                return;
+
+            //lblMechSelection.Refresh();
+            //cbMechList.Refresh();
+            pnlMechSelect.Refresh();
+            Application.DoEvents();
+
+            vLoadHistories();
+        }
+
+        private void vLoadHistories()
+        {
+            // fill the match history tab page with all the matches for this mech.
+            Cursor = Cursors.WaitCursor;
+
+            SuspendLayout();
+            clStatPanel clTmp;
+
+            // we have to manually retrieve and dispose our panels, or we burn up user objects quite quickly.
+            while (flpMatches.Controls.Count > 0)
+            {
+                clTmp = (clStatPanel)flpMatches.Controls[flpMatches.Controls.Count - 1];
+                flpMatches.Controls.Remove(clTmp);
+                clTmp.Dispose();
+                clTmp = null;
+            }
+
+            // get all the histories for the currently selected mech..
+            rs = m_myDB.ResultSet("select c.name as Map, d.name as Mode, a.kills, a.Death, a.WinLoss, a.Exp, a.cBills, a.duration, a.date, " +
+                " case when sum(b.dmgdone) is null then 0 else sum(b.dmgdone) end as Damage, " +
+                " case when sum(b.hits) is null then 0 else sum(b.hits) end as Hits, " +
+                " case when sum(b.misses) is null then 0 else sum(b.misses) end as Misses " +
+                " from Match a left join matchdetails b on a.matchid = b.matchid " +
+                " join maps c on a.map = c.mapid " +
+                " join mode d on a.mode = d.modeid " +
+                " where a.Mech = " + cbMechList.SelectedValue +
+                " group by a.matchid, c.name, d.name, kills, death, winloss, exp, cbills, duration, date" +
+                " order by a.matchid desc");
+
+            while (rs.Read())
+            {
+                clTmp = new clStatPanel();
+                clTmp.YesImage = (Image)rm.GetObject("check");
+                clTmp.NoImage = (Image)rm.GetObject("x");
+                clTmp.Map = (string)rs.GetValue(0);
+                clTmp.Mode = (string)rs.GetValue(1);
+                clTmp.Kills = (int)rs.GetByte(2);
+                clTmp.Lived = !rs.GetBoolean(3);
+                clTmp.Win= ((char)rs.GetString(4)[0]) == 'W'? true : false;
+                clTmp.Exp = (int)rs.GetInt16(5);
+                clTmp.cBills = (int)rs.GetValue(6);
+                //clTmp.iDuration = (int)rs.GetInt16(7);
+                clTmp.Date = (DateTime)rs.GetDateTime(8);
+                clTmp.Damage = ((int)rs.GetValue(9)).ToString();
+                clTmp.Hits = (int)rs.GetValue(10);
+                clTmp.Misses = (int)rs.GetValue(11);
+
+                clTmp.Dock = DockStyle.Top;
+
+                flpMatches.Controls.Add(clTmp);
+
+            }
+
+            ResumeLayout();
+            flpMatches.Focus();
+            Cursor = Cursors.Default;
+        }
     }
 
 }

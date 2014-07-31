@@ -98,6 +98,9 @@
     </Compile>
     <Compile Include="Support Classes\clMode.cs" />
     <Compile Include="Support Classes\clModeProcessor.cs" />
+    <Compile Include="Support Classes\clStatPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Support Classes\clWeapon.cs" />
     <Compile Include="Support Classes\clWeaponProcessor.cs" />
     <Compile Include="Support Classes\clMechProcessor.cs" />
@@ -136,6 +139,9 @@
     </Compile>
     <EmbeddedResource Include="Support Classes\clMechMatch.resx">
       <DependentUpon>clMechMatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Support Classes\clStatPanel.resx">
+      <DependentUpon>clStatPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Support Classes\ucRoundedPanel.resx">
       <DependentUpon>ucRoundedPanel.cs</DependentUpon>
