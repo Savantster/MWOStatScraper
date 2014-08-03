@@ -23,20 +23,28 @@ namespace MWOStatSystem.Support_Classes
     /// This structure will be filled in with various stat info from various pages so we can end up with 
     /// a picture of "a match". The ID will have to be pulled after insert, and will let the "details"
     /// processor know which match to insert with.
+    /// 
+    /// This structure is also used to populate the Object List View, in that mode it is intended to be
+    /// filled in manually so the set of variables was expanded to include what's being used for that.
     /// </summary>
     public class clSingleMatch
     {
         public int iMatchId = -1;
         public int iMech = -1;
         public int iMap = -1;
+        public string sMap = "";
         public int iMode = -1;
+        public string sMode = "";
         public int iKills = -1;
         public bool bDeath = false;
         public char cWinLoss = 'X';
+        public bool bWin = false;
         public int iExp = 0;
         public int iCBills = 0;
         public int iDuration = 0;
         public int iDamage = 0;
+        public int iHits = 0;
+        public int iMisses = 0;
         public DateTime? dtDate = null; // DateTime.Now;
 
         public void LoadMatch(ref MWO_DB dbCon, int iMatchId)

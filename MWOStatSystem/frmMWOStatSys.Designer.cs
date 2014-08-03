@@ -70,8 +70,31 @@
             this.tabExpAndCbills = new System.Windows.Forms.TabPage();
             this.chtExpCbills = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabFullHistory = new System.Windows.Forms.TabPage();
-            this.flpMatches = new System.Windows.Forms.FlowLayoutPanel();
+            this.olvMatchHistory = new BrightIdeasSoftware.ObjectListView();
+            this.olvColWin = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColLived = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColKills = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvCoDamage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvCoHits = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColMisses = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColExp = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColCBills = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColMap = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColMode = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColDate = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pnlMechSelect = new System.Windows.Forms.Panel();
+            this.lblLosses = new System.Windows.Forms.Label();
+            this.lblLossesHeader = new System.Windows.Forms.Label();
+            this.lblCBills = new System.Windows.Forms.Label();
+            this.lblCBillsHeader = new System.Windows.Forms.Label();
+            this.lblDeaths = new System.Windows.Forms.Label();
+            this.lblDeathsHeader = new System.Windows.Forms.Label();
+            this.lblMatchCount = new System.Windows.Forms.Label();
+            this.lblKills = new System.Windows.Forms.Label();
+            this.lblWins = new System.Windows.Forms.Label();
+            this.lblMatchCountHeader = new System.Windows.Forms.Label();
+            this.lblKillsHeader = new System.Windows.Forms.Label();
+            this.lblWinsHeader = new System.Windows.Forms.Label();
             this.lblMechSelection = new System.Windows.Forms.Label();
             this.cbMechList = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -119,6 +142,7 @@
             this.tabExpAndCbills.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chtExpCbills)).BeginInit();
             this.tabFullHistory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.olvMatchHistory)).BeginInit();
             this.pnlMechSelect.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmbMatches)).BeginInit();
@@ -139,7 +163,7 @@
             // 
             // btnSetLogin
             // 
-            this.btnSetLogin.Location = new System.Drawing.Point(870, 1);
+            this.btnSetLogin.Location = new System.Drawing.Point(550, 2);
             this.btnSetLogin.Name = "btnSetLogin";
             this.btnSetLogin.Size = new System.Drawing.Size(126, 23);
             this.btnSetLogin.TabIndex = 2;
@@ -208,7 +232,7 @@
             // 
             // btnShowError
             // 
-            this.btnShowError.Location = new System.Drawing.Point(870, 31);
+            this.btnShowError.Location = new System.Drawing.Point(682, 2);
             this.btnShowError.Name = "btnShowError";
             this.btnShowError.Size = new System.Drawing.Size(126, 23);
             this.btnShowError.TabIndex = 10;
@@ -220,7 +244,7 @@
             // 
             // btnCheckLogin
             // 
-            this.btnCheckLogin.Location = new System.Drawing.Point(861, 60);
+            this.btnCheckLogin.Location = new System.Drawing.Point(814, 1);
             this.btnCheckLogin.Name = "btnCheckLogin";
             this.btnCheckLogin.Size = new System.Drawing.Size(146, 23);
             this.btnCheckLogin.TabIndex = 11;
@@ -287,7 +311,7 @@
             this.tcCharts.Location = new System.Drawing.Point(4, 108);
             this.tcCharts.Name = "tcCharts";
             this.tcCharts.SelectedIndex = 0;
-            this.tcCharts.Size = new System.Drawing.Size(886, 536);
+            this.tcCharts.Size = new System.Drawing.Size(933, 536);
             this.tcCharts.TabIndex = 16;
             this.tcCharts.SelectedIndexChanged += new System.EventHandler(this.tcCharts_SelectedIndexChanged);
             // 
@@ -297,7 +321,7 @@
             this.tabMechInfo.Location = new System.Drawing.Point(4, 22);
             this.tabMechInfo.Name = "tabMechInfo";
             this.tabMechInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMechInfo.Size = new System.Drawing.Size(878, 510);
+            this.tabMechInfo.Size = new System.Drawing.Size(830, 510);
             this.tabMechInfo.TabIndex = 3;
             this.tabMechInfo.Text = "Mech View";
             this.tabMechInfo.UseVisualStyleBackColor = true;
@@ -308,7 +332,7 @@
             this.tabAccuracy.Location = new System.Drawing.Point(4, 22);
             this.tabAccuracy.Name = "tabAccuracy";
             this.tabAccuracy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAccuracy.Size = new System.Drawing.Size(878, 510);
+            this.tabAccuracy.Size = new System.Drawing.Size(847, 510);
             this.tabAccuracy.TabIndex = 0;
             this.tabAccuracy.Text = "Hits And Misses";
             this.tabAccuracy.UseVisualStyleBackColor = true;
@@ -349,7 +373,7 @@
             series2.YValueMembers = "Misses";
             this.chtAccuracy.Series.Add(series1);
             this.chtAccuracy.Series.Add(series2);
-            this.chtAccuracy.Size = new System.Drawing.Size(872, 504);
+            this.chtAccuracy.Size = new System.Drawing.Size(841, 504);
             this.chtAccuracy.TabIndex = 0;
             this.chtAccuracy.Text = "Accuracy";
             // 
@@ -359,7 +383,7 @@
             this.tabEffective.Location = new System.Drawing.Point(4, 22);
             this.tabEffective.Name = "tabEffective";
             this.tabEffective.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEffective.Size = new System.Drawing.Size(878, 510);
+            this.tabEffective.Size = new System.Drawing.Size(847, 510);
             this.tabEffective.TabIndex = 1;
             this.tabEffective.Text = "Effectiveness";
             this.tabEffective.UseVisualStyleBackColor = true;
@@ -401,7 +425,7 @@
             this.chtEffective.Series.Add(series3);
             this.chtEffective.Series.Add(series4);
             this.chtEffective.Series.Add(series5);
-            this.chtEffective.Size = new System.Drawing.Size(872, 504);
+            this.chtEffective.Size = new System.Drawing.Size(841, 504);
             this.chtEffective.TabIndex = 2;
             this.chtEffective.Text = "Effectiveness";
             // 
@@ -411,7 +435,7 @@
             this.tabExpAndCbills.Location = new System.Drawing.Point(4, 22);
             this.tabExpAndCbills.Name = "tabExpAndCbills";
             this.tabExpAndCbills.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExpAndCbills.Size = new System.Drawing.Size(878, 510);
+            this.tabExpAndCbills.Size = new System.Drawing.Size(847, 510);
             this.tabExpAndCbills.TabIndex = 2;
             this.tabExpAndCbills.Text = "Exp and cBills";
             this.tabExpAndCbills.UseVisualStyleBackColor = true;
@@ -458,42 +482,306 @@
             this.chtExpCbills.Series.Add(series6);
             this.chtExpCbills.Series.Add(series7);
             this.chtExpCbills.Series.Add(series8);
-            this.chtExpCbills.Size = new System.Drawing.Size(872, 504);
+            this.chtExpCbills.Size = new System.Drawing.Size(841, 504);
             this.chtExpCbills.TabIndex = 0;
             this.chtExpCbills.Text = "chart1";
             // 
             // tabFullHistory
             // 
             this.tabFullHistory.AutoScroll = true;
-            this.tabFullHistory.Controls.Add(this.flpMatches);
+            this.tabFullHistory.Controls.Add(this.olvMatchHistory);
             this.tabFullHistory.Controls.Add(this.pnlMechSelect);
             this.tabFullHistory.Location = new System.Drawing.Point(4, 22);
             this.tabFullHistory.Name = "tabFullHistory";
             this.tabFullHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFullHistory.Size = new System.Drawing.Size(878, 510);
+            this.tabFullHistory.Size = new System.Drawing.Size(925, 510);
             this.tabFullHistory.TabIndex = 4;
             this.tabFullHistory.Text = "All Matches";
             this.toolTip1.SetToolTip(this.tabFullHistory, "Full match history for the Active Mech");
             this.tabFullHistory.UseVisualStyleBackColor = true;
             // 
-            // flpMatches
+            // olvMatchHistory
             // 
-            this.flpMatches.AutoScroll = true;
-            this.flpMatches.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flpMatches.Location = new System.Drawing.Point(3, 51);
-            this.flpMatches.Name = "flpMatches";
-            this.flpMatches.Size = new System.Drawing.Size(872, 456);
-            this.flpMatches.TabIndex = 1;
+            this.olvMatchHistory.AllColumns.Add(this.olvColWin);
+            this.olvMatchHistory.AllColumns.Add(this.olvColLived);
+            this.olvMatchHistory.AllColumns.Add(this.olvColKills);
+            this.olvMatchHistory.AllColumns.Add(this.olvCoDamage);
+            this.olvMatchHistory.AllColumns.Add(this.olvCoHits);
+            this.olvMatchHistory.AllColumns.Add(this.olvColMisses);
+            this.olvMatchHistory.AllColumns.Add(this.olvColExp);
+            this.olvMatchHistory.AllColumns.Add(this.olvColCBills);
+            this.olvMatchHistory.AllColumns.Add(this.olvColMap);
+            this.olvMatchHistory.AllColumns.Add(this.olvColMode);
+            this.olvMatchHistory.AllColumns.Add(this.olvColDate);
+            this.olvMatchHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.olvColWin,
+            this.olvColLived,
+            this.olvColKills,
+            this.olvCoDamage,
+            this.olvCoHits,
+            this.olvColMisses,
+            this.olvColExp,
+            this.olvColCBills,
+            this.olvColMap,
+            this.olvColMode,
+            this.olvColDate});
+            this.olvMatchHistory.Dock = System.Windows.Forms.DockStyle.Top;
+            this.olvMatchHistory.EmptyListMsg = "No matches found?";
+            this.olvMatchHistory.EmptyListMsgFont = new System.Drawing.Font("Monotype Corsiva", 26.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.olvMatchHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.olvMatchHistory.GridLines = true;
+            this.olvMatchHistory.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.olvMatchHistory.Location = new System.Drawing.Point(3, 51);
+            this.olvMatchHistory.MultiSelect = false;
+            this.olvMatchHistory.Name = "olvMatchHistory";
+            this.olvMatchHistory.SelectAllOnControlA = false;
+            this.olvMatchHistory.SelectColumnsOnRightClick = false;
+            this.olvMatchHistory.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.None;
+            this.olvMatchHistory.ShowGroups = false;
+            this.olvMatchHistory.ShowSortIndicators = false;
+            this.olvMatchHistory.Size = new System.Drawing.Size(919, 456);
+            this.olvMatchHistory.SortGroupItemsByPrimaryColumn = false;
+            this.olvMatchHistory.TabIndex = 0;
+            this.olvMatchHistory.UseCompatibleStateImageBehavior = false;
+            this.olvMatchHistory.View = System.Windows.Forms.View.Details;
+            // 
+            // olvColWin
+            // 
+            this.olvColWin.AspectName = "bWin";
+            this.olvColWin.CellPadding = null;
+            this.olvColWin.Groupable = false;
+            this.olvColWin.IsEditable = false;
+            this.olvColWin.MinimumWidth = 40;
+            this.olvColWin.Text = "Win";
+            // 
+            // olvColLived
+            // 
+            this.olvColLived.AspectName = "bDeath";
+            this.olvColLived.CellPadding = null;
+            this.olvColLived.Groupable = false;
+            this.olvColLived.IsEditable = false;
+            this.olvColLived.MinimumWidth = 40;
+            this.olvColLived.Text = "Lived";
+            // 
+            // olvColKills
+            // 
+            this.olvColKills.AspectName = "iKills";
+            this.olvColKills.CellPadding = null;
+            this.olvColKills.Groupable = false;
+            this.olvColKills.IsEditable = false;
+            this.olvColKills.MinimumWidth = 40;
+            this.olvColKills.Text = "Kills";
+            // 
+            // olvCoDamage
+            // 
+            this.olvCoDamage.AspectName = "iDamage";
+            this.olvCoDamage.AspectToStringFormat = "{0:#,##0}";
+            this.olvCoDamage.CellPadding = null;
+            this.olvCoDamage.Groupable = false;
+            this.olvCoDamage.IsEditable = false;
+            this.olvCoDamage.MinimumWidth = 75;
+            this.olvCoDamage.Text = "Damage";
+            this.olvCoDamage.Width = 75;
+            // 
+            // olvCoHits
+            // 
+            this.olvCoHits.AspectName = "iHits";
+            this.olvCoHits.AspectToStringFormat = "{0:#,##0}";
+            this.olvCoHits.CellPadding = null;
+            this.olvCoHits.Groupable = false;
+            this.olvCoHits.IsEditable = false;
+            this.olvCoHits.MinimumWidth = 60;
+            this.olvCoHits.Text = "Hits";
+            // 
+            // olvColMisses
+            // 
+            this.olvColMisses.AspectName = "iMisses";
+            this.olvColMisses.AspectToStringFormat = "{0:#,##0}";
+            this.olvColMisses.CellPadding = null;
+            this.olvColMisses.Groupable = false;
+            this.olvColMisses.IsEditable = false;
+            this.olvColMisses.MinimumWidth = 65;
+            this.olvColMisses.Text = "Misses";
+            this.olvColMisses.Width = 65;
+            // 
+            // olvColExp
+            // 
+            this.olvColExp.AspectName = "iExp";
+            this.olvColExp.CellPadding = null;
+            this.olvColExp.Groupable = false;
+            this.olvColExp.IsEditable = false;
+            this.olvColExp.MinimumWidth = 60;
+            this.olvColExp.Text = "EXP";
+            // 
+            // olvColCBills
+            // 
+            this.olvColCBills.AspectName = "iCBills";
+            this.olvColCBills.AspectToStringFormat = "{0:#,###}";
+            this.olvColCBills.CellPadding = null;
+            this.olvColCBills.Groupable = false;
+            this.olvColCBills.IsEditable = false;
+            this.olvColCBills.MinimumWidth = 60;
+            this.olvColCBills.Text = "C-Bills";
+            // 
+            // olvColMap
+            // 
+            this.olvColMap.AspectName = "sMap";
+            this.olvColMap.CellPadding = null;
+            this.olvColMap.Groupable = false;
+            this.olvColMap.IsEditable = false;
+            this.olvColMap.MinimumWidth = 60;
+            this.olvColMap.Text = "Map";
+            // 
+            // olvColMode
+            // 
+            this.olvColMode.AspectName = "sMode";
+            this.olvColMode.CellPadding = null;
+            this.olvColMode.Groupable = false;
+            this.olvColMode.IsEditable = false;
+            this.olvColMode.MinimumWidth = 60;
+            this.olvColMode.Text = "Mode";
+            // 
+            // olvColDate
+            // 
+            this.olvColDate.AspectName = "dtDate";
+            this.olvColDate.AspectToStringFormat = "{0:MM/dd/yyyy - h:mm tt}";
+            this.olvColDate.CellPadding = null;
+            this.olvColDate.FillsFreeSpace = true;
+            this.olvColDate.Groupable = false;
+            this.olvColDate.IsEditable = false;
+            this.olvColDate.MinimumWidth = 150;
+            this.olvColDate.Text = "Date Played";
+            this.olvColDate.Width = 150;
             // 
             // pnlMechSelect
             // 
+            this.pnlMechSelect.Controls.Add(this.lblLosses);
+            this.pnlMechSelect.Controls.Add(this.lblLossesHeader);
+            this.pnlMechSelect.Controls.Add(this.lblCBills);
+            this.pnlMechSelect.Controls.Add(this.lblCBillsHeader);
+            this.pnlMechSelect.Controls.Add(this.lblDeaths);
+            this.pnlMechSelect.Controls.Add(this.lblDeathsHeader);
+            this.pnlMechSelect.Controls.Add(this.lblMatchCount);
+            this.pnlMechSelect.Controls.Add(this.lblKills);
+            this.pnlMechSelect.Controls.Add(this.lblWins);
+            this.pnlMechSelect.Controls.Add(this.lblMatchCountHeader);
+            this.pnlMechSelect.Controls.Add(this.lblKillsHeader);
+            this.pnlMechSelect.Controls.Add(this.lblWinsHeader);
             this.pnlMechSelect.Controls.Add(this.lblMechSelection);
             this.pnlMechSelect.Controls.Add(this.cbMechList);
             this.pnlMechSelect.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlMechSelect.Location = new System.Drawing.Point(3, 3);
             this.pnlMechSelect.Name = "pnlMechSelect";
-            this.pnlMechSelect.Size = new System.Drawing.Size(872, 48);
+            this.pnlMechSelect.Size = new System.Drawing.Size(919, 48);
             this.pnlMechSelect.TabIndex = 0;
+            // 
+            // lblLosses
+            // 
+            this.lblLosses.AutoSize = true;
+            this.lblLosses.Location = new System.Drawing.Point(91, 28);
+            this.lblLosses.Name = "lblLosses";
+            this.lblLosses.Size = new System.Drawing.Size(19, 13);
+            this.lblLosses.TabIndex = 13;
+            this.lblLosses.Text = "----";
+            // 
+            // lblLossesHeader
+            // 
+            this.lblLossesHeader.AutoSize = true;
+            this.lblLossesHeader.Location = new System.Drawing.Point(83, 8);
+            this.lblLossesHeader.Name = "lblLossesHeader";
+            this.lblLossesHeader.Size = new System.Drawing.Size(40, 13);
+            this.lblLossesHeader.TabIndex = 12;
+            this.lblLossesHeader.Text = "Losses";
+            // 
+            // lblCBills
+            // 
+            this.lblCBills.Location = new System.Drawing.Point(696, 28);
+            this.lblCBills.Name = "lblCBills";
+            this.lblCBills.Size = new System.Drawing.Size(75, 13);
+            this.lblCBills.TabIndex = 11;
+            this.lblCBills.Text = "------";
+            this.lblCBills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblCBillsHeader
+            // 
+            this.lblCBillsHeader.AutoSize = true;
+            this.lblCBillsHeader.Location = new System.Drawing.Point(716, 8);
+            this.lblCBillsHeader.Name = "lblCBillsHeader";
+            this.lblCBillsHeader.Size = new System.Drawing.Size(35, 13);
+            this.lblCBillsHeader.TabIndex = 10;
+            this.lblCBillsHeader.Text = "C-Bills";
+            // 
+            // lblDeaths
+            // 
+            this.lblDeaths.Location = new System.Drawing.Point(187, 28);
+            this.lblDeaths.Name = "lblDeaths";
+            this.lblDeaths.Size = new System.Drawing.Size(25, 13);
+            this.lblDeaths.TabIndex = 9;
+            this.lblDeaths.Text = "----";
+            this.lblDeaths.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblDeathsHeader
+            // 
+            this.lblDeathsHeader.AutoSize = true;
+            this.lblDeathsHeader.Location = new System.Drawing.Point(180, 8);
+            this.lblDeathsHeader.Name = "lblDeathsHeader";
+            this.lblDeathsHeader.Size = new System.Drawing.Size(41, 13);
+            this.lblDeathsHeader.TabIndex = 8;
+            this.lblDeathsHeader.Text = "Deaths";
+            // 
+            // lblMatchCount
+            // 
+            this.lblMatchCount.Location = new System.Drawing.Point(608, 28);
+            this.lblMatchCount.Name = "lblMatchCount";
+            this.lblMatchCount.Size = new System.Drawing.Size(49, 13);
+            this.lblMatchCount.TabIndex = 7;
+            this.lblMatchCount.Text = "----";
+            this.lblMatchCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblKills
+            // 
+            this.lblKills.Location = new System.Drawing.Point(137, 28);
+            this.lblKills.Name = "lblKills";
+            this.lblKills.Size = new System.Drawing.Size(25, 13);
+            this.lblKills.TabIndex = 6;
+            this.lblKills.Text = "----";
+            this.lblKills.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblWins
+            // 
+            this.lblWins.AutoSize = true;
+            this.lblWins.Location = new System.Drawing.Point(48, 28);
+            this.lblWins.Name = "lblWins";
+            this.lblWins.Size = new System.Drawing.Size(19, 13);
+            this.lblWins.TabIndex = 5;
+            this.lblWins.Text = "----";
+            // 
+            // lblMatchCountHeader
+            // 
+            this.lblMatchCountHeader.AutoSize = true;
+            this.lblMatchCountHeader.Location = new System.Drawing.Point(594, 8);
+            this.lblMatchCountHeader.Name = "lblMatchCountHeader";
+            this.lblMatchCountHeader.Size = new System.Drawing.Size(75, 13);
+            this.lblMatchCountHeader.TabIndex = 4;
+            this.lblMatchCountHeader.Text = "Total Matches";
+            // 
+            // lblKillsHeader
+            // 
+            this.lblKillsHeader.AutoSize = true;
+            this.lblKillsHeader.Location = new System.Drawing.Point(138, 8);
+            this.lblKillsHeader.Name = "lblKillsHeader";
+            this.lblKillsHeader.Size = new System.Drawing.Size(25, 13);
+            this.lblKillsHeader.TabIndex = 3;
+            this.lblKillsHeader.Text = "Kills";
+            // 
+            // lblWinsHeader
+            // 
+            this.lblWinsHeader.AutoSize = true;
+            this.lblWinsHeader.Location = new System.Drawing.Point(45, 8);
+            this.lblWinsHeader.Name = "lblWinsHeader";
+            this.lblWinsHeader.Size = new System.Drawing.Size(31, 13);
+            this.lblWinsHeader.TabIndex = 2;
+            this.lblWinsHeader.Text = "Wins";
             // 
             // lblMechSelection
             // 
@@ -845,7 +1133,7 @@
             // 
             // btnTryLogon
             // 
-            this.btnTryLogon.Location = new System.Drawing.Point(890, 98);
+            this.btnTryLogon.Location = new System.Drawing.Point(875, 37);
             this.btnTryLogon.Name = "btnTryLogon";
             this.btnTryLogon.Size = new System.Drawing.Size(85, 23);
             this.btnTryLogon.TabIndex = 24;
@@ -859,7 +1147,7 @@
             this.lblCurrentMech.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCurrentMech.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblCurrentMech.Location = new System.Drawing.Point(896, 130);
+            this.lblCurrentMech.Location = new System.Drawing.Point(943, 127);
             this.lblCurrentMech.MaximumSize = new System.Drawing.Size(27, 510);
             this.lblCurrentMech.Name = "lblCurrentMech";
             this.lblCurrentMech.Size = new System.Drawing.Size(27, 510);
@@ -872,7 +1160,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1105, 647);
+            this.ClientSize = new System.Drawing.Size(1011, 647);
             this.Controls.Add(this.lblCurrentMech);
             this.Controls.Add(this.btnTryLogon);
             this.Controls.Add(this.label3);
@@ -899,7 +1187,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1070, 685);
+            this.MinimumSize = new System.Drawing.Size(1010, 685);
             this.Name = "frmMWOStatSys";
             this.Text = "MWO Stat Grabber";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMWOStatSys_FormClosing);
@@ -917,6 +1205,7 @@
             this.tabExpAndCbills.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chtExpCbills)).EndInit();
             this.tabFullHistory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.olvMatchHistory)).EndInit();
             this.pnlMechSelect.ResumeLayout(false);
             this.pnlMechSelect.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -992,7 +1281,31 @@
         private System.Windows.Forms.Panel pnlMechSelect;
         private System.Windows.Forms.Label lblMechSelection;
         private System.Windows.Forms.ComboBox cbMechList;
-        private System.Windows.Forms.FlowLayoutPanel flpMatches;
+        //private System.Windows.Forms.FlowLayoutPanel flpMatches;
+        private System.Windows.Forms.Label lblMatchCount;
+        private System.Windows.Forms.Label lblKills;
+        private System.Windows.Forms.Label lblWins;
+        private System.Windows.Forms.Label lblMatchCountHeader;
+        private System.Windows.Forms.Label lblKillsHeader;
+        private System.Windows.Forms.Label lblWinsHeader;
+        private System.Windows.Forms.Label lblDeaths;
+        private System.Windows.Forms.Label lblDeathsHeader;
+        private System.Windows.Forms.Label lblCBills;
+        private System.Windows.Forms.Label lblCBillsHeader;
+        private System.Windows.Forms.Label lblLosses;
+        private System.Windows.Forms.Label lblLossesHeader;
+        private BrightIdeasSoftware.ObjectListView olvMatchHistory;
+        private BrightIdeasSoftware.OLVColumn olvColWin;
+        private BrightIdeasSoftware.OLVColumn olvColLived;
+        private BrightIdeasSoftware.OLVColumn olvColKills;
+        private BrightIdeasSoftware.OLVColumn olvCoDamage;
+        private BrightIdeasSoftware.OLVColumn olvCoHits;
+        private BrightIdeasSoftware.OLVColumn olvColMisses;
+        private BrightIdeasSoftware.OLVColumn olvColExp;
+        private BrightIdeasSoftware.OLVColumn olvColCBills;
+        private BrightIdeasSoftware.OLVColumn olvColMap;
+        private BrightIdeasSoftware.OLVColumn olvColMode;
+        private BrightIdeasSoftware.OLVColumn olvColDate;
     }
 }
 

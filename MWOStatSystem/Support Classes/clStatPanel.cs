@@ -52,8 +52,6 @@ namespace MWOStatSystem.Support_Classes
     
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-
             this.gbStatPanel = new System.Windows.Forms.GroupBox();
             this.pnlRoundStatHighlight = new MWOStatSystem.Support_Classes.ucRoundedPanel();
             this.lblMisses = new System.Windows.Forms.Label();
@@ -124,8 +122,8 @@ namespace MWOStatSystem.Support_Classes
             // 
             // lblMisses
             // 
-            this.lblMisses.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblMisses.Location = new System.Drawing.Point(303, 32);
+            this.lblMisses.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblMisses.Location = new System.Drawing.Point(305, 32);
             this.lblMisses.Name = "lblMisses";
             this.lblMisses.Size = new System.Drawing.Size(53, 29);
             this.lblMisses.TabIndex = 24;
@@ -135,7 +133,7 @@ namespace MWOStatSystem.Support_Classes
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(311, 10);
+            this.label1.Location = new System.Drawing.Point(313, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 23;
@@ -143,8 +141,8 @@ namespace MWOStatSystem.Support_Classes
             // 
             // lblHits
             // 
-            this.lblHits.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblHits.Location = new System.Drawing.Point(239, 32);
+            this.lblHits.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblHits.Location = new System.Drawing.Point(241, 32);
             this.lblHits.Name = "lblHits";
             this.lblHits.Size = new System.Drawing.Size(45, 29);
             this.lblHits.TabIndex = 22;
@@ -154,7 +152,7 @@ namespace MWOStatSystem.Support_Classes
             // lblHitsHeader
             // 
             this.lblHitsHeader.AutoSize = true;
-            this.lblHitsHeader.Location = new System.Drawing.Point(248, 10);
+            this.lblHitsHeader.Location = new System.Drawing.Point(250, 10);
             this.lblHitsHeader.Name = "lblHitsHeader";
             this.lblHitsHeader.Size = new System.Drawing.Size(25, 13);
             this.lblHitsHeader.TabIndex = 21;
@@ -199,7 +197,7 @@ namespace MWOStatSystem.Support_Classes
             // lblCBills
             // 
             this.lblCBills.BackColor = System.Drawing.Color.Transparent;
-            this.lblCBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblCBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.lblCBills.Location = new System.Drawing.Point(466, 32);
             this.lblCBills.Name = "lblCBills";
             this.lblCBills.Size = new System.Drawing.Size(104, 29);
@@ -209,8 +207,8 @@ namespace MWOStatSystem.Support_Classes
             // 
             // lblKills
             // 
-            this.lblKills.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblKills.Location = new System.Drawing.Point(106, 32);
+            this.lblKills.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblKills.Location = new System.Drawing.Point(108, 32);
             this.lblKills.Name = "lblKills";
             this.lblKills.Size = new System.Drawing.Size(41, 29);
             this.lblKills.TabIndex = 11;
@@ -247,7 +245,7 @@ namespace MWOStatSystem.Support_Classes
             // lblKillHeader
             // 
             this.lblKillHeader.AutoSize = true;
-            this.lblKillHeader.Location = new System.Drawing.Point(114, 10);
+            this.lblKillHeader.Location = new System.Drawing.Point(116, 10);
             this.lblKillHeader.Name = "lblKillHeader";
             this.lblKillHeader.Size = new System.Drawing.Size(25, 13);
             this.lblKillHeader.TabIndex = 6;
@@ -256,10 +254,10 @@ namespace MWOStatSystem.Support_Classes
             // lblExp
             // 
             this.lblExp.BackColor = System.Drawing.Color.Transparent;
-            this.lblExp.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblExp.Location = new System.Drawing.Point(364, 32);
+            this.lblExp.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblExp.Location = new System.Drawing.Point(370, 32);
             this.lblExp.Name = "lblExp";
-            this.lblExp.Size = new System.Drawing.Size(90, 29);
+            this.lblExp.Size = new System.Drawing.Size(87, 29);
             this.lblExp.TabIndex = 14;
             this.lblExp.Text = "----";
             this.lblExp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -267,7 +265,7 @@ namespace MWOStatSystem.Support_Classes
             // lblDamageHeader
             // 
             this.lblDamageHeader.AutoSize = true;
-            this.lblDamageHeader.Location = new System.Drawing.Point(165, 10);
+            this.lblDamageHeader.Location = new System.Drawing.Point(167, 10);
             this.lblDamageHeader.Name = "lblDamageHeader";
             this.lblDamageHeader.Size = new System.Drawing.Size(55, 13);
             this.lblDamageHeader.TabIndex = 10;
@@ -286,7 +284,7 @@ namespace MWOStatSystem.Support_Classes
             // 
             this.lblExpHeader.AutoSize = true;
             this.lblExpHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExpHeader.Location = new System.Drawing.Point(394, 10);
+            this.lblExpHeader.Location = new System.Drawing.Point(397, 10);
             this.lblExpHeader.Name = "lblExpHeader";
             this.lblExpHeader.Size = new System.Drawing.Size(28, 13);
             this.lblExpHeader.TabIndex = 13;
@@ -303,8 +301,8 @@ namespace MWOStatSystem.Support_Classes
             // 
             // lblDamage
             // 
-            this.lblDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblDamage.Location = new System.Drawing.Point(158, 32);
+            this.lblDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lblDamage.Location = new System.Drawing.Point(160, 32);
             this.lblDamage.Name = "lblDamage";
             this.lblDamage.Size = new System.Drawing.Size(71, 29);
             this.lblDamage.TabIndex = 12;

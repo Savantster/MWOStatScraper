@@ -47,6 +47,7 @@ using System.Text.RegularExpressions;
 using System.Collections;
 using System.Resources;
 using MWOStatSystem.Properties;
+using BrightIdeasSoftware;
 
 namespace MWOStatSystem
 {
@@ -106,6 +107,7 @@ namespace MWOStatSystem
         private clWeaponProcessor Weapons = null;
 
         private List<int> lstLoadedMechs = new List<int>();
+        private List<clSingleMatch> lstMatchHistory = new List<clSingleMatch>();
 
         private ResourceManager rm = Resources.ResourceManager;
 
@@ -173,6 +175,15 @@ namespace MWOStatSystem
                 vFillMechList();
  
                 verifyLoginCredentials();
+
+                olvMatchHistory.RowFormatter = delegate(OLVListItem olvi)
+                {
+                    clSingleMatch Match = (clSingleMatch)olvi.RowObject;
+                    if (Match.bWin)
+                        olvi.BackColor = Color.PaleGreen;
+                    else
+                        olvi.BackColor = Color.PaleVioletRed;
+                };
 
             }
             catch ( Exception ex )
@@ -952,6 +963,7 @@ namespace MWOStatSystem
             //}
 
             bLoading = false;
+            tabMechInfo.Focus();
             Cursor = Cursors.Default;
             //FillCharts(); // I turned this on when I was testing setting the active mech/match during load, to play with the panel colors..
 
@@ -1424,8 +1436,13 @@ namespace MWOStatSystem
             if ((bLoading) || (tcCharts.SelectedIndex != 4))
                 return;
 
-            //lblMechSelection.Refresh();
-            //cbMechList.Refresh();
+            lblWins.Text = "---";
+            lblLosses.Text = "---";
+            lblKills.Text = "---";
+            lblDeaths.Text = "---";
+            lblMatchCount.Text = "----";
+            lblCBills.Text = "------";
+
             pnlMechSelect.Refresh();
             Application.DoEvents();
 
@@ -1436,18 +1453,29 @@ namespace MWOStatSystem
         {
             // fill the match history tab page with all the matches for this mech.
             Cursor = Cursors.WaitCursor;
+            long lWins = 0;
+            long lKills = 0;
+            long lDeaths = 0;
+            long lMatchCount = 0;
+            long lCBills = 0;
 
-            SuspendLayout();
-            clStatPanel clTmp;
+            //clStatPanel clTmp;
+            clSingleMatch clTmp;
 
-            // we have to manually retrieve and dispose our panels, or we burn up user objects quite quickly.
-            while (flpMatches.Controls.Count > 0)
-            {
-                clTmp = (clStatPanel)flpMatches.Controls[flpMatches.Controls.Count - 1];
-                flpMatches.Controls.Remove(clTmp);
-                clTmp.Dispose();
-                clTmp = null;
-            }
+            // we have to manually retrieve and dispose our stat panels, or we burn up user objects quite quickly.
+            //while (flpMatches.Controls.Count > 0)
+            //{
+            //    clTmp = (clStatPanel)flpMatches.Controls[flpMatches.Controls.Count - 1];
+            //    flpMatches.Controls.Remove(clTmp);
+            //    clTmp.Dispose();
+            //    clTmp = null;
+            //}
+
+            olvMatchHistory.ClearObjects();
+            lstMatchHistory.Clear();
+
+            //flpMatches.Refresh();
+            //Application.DoEvents(); // try to clear the panel sooner/faster..
 
             // get all the histories for the currently selected mech..
             rs = m_myDB.ResultSet("select c.name as Map, d.name as Mode, a.kills, a.Death, a.WinLoss, a.Exp, a.cBills, a.duration, a.date, " +
@@ -1461,32 +1489,74 @@ namespace MWOStatSystem
                 " group by a.matchid, c.name, d.name, kills, death, winloss, exp, cbills, duration, date" +
                 " order by a.matchid desc");
 
+            int iKills = 0;
+            int iCBills = 0;
+            bool bWin = false;
+            bool bDeath = false;
+
             while (rs.Read())
             {
-                clTmp = new clStatPanel();
-                clTmp.YesImage = (Image)rm.GetObject("check");
-                clTmp.NoImage = (Image)rm.GetObject("x");
-                clTmp.Map = (string)rs.GetValue(0);
-                clTmp.Mode = (string)rs.GetValue(1);
-                clTmp.Kills = (int)rs.GetByte(2);
-                clTmp.Lived = !rs.GetBoolean(3);
-                clTmp.Win= ((char)rs.GetString(4)[0]) == 'W'? true : false;
-                clTmp.Exp = (int)rs.GetInt16(5);
-                clTmp.cBills = (int)rs.GetValue(6);
-                //clTmp.iDuration = (int)rs.GetInt16(7);
-                clTmp.Date = (DateTime)rs.GetDateTime(8);
-                clTmp.Damage = ((int)rs.GetValue(9)).ToString();
-                clTmp.Hits = (int)rs.GetValue(10);
-                clTmp.Misses = (int)rs.GetValue(11);
+                iKills = (int)rs.GetByte(2);
+                iCBills = (int)rs.GetValue(6);
+                bWin = ((char)rs.GetString(4)[0]) == 'W'? true : false;
+                bDeath = rs.GetBoolean(3);
 
-                clTmp.Dock = DockStyle.Top;
+                //clTmp = new clStatPanel();
+                clTmp = new clSingleMatch();
+                //clTmp.YesImage = (Image)rm.GetObject("check");
+                //clTmp.NoImage = (Image)rm.GetObject("x");
+                //clTmp.Map = (string)rs.GetValue(0);
+                clTmp.sMap = (string)rs.GetValue(0);
+                //clTmp.Mode = (string)rs.GetValue(1);
+                clTmp.sMode = (string)rs.GetValue(1);
+                //clTmp.Kills = iKills;
+                clTmp.iKills = iKills;
+                //clTmp.Lived = !bDeath;
+                clTmp.bDeath = bDeath;
+                //clTmp.Win= bWin;
+                clTmp.bWin = bWin;
+                //clTmp.Exp = (int)rs.GetInt16(5);
+                clTmp.iExp = (int)rs.GetInt16(5);
+                //clTmp.cBills = iCBills;
+                clTmp.iCBills = iCBills;
+                ////clTmp.iDuration = (int)rs.GetInt16(7);
+                //clTmp.Date = (DateTime)rs.GetDateTime(8);
+                clTmp.dtDate = (DateTime)rs.GetDateTime(8);
+                //clTmp.Damage = ((int)rs.GetValue(9)).ToString();
+                clTmp.iDamage = (int)rs.GetValue(9);
+                //clTmp.Hits = (int)rs.GetValue(10);
+                clTmp.iHits = (int)rs.GetValue(10);
+                //clTmp.Misses = (int)rs.GetValue(11);
+                clTmp.iMisses = (int)rs.GetValue(11);
 
-                flpMatches.Controls.Add(clTmp);
+                //clTmp.Dock = DockStyle.Top;
 
+                //flpMatches.Controls.Add(clTmp);
+                lstMatchHistory.Add(clTmp);
+
+                lMatchCount++;
+                lKills += iKills;
+                lCBills += iCBills;
+                if (bWin)
+                    lWins++;
+                if (bDeath)
+                    lDeaths++;
             }
 
+            lblWins.Text = lWins.ToString();
+            lblKills.Text = lKills.ToString();
+            lblMatchCount.Text = lMatchCount.ToString();
+            lblDeaths.Text = lDeaths.ToString();
+            lblCBills.Text = string.Format("{0:#,###}", lCBills);
+            lblLosses.Text = (lMatchCount - lWins).ToString();
+
+            olvMatchHistory.SetObjects(lstMatchHistory);
+            olvMatchHistory.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
             ResumeLayout();
-            flpMatches.Focus();
+            //flpMatches.Focus();
+            olvMatchHistory.Focus();
+
             Cursor = Cursors.Default;
         }
     }
