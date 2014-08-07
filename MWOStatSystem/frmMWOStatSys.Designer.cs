@@ -311,7 +311,7 @@
             this.tcCharts.Location = new System.Drawing.Point(4, 108);
             this.tcCharts.Name = "tcCharts";
             this.tcCharts.SelectedIndex = 0;
-            this.tcCharts.Size = new System.Drawing.Size(933, 536);
+            this.tcCharts.Size = new System.Drawing.Size(929, 536);
             this.tcCharts.TabIndex = 16;
             this.tcCharts.SelectedIndexChanged += new System.EventHandler(this.tcCharts_SelectedIndexChanged);
             // 
@@ -321,7 +321,7 @@
             this.tabMechInfo.Location = new System.Drawing.Point(4, 22);
             this.tabMechInfo.Name = "tabMechInfo";
             this.tabMechInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMechInfo.Size = new System.Drawing.Size(830, 510);
+            this.tabMechInfo.Size = new System.Drawing.Size(921, 510);
             this.tabMechInfo.TabIndex = 3;
             this.tabMechInfo.Text = "Mech View";
             this.tabMechInfo.UseVisualStyleBackColor = true;
@@ -332,7 +332,7 @@
             this.tabAccuracy.Location = new System.Drawing.Point(4, 22);
             this.tabAccuracy.Name = "tabAccuracy";
             this.tabAccuracy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAccuracy.Size = new System.Drawing.Size(847, 510);
+            this.tabAccuracy.Size = new System.Drawing.Size(908, 510);
             this.tabAccuracy.TabIndex = 0;
             this.tabAccuracy.Text = "Hits And Misses";
             this.tabAccuracy.UseVisualStyleBackColor = true;
@@ -373,7 +373,7 @@
             series2.YValueMembers = "Misses";
             this.chtAccuracy.Series.Add(series1);
             this.chtAccuracy.Series.Add(series2);
-            this.chtAccuracy.Size = new System.Drawing.Size(841, 504);
+            this.chtAccuracy.Size = new System.Drawing.Size(902, 504);
             this.chtAccuracy.TabIndex = 0;
             this.chtAccuracy.Text = "Accuracy";
             // 
@@ -383,7 +383,7 @@
             this.tabEffective.Location = new System.Drawing.Point(4, 22);
             this.tabEffective.Name = "tabEffective";
             this.tabEffective.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEffective.Size = new System.Drawing.Size(847, 510);
+            this.tabEffective.Size = new System.Drawing.Size(908, 510);
             this.tabEffective.TabIndex = 1;
             this.tabEffective.Text = "Effectiveness";
             this.tabEffective.UseVisualStyleBackColor = true;
@@ -425,7 +425,7 @@
             this.chtEffective.Series.Add(series3);
             this.chtEffective.Series.Add(series4);
             this.chtEffective.Series.Add(series5);
-            this.chtEffective.Size = new System.Drawing.Size(841, 504);
+            this.chtEffective.Size = new System.Drawing.Size(902, 504);
             this.chtEffective.TabIndex = 2;
             this.chtEffective.Text = "Effectiveness";
             // 
@@ -435,7 +435,7 @@
             this.tabExpAndCbills.Location = new System.Drawing.Point(4, 22);
             this.tabExpAndCbills.Name = "tabExpAndCbills";
             this.tabExpAndCbills.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExpAndCbills.Size = new System.Drawing.Size(847, 510);
+            this.tabExpAndCbills.Size = new System.Drawing.Size(908, 510);
             this.tabExpAndCbills.TabIndex = 2;
             this.tabExpAndCbills.Text = "Exp and cBills";
             this.tabExpAndCbills.UseVisualStyleBackColor = true;
@@ -482,7 +482,7 @@
             this.chtExpCbills.Series.Add(series6);
             this.chtExpCbills.Series.Add(series7);
             this.chtExpCbills.Series.Add(series8);
-            this.chtExpCbills.Size = new System.Drawing.Size(841, 504);
+            this.chtExpCbills.Size = new System.Drawing.Size(902, 504);
             this.chtExpCbills.TabIndex = 0;
             this.chtExpCbills.Text = "chart1";
             // 
@@ -494,7 +494,7 @@
             this.tabFullHistory.Location = new System.Drawing.Point(4, 22);
             this.tabFullHistory.Name = "tabFullHistory";
             this.tabFullHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFullHistory.Size = new System.Drawing.Size(925, 510);
+            this.tabFullHistory.Size = new System.Drawing.Size(908, 510);
             this.tabFullHistory.TabIndex = 4;
             this.tabFullHistory.Text = "All Matches";
             this.toolTip1.SetToolTip(this.tabFullHistory, "Full match history for the Active Mech");
@@ -539,7 +539,7 @@
             this.olvMatchHistory.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.None;
             this.olvMatchHistory.ShowGroups = false;
             this.olvMatchHistory.ShowSortIndicators = false;
-            this.olvMatchHistory.Size = new System.Drawing.Size(919, 456);
+            this.olvMatchHistory.Size = new System.Drawing.Size(902, 456);
             this.olvMatchHistory.SortGroupItemsByPrimaryColumn = false;
             this.olvMatchHistory.TabIndex = 0;
             this.olvMatchHistory.UseCompatibleStateImageBehavior = false;
@@ -672,7 +672,7 @@
             this.pnlMechSelect.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlMechSelect.Location = new System.Drawing.Point(3, 3);
             this.pnlMechSelect.Name = "pnlMechSelect";
-            this.pnlMechSelect.Size = new System.Drawing.Size(919, 48);
+            this.pnlMechSelect.Size = new System.Drawing.Size(902, 48);
             this.pnlMechSelect.TabIndex = 0;
             // 
             // lblLosses
@@ -1147,7 +1147,7 @@
             this.lblCurrentMech.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCurrentMech.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblCurrentMech.Location = new System.Drawing.Point(943, 127);
+            this.lblCurrentMech.Location = new System.Drawing.Point(939, 130);
             this.lblCurrentMech.MaximumSize = new System.Drawing.Size(27, 510);
             this.lblCurrentMech.Name = "lblCurrentMech";
             this.lblCurrentMech.Size = new System.Drawing.Size(27, 510);
@@ -1160,7 +1160,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1011, 647);
+            this.ClientSize = new System.Drawing.Size(995, 647);
             this.Controls.Add(this.lblCurrentMech);
             this.Controls.Add(this.btnTryLogon);
             this.Controls.Add(this.label3);

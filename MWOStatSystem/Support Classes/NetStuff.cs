@@ -142,8 +142,11 @@ namespace IntelligentStreaming.SharpTools
         /// <param name="value">Argument value</param>
         public void AddValue( string key, string value )
         {
-            if ( postVars != null )
-                postVars += ( ( postVars.Length > 0 ) ? "&" : "" ) + key + "=" + value;
+            if (postVars != null)
+            {
+                //postVars += ((postVars.Length > 0) ? "&" : "") + key + "=" + value;
+                postVars += ((postVars.Length > 0) ? "&" : "") + System.Web.HttpUtility.UrlEncode(key) + "=" + System.Web.HttpUtility.UrlEncode(value);
+            }
 
             if ( mimePayload != null )
                 mimePayload.AddValue( key, value );
