@@ -609,7 +609,6 @@ namespace MWOStatSystem
             }
 
             vUpdateLastMechMatch(ref stMatch);
-            //tlvMechView.SelectedIndex = stMatch.iMech;
 
             Cursor = Cursors.Default;
             btnScrapeIt.Enabled = true;
@@ -627,6 +626,7 @@ namespace MWOStatSystem
             Log.doIt(2, "Updating last Mech's match info..");
 
             Cursor = Cursors.WaitCursor;
+            tcCharts.SelectedIndex = 0; // set the active tab to our mech list..
 
             try
             {
@@ -663,7 +663,6 @@ namespace MWOStatSystem
                             lblCurrentMech.Text = clCurrentMech.Caption;
                             clTmp.ExpandButton.PerformClick();
                         }
-                        //FillCharts(); expanding the groupbox fills chart..
                     }
                     else
                     {

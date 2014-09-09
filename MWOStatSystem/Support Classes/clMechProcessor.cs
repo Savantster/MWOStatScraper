@@ -130,6 +130,13 @@ namespace MWOStatSystem.Support_Classes
                     continue;
                 }
 
+                if ((strTestMech == "nova nva-prime(g)") || (strTestMech == "nova nva-prime(i)"))
+                {
+                    // same as above, don't process the mechs we don't own
+                    Log.doIt(1, "Skipping dupes for Nova: " + Mech.Key);
+                    continue;
+                }
+
                 if ( Mech.bDataChanged() )
                 {
                     if ( bAlreadyFoundMatch )

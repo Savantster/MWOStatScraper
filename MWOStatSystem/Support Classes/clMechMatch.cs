@@ -1331,18 +1331,30 @@ public class clMechMatch : System.Windows.Forms.UserControl
         Invalidate();
     }
 
+    /// <summary>
+    /// Cleans up names for display only, they are tracked in the database just as they come
+    /// off the webpage scrapes
+    /// </summary>
+    /// <param name="strName">Name as it came from the scrape and appears in the database</param>
     private void vParseName(string strName)
     {
+        // kit fox is the only mech with a space in the name itself, we have to handle that as its own case
         if (strName.ToLower().Contains("kit fox"))
         {
             MechName = strName.Substring(0, 7).Trim();
-            MechDesignation = strName.Substring(8).Trim().Replace("(", "");
-            MechDesignation = MechDesignation.Replace(")", "");
+            MechDesignation = strName.Substring(8).Trim();
         }
         else
         {
             MechName = strName.Substring(0, strName.IndexOf(' ')).Trim();
             MechDesignation = strName.Substring(strName.IndexOf(' ') + 1).Trim();
+        }
+
+        // for display purposes, we want to remove the ( and ) from our designations so the
+        // images can be found.
+        if (MechDesignation.ToLower().Contains("prime"))
+        {
+            MechDesignation = MechDesignation.Replace("(", "").Replace(")", "").Trim();
         }
     }
 
