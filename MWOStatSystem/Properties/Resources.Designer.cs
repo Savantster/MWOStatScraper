@@ -1693,6 +1693,16 @@ namespace MWOStatSystem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap scr_prime {
+            get {
+                object obj = ResourceManager.GetObject("scr_prime", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap scr_primeg {
             get {
                 object obj = ResourceManager.GetObject("scr_primeg", resourceCulture);

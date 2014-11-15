@@ -126,14 +126,33 @@ namespace MWOStatSystem.Support_Classes
                 if ((strTestMech == "kit fox kfx-prime(g)") || (strTestMech == "kit fox kfx-prime"))
                 {
                     // logging it so I remember to pull it out eventually..
-                    Log.doIt(1, "Skipping dupe reported Kit Fox: " + Mech.Key);
+                    Log.doIt(1, "Skipping dupes reported for Kit Fox: " + Mech.Key);
                     continue;
                 }
-
+                // commenting out the log level 1 dupe reporting for those I don't have Prime variants of.. no point
+                // in mentioning them since I don't run Primes and their values shouldn't be changing any more.
                 if ((strTestMech == "nova nva-prime(g)") || (strTestMech == "nova nva-prime(i)"))
                 {
                     // same as above, don't process the mechs we don't own
-                    Log.doIt(1, "Skipping dupes for Nova: " + Mech.Key);
+                    Log.doIt(3, "Skipping dupes for Nova: " + Mech.Key);
+                    continue;
+                }
+
+                if ((strTestMech == "dire wolf dwf-prime(g)") || (strTestMech == "dire wolf dwf-prime(i)"))
+                {
+                    Log.doIt(3, "Skipping dupes reported for Dire Wolf: " + Mech.Key);
+                    continue;
+                }
+
+                if ((strTestMech == "adder adr-prime(g)") || (strTestMech == "adder adr-prime(i)"))
+                {
+                    Log.doIt(3, "Skipping dupes reported for Adder: " + Mech.Key);
+                    continue;
+                }
+
+                if ((strTestMech == "stormcrow scr-prime(g)") || (strTestMech == "stormcrow scr-prime(i)"))
+                {
+                    Log.doIt(3, "Skipping dupes reported for Adder: " + Mech.Key);
                     continue;
                 }
 

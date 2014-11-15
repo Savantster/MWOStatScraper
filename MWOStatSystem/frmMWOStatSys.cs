@@ -46,6 +46,7 @@ using IntelligentStreaming.SharpTools;
 using System.Text.RegularExpressions;
 using System.Collections;
 using System.Resources;
+using System.Runtime.InteropServices;
 using MWOStatSystem.Properties;
 using BrightIdeasSoftware;
 
@@ -84,6 +85,8 @@ namespace MWOStatSystem
         //private const string sPilotURL = "https://mwomercs.com/profile/stats?type=pilot";
         private const string sMapURL = "https://mwomercs.com/profile/stats?type=map";
         private const string sModeURL = "https://mwomercs.com/profile/stats?type=mode";
+
+        private const string sDefaultTournamentLink = "http://mwomercs.com/tournaments";
 
         private string sMechs = "";
         private string sWeapons = "";
@@ -184,6 +187,8 @@ namespace MWOStatSystem
                     else
                         olvi.BackColor = Color.PaleVioletRed;
                 };
+
+                txtTournamentURL.Text = sDefaultTournamentLink;
 
             }
             catch ( Exception ex )
@@ -669,6 +674,8 @@ namespace MWOStatSystem
                         clTmp.ClearHighlight();
                     }
                 }
+
+                FillCharts();
             }
             catch (Exception ex)
             {
@@ -677,7 +684,7 @@ namespace MWOStatSystem
             }
 
             Cursor = Cursors.Default;
-        }
+        } // end UpdateLastMatch
 
         private void fillGridsFromFiles()
         {
@@ -829,6 +836,23 @@ namespace MWOStatSystem
                 Log.doIt( 2, "Seems we weren't logged in, waiting 1/2 a second and trying again" );
                 System.Threading.Thread.Sleep( 500 );
                 btnStart_Click( this, EventArgs.Empty );
+
+                m_http.Url = URL;
+                m_http.Type = HTTPRequestType.Get;
+                m_http.RequestObject.AllowAutoRedirect = true;
+
+                try
+                {
+                    Log.doIt(1, "Trying to get page again, in while loop from login failure..");
+                    rsp = m_http.SendRequest();
+                }
+                catch (WebException ex)
+                {
+                    Log.doIt(1, ex.Message);
+                    btnShowError.BackColor = Color.Red;
+                    return;
+                }
+
             }
 
             if ( iCount >= 10 )
@@ -1037,9 +1061,15 @@ namespace MWOStatSystem
             {
                 Log.doIt(3, "Starting building of chart select queries.." );
                 DataTable dt;
-                string sExcludeWeaps = "";
-                string sJustExclWeapNums = "";
+                string sExcludeWeaps = ""; 
                 string sCommand = "";
+
+                Log.doIt(3, "Removing FLAMERS from our data..");
+                rs = m_myDB.ResultSet("select weaponid from weapons where name like '%FLAME%'");
+                while (rs.Read())
+                {
+                    sExcludeWeaps += rs.GetValue(0) + ",";
+                }
 
                 if( mnuAM.Checked )
                 {
@@ -1102,7 +1132,6 @@ namespace MWOStatSystem
 
                 if ( sExcludeWeaps.Length > 0 )
                 {
-                    sJustExclWeapNums = sExcludeWeaps; // before we mess with the string, just numbers..
                     sExcludeWeaps = " AND (MatchDetails.Weapon NOT IN (" + sExcludeWeaps + ")) ";
                 }
 
@@ -1419,6 +1448,7 @@ namespace MWOStatSystem
 
                 if (clCurrentMech != null)
                 {
+                    cbMechList.SelectedIndex = -1;
                     cbMechList.SelectedValue = clCurrentMech.MechId;
                 }
 
@@ -1450,6 +1480,9 @@ namespace MWOStatSystem
 
         private void vLoadHistories()
         {
+            if (cbMechList.SelectedValue == null)
+                return;
+
             // fill the match history tab page with all the matches for this mech.
             Cursor = Cursors.WaitCursor;
             long lWins = 0;
@@ -1511,7 +1544,7 @@ namespace MWOStatSystem
                 //clTmp.Kills = iKills;
                 clTmp.iKills = iKills;
                 //clTmp.Lived = !bDeath;
-                clTmp.bDeath = bDeath;
+                clTmp.bDeath = !bDeath; // bDeath is read directly from the struct, but labeled Lived.. flip it
                 //clTmp.Win= bWin;
                 clTmp.bWin = bWin;
                 //clTmp.Exp = (int)rs.GetInt16(5);
@@ -1557,6 +1590,30 @@ namespace MWOStatSystem
             olvMatchHistory.Focus();
 
             Cursor = Cursors.Default;
+        }
+
+        [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern bool InternetSetCookie(string lpszUrlName, string lpszCookieName, string lpszCookieData);
+
+        private void btnFetch_Click(object sender, EventArgs e)
+        {
+
+            if (bLoggedIn && (txtTournamentURL.TextLength > 0))
+            {
+                CookieCollection ValidCookies = m_http.Cookies;
+                foreach (Cookie c in ValidCookies)
+                {
+                    InternetSetCookie(txtTournamentURL.Text, null, c.ToString());
+                }
+
+                TournamentBrowser.Navigate(txtTournamentURL.Text);
+            }
+
+        }
+
+        private void btnClearURL_Click(object sender, EventArgs e)
+        {
+            txtTournamentURL.Clear();
         }
     }
 

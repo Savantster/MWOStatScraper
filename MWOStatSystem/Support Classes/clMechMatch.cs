@@ -1338,11 +1338,23 @@ public class clMechMatch : System.Windows.Forms.UserControl
     /// <param name="strName">Name as it came from the scrape and appears in the database</param>
     private void vParseName(string strName)
     {
-        // kit fox is the only mech with a space in the name itself, we have to handle that as its own case
-        if (strName.ToLower().Contains("kit fox"))
+        bool bFoundKit = strName.ToLower().Contains("kit fox");
+        bool bFoundDire = strName.ToLower().Contains("dire wolf");
+
+        // handle mechs with a space in the name itself differently than the rest
+        if ( bFoundDire || bFoundKit )
         {
-            MechName = strName.Substring(0, 7).Trim();
-            MechDesignation = strName.Substring(8).Trim();
+            if (bFoundKit)
+            {
+                MechName = strName.Substring(0, 7).Trim();
+                MechDesignation = strName.Substring(8).Trim();
+            }
+
+            if (bFoundDire)
+            {
+                MechName = strName.Substring(0, 9).Trim();
+                MechDesignation = strName.Substring(10).Trim();
+            }
         }
         else
         {

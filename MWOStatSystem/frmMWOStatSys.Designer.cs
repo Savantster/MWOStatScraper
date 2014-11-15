@@ -130,6 +130,13 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnTryLogon = new System.Windows.Forms.Button();
             this.lblCurrentMech = new System.Windows.Forms.Label();
+            this.tabBrowser = new System.Windows.Forms.TabPage();
+            this.TournamentBrowser = new System.Windows.Forms.WebBrowser();
+            this.txtTournamentURL = new System.Windows.Forms.TextBox();
+            this.lblURL = new System.Windows.Forms.Label();
+            this.btnClearURL = new System.Windows.Forms.Button();
+            this.btnFetch = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgMechs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgWeapons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgMaps)).BeginInit();
@@ -148,6 +155,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nmbMatches)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmbScrapeFreq)).BeginInit();
+            this.tabBrowser.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
@@ -301,17 +310,19 @@
             // 
             // tcCharts
             // 
-            this.tcCharts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tcCharts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tcCharts.Controls.Add(this.tabMechInfo);
             this.tcCharts.Controls.Add(this.tabAccuracy);
             this.tcCharts.Controls.Add(this.tabEffective);
             this.tcCharts.Controls.Add(this.tabExpAndCbills);
             this.tcCharts.Controls.Add(this.tabFullHistory);
+            this.tcCharts.Controls.Add(this.tabBrowser);
             this.tcCharts.Location = new System.Drawing.Point(4, 108);
             this.tcCharts.Name = "tcCharts";
             this.tcCharts.SelectedIndex = 0;
-            this.tcCharts.Size = new System.Drawing.Size(939, 536);
+            this.tcCharts.Size = new System.Drawing.Size(966, 536);
             this.tcCharts.TabIndex = 16;
             this.tcCharts.SelectedIndexChanged += new System.EventHandler(this.tcCharts_SelectedIndexChanged);
             // 
@@ -321,7 +332,7 @@
             this.tabMechInfo.Location = new System.Drawing.Point(4, 22);
             this.tabMechInfo.Name = "tabMechInfo";
             this.tabMechInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMechInfo.Size = new System.Drawing.Size(931, 510);
+            this.tabMechInfo.Size = new System.Drawing.Size(958, 510);
             this.tabMechInfo.TabIndex = 3;
             this.tabMechInfo.Text = "Mech View";
             this.tabMechInfo.UseVisualStyleBackColor = true;
@@ -332,7 +343,7 @@
             this.tabAccuracy.Location = new System.Drawing.Point(4, 22);
             this.tabAccuracy.Name = "tabAccuracy";
             this.tabAccuracy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAccuracy.Size = new System.Drawing.Size(931, 510);
+            this.tabAccuracy.Size = new System.Drawing.Size(958, 510);
             this.tabAccuracy.TabIndex = 0;
             this.tabAccuracy.Text = "Hits And Misses";
             this.tabAccuracy.UseVisualStyleBackColor = true;
@@ -373,7 +384,7 @@
             series2.YValueMembers = "Misses";
             this.chtAccuracy.Series.Add(series1);
             this.chtAccuracy.Series.Add(series2);
-            this.chtAccuracy.Size = new System.Drawing.Size(925, 504);
+            this.chtAccuracy.Size = new System.Drawing.Size(952, 504);
             this.chtAccuracy.TabIndex = 0;
             this.chtAccuracy.Text = "Accuracy";
             // 
@@ -383,7 +394,7 @@
             this.tabEffective.Location = new System.Drawing.Point(4, 22);
             this.tabEffective.Name = "tabEffective";
             this.tabEffective.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEffective.Size = new System.Drawing.Size(931, 510);
+            this.tabEffective.Size = new System.Drawing.Size(958, 510);
             this.tabEffective.TabIndex = 1;
             this.tabEffective.Text = "Effectiveness";
             this.tabEffective.UseVisualStyleBackColor = true;
@@ -425,7 +436,7 @@
             this.chtEffective.Series.Add(series3);
             this.chtEffective.Series.Add(series4);
             this.chtEffective.Series.Add(series5);
-            this.chtEffective.Size = new System.Drawing.Size(925, 504);
+            this.chtEffective.Size = new System.Drawing.Size(952, 504);
             this.chtEffective.TabIndex = 2;
             this.chtEffective.Text = "Effectiveness";
             // 
@@ -435,7 +446,7 @@
             this.tabExpAndCbills.Location = new System.Drawing.Point(4, 22);
             this.tabExpAndCbills.Name = "tabExpAndCbills";
             this.tabExpAndCbills.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExpAndCbills.Size = new System.Drawing.Size(931, 510);
+            this.tabExpAndCbills.Size = new System.Drawing.Size(958, 510);
             this.tabExpAndCbills.TabIndex = 2;
             this.tabExpAndCbills.Text = "Exp and cBills";
             this.tabExpAndCbills.UseVisualStyleBackColor = true;
@@ -482,7 +493,7 @@
             this.chtExpCbills.Series.Add(series6);
             this.chtExpCbills.Series.Add(series7);
             this.chtExpCbills.Series.Add(series8);
-            this.chtExpCbills.Size = new System.Drawing.Size(925, 504);
+            this.chtExpCbills.Size = new System.Drawing.Size(952, 504);
             this.chtExpCbills.TabIndex = 0;
             this.chtExpCbills.Text = "chart1";
             // 
@@ -494,7 +505,7 @@
             this.tabFullHistory.Location = new System.Drawing.Point(4, 22);
             this.tabFullHistory.Name = "tabFullHistory";
             this.tabFullHistory.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFullHistory.Size = new System.Drawing.Size(931, 510);
+            this.tabFullHistory.Size = new System.Drawing.Size(958, 510);
             this.tabFullHistory.TabIndex = 4;
             this.tabFullHistory.Text = "All Matches";
             this.toolTip1.SetToolTip(this.tabFullHistory, "Full match history for the Active Mech");
@@ -534,12 +545,13 @@
             this.olvMatchHistory.Location = new System.Drawing.Point(3, 51);
             this.olvMatchHistory.MultiSelect = false;
             this.olvMatchHistory.Name = "olvMatchHistory";
+            this.olvMatchHistory.OwnerDraw = true;
             this.olvMatchHistory.SelectAllOnControlA = false;
             this.olvMatchHistory.SelectColumnsOnRightClick = false;
             this.olvMatchHistory.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.None;
             this.olvMatchHistory.ShowGroups = false;
             this.olvMatchHistory.ShowSortIndicators = false;
-            this.olvMatchHistory.Size = new System.Drawing.Size(925, 456);
+            this.olvMatchHistory.Size = new System.Drawing.Size(952, 456);
             this.olvMatchHistory.SortGroupItemsByPrimaryColumn = false;
             this.olvMatchHistory.TabIndex = 0;
             this.olvMatchHistory.UseCompatibleStateImageBehavior = false;
@@ -549,6 +561,7 @@
             // 
             this.olvColWin.AspectName = "bWin";
             this.olvColWin.CellPadding = null;
+            this.olvColWin.CheckBoxes = true;
             this.olvColWin.Groupable = false;
             this.olvColWin.IsEditable = false;
             this.olvColWin.MinimumWidth = 40;
@@ -558,6 +571,7 @@
             // 
             this.olvColLived.AspectName = "bDeath";
             this.olvColLived.CellPadding = null;
+            this.olvColLived.CheckBoxes = true;
             this.olvColLived.Groupable = false;
             this.olvColLived.IsEditable = false;
             this.olvColLived.MinimumWidth = 40;
@@ -672,7 +686,7 @@
             this.pnlMechSelect.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlMechSelect.Location = new System.Drawing.Point(3, 3);
             this.pnlMechSelect.Name = "pnlMechSelect";
-            this.pnlMechSelect.Size = new System.Drawing.Size(925, 48);
+            this.pnlMechSelect.Size = new System.Drawing.Size(952, 48);
             this.pnlMechSelect.TabIndex = 0;
             // 
             // lblLosses
@@ -983,7 +997,7 @@
             // 
             // nmbMatches
             // 
-            this.nmbMatches.Location = new System.Drawing.Point(434, 101);
+            this.nmbMatches.Location = new System.Drawing.Point(537, 101);
             this.nmbMatches.Minimum = new decimal(new int[] {
             5,
             0,
@@ -1001,7 +1015,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(480, 108);
+            this.label2.Location = new System.Drawing.Point(583, 108);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(141, 13);
             this.label2.TabIndex = 19;
@@ -1010,7 +1024,7 @@
             // cbZoom
             // 
             this.cbZoom.AutoSize = true;
-            this.cbZoom.Location = new System.Drawing.Point(638, 107);
+            this.cbZoom.Location = new System.Drawing.Point(741, 107);
             this.cbZoom.Name = "cbZoom";
             this.cbZoom.Size = new System.Drawing.Size(119, 17);
             this.cbZoom.TabIndex = 20;
@@ -1147,7 +1161,7 @@
             this.lblCurrentMech.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCurrentMech.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.lblCurrentMech.Location = new System.Drawing.Point(949, 130);
+            this.lblCurrentMech.Location = new System.Drawing.Point(976, 130);
             this.lblCurrentMech.MaximumSize = new System.Drawing.Size(27, 510);
             this.lblCurrentMech.Name = "lblCurrentMech";
             this.lblCurrentMech.Size = new System.Drawing.Size(27, 510);
@@ -1155,12 +1169,83 @@
             this.lblCurrentMech.Text = "TESTINGMECH - TST-XX1";
             this.lblCurrentMech.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tabBrowser
+            // 
+            this.tabBrowser.Controls.Add(this.panel1);
+            this.tabBrowser.Controls.Add(this.TournamentBrowser);
+            this.tabBrowser.Location = new System.Drawing.Point(4, 22);
+            this.tabBrowser.Name = "tabBrowser";
+            this.tabBrowser.Padding = new System.Windows.Forms.Padding(3);
+            this.tabBrowser.Size = new System.Drawing.Size(958, 510);
+            this.tabBrowser.TabIndex = 5;
+            this.tabBrowser.Text = "Browser";
+            this.tabBrowser.UseVisualStyleBackColor = true;
+            // 
+            // TournamentBrowser
+            // 
+            this.TournamentBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TournamentBrowser.Location = new System.Drawing.Point(6, 50);
+            this.TournamentBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.TournamentBrowser.Name = "TournamentBrowser";
+            this.TournamentBrowser.Size = new System.Drawing.Size(946, 450);
+            this.TournamentBrowser.TabIndex = 0;
+            // 
+            // txtTournamentURL
+            // 
+            this.txtTournamentURL.Location = new System.Drawing.Point(116, 19);
+            this.txtTournamentURL.Name = "txtTournamentURL";
+            this.txtTournamentURL.Size = new System.Drawing.Size(375, 20);
+            this.txtTournamentURL.TabIndex = 1;
+            // 
+            // lblURL
+            // 
+            this.lblURL.AutoSize = true;
+            this.lblURL.Location = new System.Drawing.Point(116, 2);
+            this.lblURL.Name = "lblURL";
+            this.lblURL.Size = new System.Drawing.Size(89, 13);
+            this.lblURL.TabIndex = 2;
+            this.lblURL.Text = "Tournament URL";
+            // 
+            // btnClearURL
+            // 
+            this.btnClearURL.Location = new System.Drawing.Point(35, 17);
+            this.btnClearURL.Name = "btnClearURL";
+            this.btnClearURL.Size = new System.Drawing.Size(75, 23);
+            this.btnClearURL.TabIndex = 3;
+            this.btnClearURL.Text = "Clear URL";
+            this.btnClearURL.UseVisualStyleBackColor = true;
+            this.btnClearURL.Click += new System.EventHandler(this.btnClearURL_Click);
+            // 
+            // btnFetch
+            // 
+            this.btnFetch.Location = new System.Drawing.Point(504, 17);
+            this.btnFetch.Name = "btnFetch";
+            this.btnFetch.Size = new System.Drawing.Size(93, 23);
+            this.btnFetch.TabIndex = 4;
+            this.btnFetch.Text = "Get Page";
+            this.btnFetch.UseVisualStyleBackColor = true;
+            this.btnFetch.Click += new System.EventHandler(this.btnFetch_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel1.Controls.Add(this.btnClearURL);
+            this.panel1.Controls.Add(this.btnFetch);
+            this.panel1.Controls.Add(this.txtTournamentURL);
+            this.panel1.Controls.Add(this.lblURL);
+            this.panel1.Location = new System.Drawing.Point(167, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(624, 44);
+            this.panel1.TabIndex = 5;
+            // 
             // frmMWOStatSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(995, 647);
+            this.ClientSize = new System.Drawing.Size(1046, 647);
             this.Controls.Add(this.lblCurrentMech);
             this.Controls.Add(this.btnTryLogon);
             this.Controls.Add(this.label3);
@@ -1214,6 +1299,9 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmbScrapeFreq)).EndInit();
+            this.tabBrowser.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1306,6 +1394,13 @@
         private BrightIdeasSoftware.OLVColumn olvColMap;
         private BrightIdeasSoftware.OLVColumn olvColMode;
         private BrightIdeasSoftware.OLVColumn olvColDate;
+        private System.Windows.Forms.TabPage tabBrowser;
+        private System.Windows.Forms.Button btnFetch;
+        private System.Windows.Forms.Button btnClearURL;
+        private System.Windows.Forms.Label lblURL;
+        private System.Windows.Forms.TextBox txtTournamentURL;
+        private System.Windows.Forms.WebBrowser TournamentBrowser;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
