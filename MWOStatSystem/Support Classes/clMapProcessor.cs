@@ -72,29 +72,27 @@ namespace MWOStatSystem.Support_Classes
         /// This method is expected to be called first. It will check the Mode scrape to see if it found any new matches based
         /// on the Mode data. If it finds a match, it will fill in the bits it knows about. 
         /// </summary>
-        /// <param name="dgModes">
+        /// <param name="dgMaps">
         /// DataGrid from the web scrape. This is the data that will be compared against our Baseline data from our
         /// internal database.
         /// </param>
         /// <param name="Match">
         /// Match object to fill in from this processor class..
         /// </param>
-        public void processMaps( ref DataGridView dgModes )
+        public void processMaps( ref DataGridView dgMaps )
         {
-            //clSingleMatch Match = new clSingleMatch();
             DataGridViewRow oRow;
             clMap Map;
-            //clMode matchMode = null;
-            string sMode;
+            string sMap;
 
-            for(int i = 0; i < dgModes.RowCount - 1; i++)
+            for(int i = 0; i < dgMaps.RowCount - 1; i++)
             {
-                sMode = dgModes.Rows[i].Cells[0].Value.ToString();
-                oRow = dgModes.Rows[i];
+                sMap = dgMaps.Rows[i].Cells[0].Value.ToString();
+                oRow = dgMaps.Rows[i];
 
-                if ( dicMaps.ContainsKey( sMode ) )
+                if ( dicMaps.ContainsKey( sMap ) )
                 {
-                    Map = dicMaps[sMode];
+                    Map = dicMaps[sMap];
                     Map.ParseScrape( ref oRow);
                 }
                 else
@@ -102,7 +100,7 @@ namespace MWOStatSystem.Support_Classes
                     Map = new clMap( ref myDb, ref Log );
                     Map.ParseScrape( ref oRow );
 
-                        dicMaps.Add( Map.Key, Map );
+                    dicMaps.Add( Map.Key, Map );
                 }
 
             } // end of each row in our grid.. we run them all because we need to ensure good web data for our reseeding

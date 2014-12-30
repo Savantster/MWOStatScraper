@@ -152,9 +152,16 @@ namespace MWOStatSystem.Support_Classes
 
                 if ((strTestMech == "stormcrow scr-prime(g)") || (strTestMech == "stormcrow scr-prime(i)"))
                 {
-                    Log.doIt(3, "Skipping dupes reported for Adder: " + Mech.Key);
+                    Log.doIt(3, "Skipping dupes reported for Stormcrow: " + Mech.Key);
                     continue;
                 }
+
+                if ((strTestMech == "timber wolf tbr-prime(g)") || (strTestMech == "timber wolf tbr-prime(i)"))
+                {
+                    Log.doIt(3, "Skipping dupes reported for Timber wolf: " + Mech.Key);
+                    continue;
+                }
+
 
                 if ( Mech.bDataChanged() )
                 {

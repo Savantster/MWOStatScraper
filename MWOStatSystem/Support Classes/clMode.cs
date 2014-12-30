@@ -28,12 +28,14 @@ namespace MWOStatSystem.Support_Classes
         private string m_sMode;
         private int m_iModeId;
 
+        // Webscrape values
         private int iWebMatches = 0;
         private int iWebWins = 0;
         private int iWebLosses = 0;
         private long lWebExp = 0;
         private long lWebCBills = 0;
 
+        // Baseline Values
         private int iBlMatches = 0;
         private int iBlWins = 0;
         private int iBlLosses = 0;

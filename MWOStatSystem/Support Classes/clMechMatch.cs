@@ -1340,9 +1340,10 @@ public class clMechMatch : System.Windows.Forms.UserControl
     {
         bool bFoundKit = strName.ToLower().Contains("kit fox");
         bool bFoundDire = strName.ToLower().Contains("dire wolf");
+        bool bFoundTimber = strName.ToLower().Contains("timber wolf");
 
         // handle mechs with a space in the name itself differently than the rest
-        if ( bFoundDire || bFoundKit )
+        if ( bFoundDire || bFoundKit  || bFoundTimber)
         {
             if (bFoundKit)
             {
@@ -1354,6 +1355,12 @@ public class clMechMatch : System.Windows.Forms.UserControl
             {
                 MechName = strName.Substring(0, 9).Trim();
                 MechDesignation = strName.Substring(10).Trim();
+            }
+
+            if (bFoundTimber)
+            {
+                MechName = strName.Substring(0, 11).Trim();
+                MechDesignation = strName.Substring(12).Trim();
             }
         }
         else

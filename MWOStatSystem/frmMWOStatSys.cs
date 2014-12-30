@@ -516,17 +516,9 @@ namespace MWOStatSystem
             Maps.processMaps( ref dgMaps );
             if ( !Maps.FoundMatch() )
             {
-                // hmm.. something might be broke, but we'll continue on and use the "unknown" for the mode. This also
-                // means we won't have access to CBills for the match..
-                rs = m_myDB.ResultSet( "select mapid from maps where name = 'Unknown'" );
-                if ( !rs.HasRows )
-                {
-                    m_myDB.Insert( "insert into maps(name) values('Unknown')" );
-                    rs = m_myDB.ResultSet( "select mapid from maps where name = 'Unknown'" );
-                }
-
-                int.TryParse( rs.GetString( 0 ), out stMatch.iMap );
-
+                // hmm.. something might be broke, but we'll continue on and use the "unknown" for the Map. 
+                stMatch.iMap = m_myDB.iNumValReturn("select mapid from maps where name = 'Unknown'");
+                Log.doIt(1, "Failed to find MAP for this match! .. keep checking the Profile stats to see when they finally add the map.");
             }
             else
             {
@@ -536,19 +528,9 @@ namespace MWOStatSystem
             Mechs.processMechs( ref dgMechs );
             if ( !Mechs.FoundMatch() )
             {
-                // hmm.. something might be broke, but we'll continue on and use the "unknown" for the mode. This also
-                // means we won't have access to CBills for the match..
-                rs = m_myDB.ResultSet( "select mechid from mechs where fullname = 'Unknown'" );
-                if ( !rs.HasRows )
-                {
-                    Log.doIt( 1, "Failed to find a MECH for this match, perhaps PGI forgot how to update stats again!" );
-
-                    m_myDB.Insert( "insert into mechs(fullname) values('Unknown')" );
-                    rs = m_myDB.ResultSet( "select mechid from mechs where fullname = 'Unknown'" );
-                }
-
-                int.TryParse( rs.GetString( 0 ), out stMatch.iMech );
-
+                // hmm.. something might be broke, but we'll continue on and use the "unknown" for the Mech. 
+                stMatch.iMech = m_myDB.iNumValReturn( "select mechid from mechs where fullname = 'Unknown'" );
+                Log.doIt(1, "Failed to find MECH for this match! .. keep checking the Profile stats to see when they finally add the mech.");
             }
             else
             {
@@ -1048,6 +1030,86 @@ namespace MWOStatSystem
             }
         }
 
+        private string sGetExclWeaps(string sTableColumn)
+        {
+            string sExcludeWeaps = "";
+
+            Log.doIt(3, "Removing FLAMERS from our data..");
+
+            rs = m_myDB.ResultSet("select weaponid from weapons where name like '%FLAME%'");
+            while (rs.Read())
+            {
+                sExcludeWeaps += rs.GetValue(0) + ",";
+            }
+
+            if (mnuAM.Checked)
+            {
+                Log.doIt(3, "Found Anti-Missile checked..");
+                rs = m_myDB.ResultSet("select weaponid from weapons where name = 'ANTI-MISSILE SYSTEM' or name like '%AMS'");
+                while (rs.Read())
+                {
+                    sExcludeWeaps += rs.GetValue(0) + ",";
+                }
+            }
+
+            // multiple types, need all the numbers.. do an execute resultset and read through all the numbers, putting them in the string
+            if (mnuLRM.Checked)
+            {
+                Log.doIt(3, "Found LRM checked..");
+                rs = m_myDB.ResultSet("select weaponid from weapons where name like '%LRM%'");
+                while (rs.Read())
+                {
+                    sExcludeWeaps += rs.GetValue(0) + ",";
+                }
+            }
+
+            if (mnuMG.Checked)
+            {
+                Log.doIt(3, "Found Machine Guns checked..");
+                rs = m_myDB.ResultSet("select weaponid from weapons where name like '%MACHINE GUN'");
+                while (rs.Read())
+                {
+                    sExcludeWeaps += rs.GetValue(0) + ",";
+                }
+            }
+
+            if (mnuTAG.Checked)
+            {
+                Log.doIt(3, "Found TAG checked..");
+                rs = m_myDB.ResultSet("select weaponid from weapons where name like '%TAG'");
+                while (rs.Read())
+                {
+                    sExcludeWeaps += rs.GetValue(0) + ",";
+                }
+            }
+
+            if (mnuNARC.Checked)
+            {
+                Log.doIt(3, "Found NARC checked..");
+
+                rs = m_myDB.ResultSet("select weaponid from weapons where name like '%NARC'");
+                while (rs.Read())
+                {
+                    sExcludeWeaps += rs.GetValue(0) + ",";
+                }
+
+            }
+
+            if (sExcludeWeaps.EndsWith(","))
+            {
+                Log.doIt(3, "Found trailing , in exclude list");
+                sExcludeWeaps = sExcludeWeaps.Remove(sExcludeWeaps.LastIndexOf(','));
+            }
+
+            if (sExcludeWeaps.Length > 0)
+            {
+                sExcludeWeaps = " AND (" + sTableColumn + " NOT IN (" + sExcludeWeaps + ")) ";
+            }
+
+            return sExcludeWeaps;
+        }
+
+
         private void FillCharts( )
         {
             // if we're loading our box, just bail.. no point in filling charts if we're not actually
@@ -1064,76 +1126,7 @@ namespace MWOStatSystem
                 string sExcludeWeaps = ""; 
                 string sCommand = "";
 
-                Log.doIt(3, "Removing FLAMERS from our data..");
-                rs = m_myDB.ResultSet("select weaponid from weapons where name like '%FLAME%'");
-                while (rs.Read())
-                {
-                    sExcludeWeaps += rs.GetValue(0) + ",";
-                }
-
-                if( mnuAM.Checked )
-                {
-                    Log.doIt(3, "Found Anti-Missile checked.." );
-                    rs = m_myDB.ResultSet( "select weaponid from weapons where name = 'ANTI-MISSILE SYSTEM' or name like '%AMS'" );
-                    while ( rs.Read() )
-                    {
-                        sExcludeWeaps += rs.GetValue( 0 ) + ",";
-                    }
-                }
-
-                // multiple types, need all the numbers.. do an execute resultset and read through all the numbers, putting them in the string
-                if ( mnuLRM.Checked )
-                {
-                    Log.doIt(3, "Found LRM checked.." );
-                    rs = m_myDB.ResultSet( "select weaponid from weapons where name like '%LRM%'" );
-                    while ( rs.Read() )
-                    {
-                        sExcludeWeaps +=  rs.GetValue( 0 ) + ",";
-                    }
-                }
-
-                if ( mnuMG.Checked )
-                {
-                    Log.doIt( 3, "Found Machine Guns checked.." );
-                    rs = m_myDB.ResultSet("select weaponid from weapons where name like '%MACHINE GUN'");
-                    while (rs.Read())
-                    {
-                        sExcludeWeaps += rs.GetValue(0) + ",";
-                    }
-                }
-
-                if ( mnuTAG.Checked )
-                {
-                    Log.doIt( 3, "Found TAG checked.." );
-                    rs = m_myDB.ResultSet("select weaponid from weapons where name like '%TAG'");
-                    while (rs.Read())
-                    {
-                        sExcludeWeaps += rs.GetValue(0) + ",";
-                    }
-                }
-
-                if ( mnuNARC.Checked )
-                {
-                    Log.doIt( 3, "Found NARC checked.." );
-
-                    rs = m_myDB.ResultSet("select weaponid from weapons where name like '%NARC'");
-                    while (rs.Read())
-                    {
-                        sExcludeWeaps += rs.GetValue(0) + ",";
-                    }
-
-                }
-
-                if ( sExcludeWeaps.EndsWith( "," ) )
-                {
-                    Log.doIt( 3, "Found trailing , in exclude list" );
-                    sExcludeWeaps = sExcludeWeaps.Remove( sExcludeWeaps.LastIndexOf( ',' ) );
-                }
-
-                if ( sExcludeWeaps.Length > 0 )
-                {
-                    sExcludeWeaps = " AND (MatchDetails.Weapon NOT IN (" + sExcludeWeaps + ")) ";
-                }
+                sExcludeWeaps = sGetExclWeaps("MatchDetails.Weapon");
 
                 Log.doIt( 3, "exclusion list..: |" + sExcludeWeaps + "|" );
 
@@ -1490,6 +1483,7 @@ namespace MWOStatSystem
             long lDeaths = 0;
             long lMatchCount = 0;
             long lCBills = 0;
+            string sExclWeaps = "";
 
             //clStatPanel clTmp;
             clSingleMatch clTmp;
@@ -1509,15 +1503,18 @@ namespace MWOStatSystem
             //flpMatches.Refresh();
             //Application.DoEvents(); // try to clear the panel sooner/faster..
 
+            sExclWeaps = sGetExclWeaps("b.weapon");
+
             // get all the histories for the currently selected mech..
             rs = m_myDB.ResultSet("select c.name as Map, d.name as Mode, a.kills, a.Death, a.WinLoss, a.Exp, a.cBills, a.duration, a.date, " +
                 " case when sum(b.dmgdone) is null then 0 else sum(b.dmgdone) end as Damage, " +
                 " case when sum(b.hits) is null then 0 else sum(b.hits) end as Hits, " +
                 " case when sum(b.misses) is null then 0 else sum(b.misses) end as Misses " +
-                " from Match a left join matchdetails b on a.matchid = b.matchid " +
+                " from Match a join matchdetails b on a.matchid = b.matchid " +
                 " join maps c on a.map = c.mapid " +
                 " join mode d on a.mode = d.modeid " +
                 " where a.Mech = " + cbMechList.SelectedValue +
+                sExclWeaps +
                 " group by a.matchid, c.name, d.name, kills, death, winloss, exp, cbills, duration, date" +
                 " order by a.matchid desc");
 
@@ -1566,13 +1563,34 @@ namespace MWOStatSystem
                 //flpMatches.Controls.Add(clTmp);
                 lstMatchHistory.Add(clTmp);
 
+            }
+
+            // now we need to get the full stats, since our weapon exclusion is dropping rows..
+            rs = m_myDB.ResultSet("select kills, death, winloss, cbills from match where mech = " + cbMechList.SelectedValue);
+
+            iKills = 0;
+            iCBills = 0;
+            lWins = 0;
+            lMatchCount = 0;
+            bWin = false;
+            bDeath = false;
+
+            while (rs.Read())
+            {
+                iKills = (int)rs.GetByte(0);
+                bDeath = rs.GetBoolean(1);
+                bWin = ((char)rs.GetString(2)[0]) == 'W' ? true : false;
+                iCBills = (int)rs.GetValue(3);
+ 
                 lMatchCount++;
                 lKills += iKills;
                 lCBills += iCBills;
+
                 if (bWin)
                     lWins++;
                 if (bDeath)
                     lDeaths++;
+
             }
 
             lblWins.Text = lWins.ToString();
@@ -1584,6 +1602,8 @@ namespace MWOStatSystem
 
             olvMatchHistory.SetObjects(lstMatchHistory);
             olvMatchHistory.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            olvMatchHistory.Width += 1;
+            olvMatchHistory.Width -= 1;
 
             ResumeLayout();
             //flpMatches.Focus();
@@ -1608,12 +1628,29 @@ namespace MWOStatSystem
 
                 TournamentBrowser.Navigate(txtTournamentURL.Text);
             }
+            else 
+            {
+                MessageBox.Show("You must be logged in and have a URL in the link text box..");
+            }
 
         }
 
         private void btnClearURL_Click(object sender, EventArgs e)
         {
             txtTournamentURL.Clear();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (bLoggedIn)
+            {
+                TournamentBrowser.Refresh(WebBrowserRefreshOption.Completely);
+                TournamentBrowser.Focus();
+            }
+            else
+            {
+                MessageBox.Show("Not logged in.. log in, then get a page..");
+            }
         }
     }
 
